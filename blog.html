@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clan Media · Blog</title>
+  <!-- Tailwind via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome 6 (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <!-- Google Font: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+  <style>
+    * { font-family: 'Inter', system-ui, sans-serif; }
+    body { background: #fafcfc; }
+
+    .bg-brand-black { background-color: #000000; }
+    .bg-brand-orange { background-color: #f88313; }
+    .text-brand-orange { color: #f88313; }
+    .border-brand-black-subtle { border-color: rgba(0,0,0,0.08); }
+
+    .btn-orange {
+      background: #f88313;
+      color: white;
+      transition: 0.2s;
+    }
+    .btn-orange:hover {
+      background: #e06f0a;
+      box-shadow: 0 8px 22px -8px rgba(248, 131, 19, 0.4);
+    }
+
+    .btn-outline-dark {
+      border: 1.5px solid #000;
+      color: #000;
+      transition: 0.2s;
+    }
+    .btn-outline-dark:hover {
+      background: #000;
+      color: white;
+    }
+
+    .btn-outline-light {
+      border: 1.5px solid rgba(255,255,255,0.4);
+      color: white;
+      transition: 0.2s;
+    }
+    .btn-outline-light:hover {
+      background: rgba(255,255,255,0.07);
+      border-color: white;
+    }
+
+    .cta-gradient {
+      background: linear-gradient(145deg, #000000 0%, #1a1a1a 100%);
+    }
+
+    .card-hover {
+      transition: transform 0.25s ease, box-shadow 0.3s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 35px -10px rgba(0,0,0,0.12);
+    }
+
+    .section-title { letter-spacing: -0.025em; }
+
+    .badge-clan {
+      background: #f88313;
+      color: white;
+    }
+
+    .footer-link {
+      color: #b6cbd6;
+      transition: 0.2s;
+    }
+    .footer-link:hover { color: white; }
+
+    .stat-number {
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .border-subtle { border-color: rgba(0,0,0,0.07); }
+
+    .img-hover {
+      transition: transform 0.4s ease, filter 0.3s ease;
+    }
+    .img-hover:hover {
+      transform: scale(1.02);
+      filter: brightness(1.05);
+    }
+
+    /* ===== NAV ===== */
+    .nav-link {
+      position: relative;
+      font-weight: 500;
+      color: #1e1e1e;
+      transition: color 0.2s;
+      padding-bottom: 4px;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2.5px;
+      background: #f88313;
+      transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      border-radius: 4px;
+    }
+    .nav-link:hover { color: #f88313; }
+    .nav-link:hover::after { width: 100%; }
+    .nav-link.active { color: #f88313; }
+    .nav-link.active::after { width: 100%; }
+
+    .nav-cta {
+      background: #000000;
+      color: white;
+      padding: 0.6rem 1.8rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    .nav-cta:hover {
+      background: #1a1a1a;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+
+    .mobile-menu {
+      transition: max-height 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s ease;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      background: white;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    .mobile-menu.open {
+      max-height: 500px;
+      opacity: 1;
+    }
+
+    .mobile-link {
+      font-weight: 500;
+      color: #1e1e1e;
+      padding: 0.75rem 1rem;
+      border-radius: 0.75rem;
+      transition: all 0.2s;
+    }
+    .mobile-link:hover {
+      background: #f88313;
+      color: white;
+    }
+
+    .hamburger {
+      width: 28px;
+      height: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      padding: 0;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      height: 2.5px;
+      background: #000000;
+      border-radius: 4px;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transform-origin: center;
+    }
+    .hamburger.open span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 6px);
+    }
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+    .hamburger.open span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -6px);
+    }
+
+    .navbar-fixed {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 1px 30px rgba(0,0,0,0.06);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      padding-top: 0.75rem;
+      padding-bottom: 0.75rem;
+      transition: all 0.3s ease;
+    }
+    .navbar-placeholder { height: 76px; }
+    @media (max-width: 768px) { .navbar-placeholder { height: 68px; } }
+
+    /* Blog card */
+    .blog-card {
+      border-radius: 1.2rem;
+      overflow: hidden;
+      background: white;
+      border: 1px solid rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+    }
+    .blog-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 35px -10px rgba(0,0,0,0.1);
+    }
+    .blog-card img {
+      height: 200px;
+      object-fit: cover;
+      width: 100%;
+    }
+
+    .blog-card .blog-img {
+      height: 220px;
+      object-fit: cover;
+      width: 100%;
+    }
+
+    /* Blog detail */
+    .blog-detail-content h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #000;
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
+    }
+    .blog-detail-content h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #000;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .blog-detail-content p {
+      color: #2f2f2f;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+    .blog-detail-content ul {
+      color: #2f2f2f;
+      line-height: 1.8;
+      padding-left: 1.5rem;
+      margin-bottom: 1rem;
+      list-style-type: disc;
+    }
+    .blog-detail-content blockquote {
+      border-left: 4px solid #f88313;
+      padding-left: 1.5rem;
+      margin: 1.5rem 0;
+      font-style: italic;
+      color: #1e1e1e;
+      background: rgba(248, 131, 19, 0.04);
+      padding: 1rem 1.5rem;
+      border-radius: 0.5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAV PLACEHOLDER ===== -->
+  <div class="navbar-placeholder"></div>
+
+  <!-- ===== FIXED NAV ===== -->
+  <nav id="navbar" class="navbar-fixed max-w-7xl mx-auto px-6 md:px-10 flex items-center justify-between transition-all duration-300">
+    <div class="text-2xl font-bold tracking-tight text-black flex items-center gap-1">
+      Clan <span class="font-light">Media</span>
+      <span class="ml-2 text-[10px] font-semibold uppercase tracking-widest text-[#f88313] bg-[#f88313]/10 px-2.5 py-0.5 rounded-full hidden sm:inline-block">agency</span>
+    </div>
+
+    <div class="hidden md:flex items-center gap-7 text-sm">
+           <a href="index.html" class="nav-link ">home</a>
+      <a href="services.html" class="nav-link">Services</a>
+      <a href="work.html" class="nav-link">Work</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="blog.html" class="nav-link active">Blog</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+      <a href="get-started.html" class="nav-cta">
+        <i class="fas fa-arrow-right mr-2 text-xs"></i>Get Started
+      </a>
+    </div>
+
+    <button id="menuToggle" class="md:hidden hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div id="mobileMenu" class="md:hidden mobile-menu px-6 py-2 flex flex-col" style="position:fixed; top:68px; left:0; right:0; z-index:998; background:white; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
+    <a href="index.html" class="mobile-link active">home</a>
+    <a href="services.html" class="mobile-link">Services</a>
+    <a href="work.html" class="mobile-link">Work</a>
+    <a href="about.html" class="mobile-link">About</a>
+    <a href="blog.html" class="mobile-link active">Blog</a>
+    <a href="contact.html" class="mobile-link">Contact</a>
+    <a href="get-started.html" class="mobile-link bg-black text-white hover:bg-[#1a1a1a] text-center mt-2">
+      <i class="fas fa-arrow-right mr-2"></i>Get Started
+    </a>
+  </div>
+
+  <script>
+    const toggle = document.getElementById('menuToggle');
+    const menu = document.getElementById('mobileMenu');
+    toggle.addEventListener('click', () => {
+      toggle.classList.toggle('open');
+      menu.classList.toggle('open');
+    });
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        toggle.classList.remove('open');
+        menu.classList.remove('open');
+      });
+    });
+  </script>
+
+  <!-- ============================================================ -->
+  <!-- ===== BLOG HERO ===== -->
+  <!-- ============================================================ -->
+  <section class="max-w-7xl mx-auto px-6 md:px-10 pt-8 pb-12 md:pt-16 md:pb-20">
+    <div class="text-center max-w-3xl mx-auto">
+      <span class="inline-block badge-clan text-xs font-semibold tracking-wider uppercase px-4 py-1.5 rounded-full mb-5">
+        <i class="fas fa-pen-fancy mr-2"></i> insights
+      </span>
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight text-black">
+        The <span class="text-[#f88313]">Clan Media</span> Blog
+      </h1>
+      <p class="text-[#2f2f2f] text-lg md:text-xl max-w-2xl mx-auto mt-4 leading-relaxed">
+        Actionable tips, industry trends, and behind-the-scenes stories from the frontlines of digital growth.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- ===== BLOG LISTING ===== -->
+  <!-- ============================================================ -->
+  <section class="max-w-7xl mx-auto px-6 md:px-10 pb-16 md:pb-24">
+    <!-- Featured post -->
+    <div class="bg-white rounded-3xl overflow-hidden border border-black/5 shadow-sm mb-12 card-hover">
+      <div class="grid md:grid-cols-2">
+        <div>
+          <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop&crop=center" alt="Featured blog" class="w-full h-64 md:h-full object-cover" />
+        </div>
+        <div class="p-6 md:p-10 flex flex-col justify-center">
+          <span class="text-xs font-semibold text-[#f88313] uppercase tracking-wider bg-[#f88313]/10 px-3 py-1 rounded-full inline-block w-fit">Featured</span>
+          <h2 class="text-2xl md:text-3xl font-bold text-black mt-3">5 Social Media Trends to Watch in 2026</h2>
+          <p class="text-[#2f2f2f] text-sm mt-2">From AI-generated content to micro-communities, we break down what matters for your brand this year.</p>
+          <div class="flex items-center gap-3 mt-4 text-sm text-[#4a4a4a]">
+            <span><i class="far fa-calendar-alt mr-1"></i> June 15, 2026</span>
+            <span>·</span>
+            <span><i class="far fa-clock mr-1"></i> 8 min read</span>
+          </div>
+          <a href="blog-detail.html" class="inline-flex items-center gap-2 mt-4 text-sm font-semibold text-[#f88313] hover:underline">
+            Read full article <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Blog grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Blog 1 -->
+      <div class="blog-card">
+        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=300&fit=crop&crop=center" alt="blog" />
+        <div class="p-6">
+          <span class="text-xs font-semibold text-[#f88313] uppercase tracking-wider">Development</span>
+          <h3 class="text-lg font-bold text-black mt-2">Why Speed Matters: Core Web Vitals for Lead Gen</h3>
+          <p class="text-[#2f2f2f] text-sm leading-relaxed mt-2">Slow websites kill conversions. Learn how to optimize your site for performance and revenue.</p>
+          <div class="flex items-center gap-3 mt-4 text-xs text-[#4a4a4a]">
+            <span><i class="far fa-calendar-alt mr-1"></i> June 10, 2026</span>
+            <span>·</span>
+            <span><i class="far fa-clock mr-1"></i> 6 min read</span>
+          </div>
+          <a href="blog-detail.html" class="inline-flex items-center gap-1 text-sm font-medium text-[#f88313] mt-4 hover:underline">Read more <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <!-- Blog 2 -->
+      <div class="blog-card">
+        <img src="https://images.unsplash.com/photo-1536240478700-b869070f9279?w=600&h=300&fit=crop&crop=center" alt="blog" />
+        <div class="p-6">
+          <span class="text-xs font-semibold text-[#f88313] uppercase tracking-wider">Video</span>
+          <h3 class="text-lg font-bold text-black mt-2">Mobile Videography: The Future of Brand Storytelling</h3>
+          <p class="text-[#2f2f2f] text-sm leading-relaxed mt-2">How brands are using mobile-first video to connect with audiences authentically and drive action.</p>
+          <div class="flex items-center gap-3 mt-4 text-xs text-[#4a4a4a]">
+            <span><i class="far fa-calendar-alt mr-1"></i> June 5, 2026</span>
+            <span>·</span>
+            <span><i class="far fa-clock mr-1"></i> 5 min read</span>
+          </div>
+          <a href="blog-detail.html" class="inline-flex items-center gap-1 text-sm font-medium text-[#f88313] mt-4 hover:underline">Read more <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <!-- Blog 3 -->
+      <div class="blog-card">
+        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=300&fit=crop&crop=center" alt="blog" />
+        <div class="p-6">
+          <span class="text-xs font-semibold text-[#f88313] uppercase tracking-wider">Strategy</span>
+          <h3 class="text-lg font-bold text-black mt-2">How to Build a Brand Identity That Actually Resonates</h3>
+          <p class="text-[#2f2f2f] text-sm leading-relaxed mt-2">A step-by-step guide to creating a brand that connects with your ideal customers.</p>
+          <div class="flex items-center gap-3 mt-4 text-xs text-[#4a4a4a]">
+            <span><i class="far fa-calendar-alt mr-1"></i> May 28, 2026</span>
+            <span>·</span>
+            <span><i class="far fa-clock mr-1"></i> 7 min read</span>
+          </div>
+          <a href="blog-detail.html" class="inline-flex items-center gap-1 text-sm font-medium text-[#f88313] mt-4 hover:underline">Read more <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <!-- Blog 4 -->
+      <div class="blog-card">
+        <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=600&h=300&fit=crop&crop=center" alt="blog" />
+        <div class="p-6">
+          <span class="text-xs font-semibold text-[#f88313] uppercase tracking-wider">Social Media</span>
+          <h3 class="text-lg font-bold text-black mt-2">The ROI of Social Media: What Actually Moves the Needle</h3>
+          <p class="text-[#2f2f2f] text-sm leading-relaxed mt-2">Stop chasing vanity metrics. Learn what social media metrics truly drive business growth.</p>
+          <div class="flex items-center gap-3 mt-4 text-xs text-[#4a4a4a]">
+            <span><i class="far fa-calendar-alt mr-1"></i> May 20, 2026</span>
+            <span>·</span>
+            <span><i class="far fa-clock mr-1"></i> 9 min read</span>
+          </div>
+          <a href="#blog-detail" class="inline-flex items-center gap-1 text-sm font-medium text-[#f88313] mt-4 hover:underline">Read more <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <!-- Blog 5 -->
+      <div class="blog-card">
+        <img src="https://images.unsplash.com/photo-1432889821006-c50c4f69b1fd?w=600&h=300&fit=crop&crop=center" alt="blog" />
+        <div class="p-6">
+          <span class="text-xs font-semibold text-[#f88313] uppercase tracking-wider">Branding</span>
+          <h3 class="text-lg font-bold text-black mt-2">Rebranding 101: When and How to Refresh Your Brand</h3>
+          <p class="text-[#2f2f2f] text-sm leading-relaxed mt-2">Signs it's time for a rebrand and a framework for making it successful.</p>
+          <div class="flex items-center gap-3 mt-4 text-xs text-[#4a4a4a]">
+            <span><i class="far fa-calendar-alt mr-1"></i> May 12, 2026</span>
+            <span>·</span>
+            <span><i class="far fa-clock mr-1"></i> 6 min read</span>
+          </div>
+          <a href="#blog-detail" class="inline-flex items-center gap-1 text-sm font-medium text-[#f88313] mt-4 hover:underline">Read more <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+
+      <!-- Blog 6 -->
+      <div class="blog-card">
+        <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=600&h=300&fit=crop&crop=center" alt="blog" />
+        <div class="p-6">
+          <span class="text-xs font-semibold text-[#f88313] uppercase tracking-wider">Paid Ads</span>
+          <h3 class="text-lg font-bold text-black mt-2">How to Scale Paid Ads Without Wasting Budget</h3>
+          <p class="text-[#2f2f2f] text-sm leading-relaxed mt-2">Proven strategies for scaling your ad spend profitably across Meta and Google.</p>
+          <div class="flex items-center gap-3 mt-4 text-xs text-[#4a4a4a]">
+            <span><i class="far fa-calendar-alt mr-1"></i> May 5, 2026</span>
+            <span>·</span>
+            <span><i class="far fa-clock mr-1"></i> 8 min read</span>
+          </div>
+          <a href="#blog-detail" class="inline-flex items-center gap-1 text-sm font-medium text-[#f88313] mt-4 hover:underline">Read more <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Load more -->
+    <div class="text-center mt-12">
+      <a href="#" class="border border-black/20 px-8 py-3 rounded-full text-sm font-medium text-black hover:bg-black/5 transition inline-block">
+        Load more articles <i class="fas fa-arrow-down ml-2"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- ===== BLOG DETAIL PAGE (hidden section, shown via anchor) ===== -->
+  <!-- ============================================================ -->
+  
+
+  <!-- ============================================================ -->
+  <!-- ===== CTA ===== -->
+  <!-- ============================================================ -->
+  <section class="max-w-7xl mx-auto px-6 md:px-10 py-20">
+    <div class="cta-gradient rounded-3xl px-8 py-16 md:px-16 md:py-20 text-white relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-96 h-96 bg-[#f88313]/15 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4"></div>
+      <div class="relative z-10 max-w-2xl">
+        <span class="inline-block bg-[#f88313] text-white text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full mb-5">ready to scale?</span>
+        <h2 class="text-3xl md:text-4xl font-bold leading-tight">Let's build something <br />exceptional together.</h2>
+        <p class="text-white/80 text-lg mt-4 max-w-lg">Book a free strategy call and discover how Clan Media can accelerate your brand.</p>
+        <div class="flex flex-wrap gap-4 mt-8">
+          <a href="#" class="bg-[#f88313] text-white px-8 py-4 rounded-full text-sm font-semibold shadow-lg shadow-[#f88313]/30 hover:bg-[#e06f0a] transition">
+            <i class="fas fa-calendar-alt mr-2"></i> Book a call
+          </a>
+          <a href="#" class="btn-outline-light px-8 py-4 rounded-full text-sm font-medium">
+            <i class="fas fa-arrow-right mr-2"></i> Get Started
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- ===== FOOTER ===== -->
+  <!-- ============================================================ -->
+  <footer class="bg-black text-white/70 pt-16 pb-8 mt-8">
+    <div class="max-w-7xl mx-auto px-6 md:px-10">
+      <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-10 pb-12 border-b border-white/10">
+        <div>
+          <span class="text-2xl font-bold tracking-tight text-white">Clan <span class="font-light">Media</span></span>
+          <p class="text-sm mt-4 max-w-xs leading-relaxed">Full-service digital agency for startups, real estate & high-growth brands.</p>
+          <div class="flex gap-4 mt-6 text-white/60 text-lg">
+            <a href="#" class="hover:text-[#f88313] transition"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="hover:text-[#f88313] transition"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="hover:text-[#f88313] transition"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="hover:text-[#f88313] transition"><i class="fab fa-x-twitter"></i></a>
+          </div>
+        </div>
+        <div>
+          <h5 class="text-white font-semibold text-sm uppercase tracking-wider">Services</h5>
+          <ul class="mt-4 space-y-2 text-sm">
+            <li><a href="#" class="footer-link">Social media</a></li>
+            <li><a href="#" class="footer-link">Videography</a></li>
+            <li><a href="#" class="footer-link">Branding</a></li>
+            <li><a href="#" class="footer-link">Web development</a></li>
+            <li><a href="#" class="footer-link">Paid ads</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5 class="text-white font-semibold text-sm uppercase tracking-wider">Company</h5>
+          <ul class="mt-4 space-y-2 text-sm">
+            <li><a href="#" class="footer-link">About</a></li>
+            <li><a href="#" class="footer-link">Careers</a></li>
+            <li><a href="#" class="footer-link">Case studies</a></li>
+            <li><a href="#" class="footer-link">Blog</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5 class="text-white font-semibold text-sm uppercase tracking-wider">Contact</h5>
+          <ul class="mt-4 space-y-2 text-sm">
+            <li><a href="#" class="footer-link"><i class="far fa-envelope mr-2"></i> hello@clanmedia.co</a></li>
+            <li><a href="#" class="footer-link"><i class="fas fa-phone-alt mr-2"></i> +1 (555) 000-1111</a></li>
+            <li><a href="#" class="footer-link"><i class="fas fa-map-marker-alt mr-2"></i> NYC / remote</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="pt-6 text-xs text-white/40 flex flex-wrap justify-between gap-2">
+        <span>© 2026 Clan Media. All rights reserved.</span>
+        <span><a href="#" class="footer-link text-xs">Privacy</a> · <a href="#" class="footer-link text-xs">Terms</a></span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

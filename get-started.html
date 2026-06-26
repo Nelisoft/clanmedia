@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clan Media · Get Started</title>
+  <!-- Tailwind via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome 6 (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <!-- Google Font: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+  <style>
+    * { font-family: 'Inter', system-ui, sans-serif; }
+    body { background: #fafcfc; }
+
+    .bg-brand-black { background-color: #000000; }
+    .bg-brand-orange { background-color: #f88313; }
+    .text-brand-orange { color: #f88313; }
+    .border-brand-black-subtle { border-color: rgba(0,0,0,0.08); }
+
+    .btn-orange {
+      background: #f88313;
+      color: white;
+      transition: 0.2s;
+    }
+    .btn-orange:hover {
+      background: #e06f0a;
+      box-shadow: 0 8px 22px -8px rgba(248, 131, 19, 0.4);
+    }
+
+    .btn-outline-dark {
+      border: 1.5px solid #000;
+      color: #000;
+      transition: 0.2s;
+    }
+    .btn-outline-dark:hover {
+      background: #000;
+      color: white;
+    }
+
+    .btn-outline-light {
+      border: 1.5px solid rgba(255,255,255,0.4);
+      color: white;
+      transition: 0.2s;
+    }
+    .btn-outline-light:hover {
+      background: rgba(255,255,255,0.07);
+      border-color: white;
+    }
+
+    .cta-gradient {
+      background: linear-gradient(145deg, #000000 0%, #1a1a1a 100%);
+    }
+
+    .card-hover {
+      transition: transform 0.25s ease, box-shadow 0.3s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 35px -10px rgba(0,0,0,0.12);
+    }
+
+    .section-title { letter-spacing: -0.025em; }
+
+    .badge-clan {
+      background: #f88313;
+      color: white;
+    }
+
+    .footer-link {
+      color: #b6cbd6;
+      transition: 0.2s;
+    }
+    .footer-link:hover { color: white; }
+
+    .stat-number {
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .border-subtle { border-color: rgba(0,0,0,0.07); }
+
+    .img-hover {
+      transition: transform 0.4s ease, filter 0.3s ease;
+    }
+    .img-hover:hover {
+      transform: scale(1.02);
+      filter: brightness(1.05);
+    }
+
+    /* ===== NAV ===== */
+    .nav-link {
+      position: relative;
+      font-weight: 500;
+      color: #1e1e1e;
+      transition: color 0.2s;
+      padding-bottom: 4px;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2.5px;
+      background: #f88313;
+      transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      border-radius: 4px;
+    }
+    .nav-link:hover { color: #f88313; }
+    .nav-link:hover::after { width: 100%; }
+    .nav-link.active { color: #f88313; }
+    .nav-link.active::after { width: 100%; }
+
+    .nav-cta {
+      background: #000000;
+      color: white;
+      padding: 0.6rem 1.8rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    .nav-cta:hover {
+      background: #1a1a1a;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+
+    .mobile-menu {
+      transition: max-height 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s ease;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      background: white;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    .mobile-menu.open {
+      max-height: 500px;
+      opacity: 1;
+    }
+
+    .mobile-link {
+      font-weight: 500;
+      color: #1e1e1e;
+      padding: 0.75rem 1rem;
+      border-radius: 0.75rem;
+      transition: all 0.2s;
+    }
+    .mobile-link:hover {
+      background: #f88313;
+      color: white;
+    }
+
+    .hamburger {
+      width: 28px;
+      height: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      padding: 0;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      height: 2.5px;
+      background: #000000;
+      border-radius: 4px;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transform-origin: center;
+    }
+    .hamburger.open span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 6px);
+    }
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+    .hamburger.open span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -6px);
+    }
+
+    .navbar-fixed {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 1px 30px rgba(0,0,0,0.06);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      padding-top: 0.75rem;
+      padding-bottom: 0.75rem;
+      transition: all 0.3s ease;
+    }
+    .navbar-placeholder { height: 76px; }
+    @media (max-width: 768px) { .navbar-placeholder { height: 68px; } }
+
+    /* Form styles */
+    .form-input {
+      width: 100%;
+      padding: 0.9rem 1.2rem;
+      border-radius: 1rem;
+      border: 1.5px solid rgba(0,0,0,0.08);
+      background: white;
+      transition: border 0.2s;
+      font-size: 0.95rem;
+    }
+    .form-input:focus {
+      outline: none;
+      border-color: #f88313;
+      box-shadow: 0 0 0 4px rgba(248, 131, 19, 0.08);
+    }
+    .form-input::placeholder {
+      color: #aaa;
+    }
+
+    .step-card {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 2rem;
+      border: 1px solid rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+    .step-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px -10px rgba(0,0,0,0.08);
+    }
+    .step-card .step-number {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #f88313;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0 auto 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAV PLACEHOLDER ===== -->
+  <div class="navbar-placeholder"></div>
+
+  <!-- ===== FIXED NAV ===== -->
+  <nav id="navbar" class="navbar-fixed max-w-7xl mx-auto px-6 md:px-10 flex items-center justify-between transition-all duration-300">
+    <div class="text-2xl font-bold tracking-tight text-black flex items-center gap-1">
+      Clan <span class="font-light">Media</span>
+      <span class="ml-2 text-[10px] font-semibold uppercase tracking-widest text-[#f88313] bg-[#f88313]/10 px-2.5 py-0.5 rounded-full hidden sm:inline-block">agency</span>
+    </div>
+
+    <div class="hidden md:flex items-center gap-7 text-sm">
+      <a href="services.html" class="nav-link">Services</a>
+      <a href="work.html" class="nav-link">Work</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="blog.html" class="nav-link">Blog</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+      <a href="get-started.html" class="nav-cta active">
+        <i class="fas fa-arrow-right mr-2 text-xs"></i>Get Started
+      </a>
+    </div>
+
+    <button id="menuToggle" class="md:hidden hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div id="mobileMenu" class="md:hidden mobile-menu px-6 py-2 flex flex-col" style="position:fixed; top:68px; left:0; right:0; z-index:998; background:white; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
+    <a href="services.html" class="mobile-link">Services</a>
+    <a href="work.html" class="mobile-link">Work</a>
+    <a href="about.html" class="mobile-link">About</a>
+    <a href="blog.html" class="mobile-link">Blog</a>
+    <a href="contact.html" class="mobile-link">Contact</a>
+    <a href="get-started.html" class="mobile-link bg-black text-white hover:bg-[#1a1a1a] text-center mt-2 active">
+      <i class="fas fa-arrow-right mr-2"></i>Get Started
+    </a>
+  </div>
+
+  <script>
+    const toggle = document.getElementById('menuToggle');
+    const menu = document.getElementById('mobileMenu');
+    toggle.addEventListener('click', () => {
+      toggle.classList.toggle('open');
+      menu.classList.toggle('open');
+    });
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        toggle.classList.remove('open');
+        menu.classList.remove('open');
+      });
+    });
+  </script>
+
+  <!-- ============================================================ -->
+  <!-- ===== GET STARTED HERO ===== -->
+  <!-- ============================================================ -->
+  <section class="max-w-7xl mx-auto px-6 md:px-10 pt-8 pb-12 md:pt-16 md:pb-20">
+    <div class="text-center max-w-3xl mx-auto">
+      <span class="inline-block badge-clan text-xs font-semibold tracking-wider uppercase px-4 py-1.5 rounded-full mb-5">
+        <i class="fas fa-rocket mr-2"></i> get started
+      </span>
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight text-black">
+        Ready to <span class="text-[#f88313]">scale your brand</span>?
+      </h1>
+      <p class="text-[#2f2f2f] text-lg md:text-xl max-w-2xl mx-auto mt-4 leading-relaxed">
+        Book a free strategy call and discover how Clan Media can help you build authority, drive revenue, and create lasting impact.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- ===== HOW IT WORKS ===== -->
+  <!-- ============================================================ -->
+  <section class="max-w-7xl mx-auto px-6 md:px-10 pb-16 md:pb-20">
+    <div class="text-center max-w-2xl mx-auto mb-12">
+      <h2 class="section-title text-2xl md:text-3xl font-bold text-black">How it works</h2>
+      <p class="text-[#2f2f2f] mt-2">Four simple steps to get started with Clan Media.</p>
+    </div>
+
+    <div class="grid md:grid-cols-4 gap-6">
+      <div class="step-card card-hover">
+        <div class="step-number">1</div>
+        <h3 class="font-bold text-black">Book a call</h3>
+        <p class="text-sm text-[#2f2f2f] mt-2">Schedule a free 30-minute discovery session with our team.</p>
+      </div>
+      <div class="step-card card-hover">
+        <div class="step-number">2</div>
+        <h3 class="font-bold text-black">Strategy session</h3>
+        <p class="text-sm text-[#2f2f2f] mt-2">We align on your goals, challenges, and opportunities.</p>
+      </div>
+      <div class="step-card card-hover">
+        <div class="step-number">3</div>
+        <h3 class="font-bold text-black">Proposal & roadmap</h3>
+        <p class="text-sm text-[#2f2f2f] mt-2">We craft a tailored plan with clear milestones and deliverables.</p>
+      </div>
+      <div class="step-card card-hover">
+        <div class="step-number">4</div>
+        <h3 class="font-bold text-black">Launch & grow</h3>
+        <p class="text-sm text-[#2f2f2f] mt-2">We execute, optimize, and scale your digital presence.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- ===== BOOK A CALL FORM ===== -->
+  <!-- ============================================================ -->
+  <section class="max-w-7xl mx-auto px-6 md:px-10 pb-16 md:pb-24">
+    <div class="grid lg:grid-cols-5 gap-8">
+      <!-- Form - 3 columns -->
+      <div class="lg:col-span-3">
+        <div class="bg-white rounded-3xl p-6 md:p-10 shadow-sm border border-black/5">
+          <h2 class="text-2xl font-bold text-black mb-6">Book your free strategy call</h2>
+          <p class="text-[#2f2f2f] text-sm mb-6">Fill out the form below and we'll reach out to schedule your session.</p>
+          <form>
+            <div class="grid sm:grid-cols-2 gap-5">
+              <div>
+                <label class="block text-sm font-medium text-black mb-1.5">Full name *</label>
+                <input type="text" class="form-input" placeholder="John Doe" required />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-black mb-1.5">Email address *</label>
+                <input type="email" class="form-input" placeholder="john@company.com" required />
+              </div>
+            </div>
+            <div class="mt-5">
+              <label class="block text-sm font-medium text-black mb-1.5">Phone number</label>
+              <input type="tel" class="form-input" placeholder="+1 (555) 000-0000" />
+            </div>
+            <div class="mt-5">
+              <label class="block text-sm font-medium text-black mb-1.5">Company name</label>
+              <input type="text" class="form-input" placeholder="Your company" />
+            </div>
+            <div class="mt-5">
+              <label class="block text-sm font-medium text-black mb-1.5">What are your primary goals? *</label>
+              <select class="form-input" required>
+                <option value="">Select an option...</option>
+                <option value="social">Social media growth</option>
+                <option value="video">Video content creation</option>
+                <option value="branding">Branding & identity</option>
+                <option value="web">Website development</option>
+                <option value="ads">Paid advertising</option>
+                <option value="strategy">Growth strategy</option>
+                <option value="full">Full-service ecosystem</option>
+              </select>
+            </div>
+            <div class="mt-5">
+              <label class="block text-sm font-medium text-black mb-1.5">Tell us about your project *</label>
+              <textarea rows="4" class="form-input" placeholder="What are you looking to achieve? What's your timeline? Any specific challenges?" required></textarea>
+            </div>
+            <div class="mt-6 flex items-center gap-3 text-sm text-[#2f2f2f]">
+              <input type="checkbox" id="consent" class="w-4 h-4 accent-[#f88313]" required />
+              <label for="consent">I agree to the <a href="#" class="text-[#f88313] hover:underline">privacy policy</a> and consent to being contacted.</label>
+            </div>
+            <button type="submit" class="btn-orange w-full mt-6 py-4 rounded-full text-sm font-semibold">
+              <i class="fas fa-calendar-alt mr-2"></i> Book my free call
+            </button>
+            <p class="text-xs text-[#4a4a4a] text-center mt-4">No commitment. Just a conversation about your goals.</p>
+          </form>
+        </div>
+      </div>
+
+      <!-- Sidebar - 2 columns -->
+      <div class="lg:col-span-2 space-y-6">
+        <div class="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-black/5">
+          <h3 class="text-lg font-bold text-black mb-4">What to expect</h3>
+          <ul class="space-y-3 text-sm text-[#2f2f2f]">
+            <li class="flex items-start gap-3">
+              <i class="fas fa-check-circle text-[#f88313] mt-0.5"></i>
+              <span>30-minute strategy session</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <i class="fas fa-check-circle text-[#f88313] mt-0.5"></i>
+              <span>Review of your current digital presence</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <i class="fas fa-check-circle text-[#f88313] mt-0.5"></i>
+              <span>Tailored recommendations for growth</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <i class="fas fa-check-circle text-[#f88313] mt-0.5"></i>
+              <span>Clear next steps and timeline</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-black/5">
+          <h3 class="text-lg font-bold text-black mb-4">What our clients say</h3>
+          <div class="border-l-4 border-[#f88313] pl-4">
+            <p class="text-sm text-[#2f2f2f] italic">"Clan Media completely transformed our social presence. Within 3 months, our engagement doubled and we saw a 40% increase in inbound leads."</p>
+            <p class="text-sm font-semibold text-black mt-2">— Michael Chen, CEO, Lumos Realty</p>
+          </div>
+        </div>
+
+        <div class="bg-[#f88313]/5 rounded-3xl p-6 md:p-8 border border-[#f88313]/10">
+          <h3 class="text-lg font-bold text-black">Need help?</h3>
+          <p class="text-sm text-[#2f2f2f] mt-2">Prefer to reach out directly?</p>
+          <div class="mt-3 space-y-2 text-sm">
+            <p><i class="fas fa-envelope text-[#f88313] mr-2"></i> <a href="mailto:hello@clanmedia.co" class="hover:text-[#f88313] transition">hello@clanmedia.co</a></p>
+            <p><i class="fas fa-phone-alt text-[#f88313] mr-2"></i> <a href="tel:+15550001111" class="hover:text-[#f88313] transition">+1 (555) 000-1111</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- ===== FAQ ===== -->
+  <!-- ============================================================ -->
+  <section class="max-w-7xl mx-auto px-6 md:px-10 py-16 md:py-20 border-y border-subtle">
+    <div class="text-center max-w-2xl mx-auto">
+      <span class="inline-block text-xs font-semibold tracking-wider uppercase text-[#f88313] bg-[#f88313]/10 px-4 py-1.5 rounded-full mb-4">faq</span>
+      <h2 class="section-title text-3xl md:text-4xl font-bold text-black mt-5">Frequently asked questions</h2>
+      <p class="text-[#2f2f2f] mt-3 text-lg">Quick answers to common questions.</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6 mt-12 max-w-4xl mx-auto">
+      <div class="bg-white rounded-2xl p-6 border border-black/5 card-hover">
+        <h3 class="font-bold text-black flex items-center gap-2"><i class="fas fa-clock text-[#f88313]"></i> How long is the strategy call?</h3>
+        <p class="text-sm text-[#2f2f2f] mt-2">Our initial discovery calls are 30 minutes. This gives us enough time to understand your goals, challenges, and see if we're a good fit.</p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 border border-black/5 card-hover">
+        <h3 class="font-bold text-black flex items-center gap-2"><i class="fas fa-dollar-sign text-[#f88313]"></i> Is there any cost for the call?</h3>
+        <p class="text-sm text-[#2f2f2f] mt-2">No, the strategy call is completely free. We believe in providing value upfront and ensuring we're the right partner for your needs.</p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 border border-black/5 card-hover">
+        <h3 class="font-bold text-black flex items-center gap-2"><i class="fas fa-users text-[#f88313]"></i> Do you work with startups?</h3>
+        <p class="text-sm text-[#2f2f2f] mt-2">Absolutely! We specialize in helping startups and high-growth brands scale their digital presence. We offer flexible packages to fit different budget stages.</p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 border border-black/5 card-hover">
+        <h3 class="font-bold text-black flex items-center gap-2"><i class="fas fa-handshake text-[#f88313]"></i> What happens after the call?</h3>
+        <p class="text-sm text-[#2f2f2f] mt-2">If we're a good fit, we'll send you a tailored proposal with a clear roadmap, timeline, and pricing. You can review it and ask any questions before deciding.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- ===== STATS ===== -->
+  <!-- ============================================================ -->
+  <section class="max-w-7xl mx-auto px-6 md:px-10 py-16 md:py-20">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 divide-y md:divide-y-0 md:divide-x divide-black/10">
+      <div class="text-center py-4"><div class="stat-number text-4xl text-black">98%</div><div class="text-sm text-[#2f2f2f]">client retention</div></div>
+      <div class="text-center py-4"><div class="stat-number text-4xl text-black">4.9</div><div class="text-sm text-[#2f2f2f]">average rating</div></div>
+      <div class="text-center py-4"><div class="stat-number text-4xl text-black">120+</div><div class="text-sm text-[#2f2f2f]">projects delivered</div></div>
+      <div class="text-center py-4"><div class="stat-number text-4xl text-black">3.2x</div><div class="text-sm text-[#2f2f2f]">avg. ROAS for ads</div></div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- ===== CTA ===== -->
+  <!-- ============================================================ -->
+  <section class="max-w-7xl mx-auto px-6 md:px-10 pb-20">
+    <div class="cta-gradient rounded-3xl px-8 py-16 md:px-16 md:py-20 text-white relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-96 h-96 bg-[#f88313]/15 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4"></div>
+      <div class="relative z-10 max-w-2xl">
+        <span class="inline-block bg-[#f88313] text-white text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full mb-5">ready to scale?</span>
+        <h2 class="text-3xl md:text-4xl font-bold leading-tight">Let's build something <br />exceptional together.</h2>
+        <p class="text-white/80 text-lg mt-4 max-w-lg">Book a free strategy call and discover how Clan Media can accelerate your brand.</p>
+        <div class="flex flex-wrap gap-4 mt-8">
+          <a href="contact.html" class="bg-[#f88313] text-white px-8 py-4 rounded-full text-sm font-semibold shadow-lg shadow-[#f88313]/30 hover:bg-[#e06f0a] transition">
+            <i class="fas fa-calendar-alt mr-2"></i> Book a call
+          </a>
+          <a href="get-started.html" class="btn-outline-light px-8 py-4 rounded-full text-sm font-medium">
+            <i class="fas fa-arrow-right mr-2"></i> Get Started
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- ===== FOOTER ===== -->
+  <!-- ============================================================ -->
+  <footer class="bg-black text-white/70 pt-16 pb-8 mt-8">
+    <div class="max-w-7xl mx-auto px-6 md:px-10">
+      <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-10 pb-12 border-b border-white/10">
+        <div>
+          <span class="text-2xl font-bold tracking-tight text-white">Clan <span class="font-light">Media</span></span>
+          <p class="text-sm mt-4 max-w-xs leading-relaxed">Full-service digital agency for startups, real estate & high-growth brands.</p>
+          <div class="flex gap-4 mt-6 text-white/60 text-lg">
+            <a href="#" class="hover:text-[#f88313] transition"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="hover:text-[#f88313] transition"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="hover:text-[#f88313] transition"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="hover:text-[#f88313] transition"><i class="fab fa-x-twitter"></i></a>
+          </div>
+        </div>
+        <div>
+          <h5 class="text-white font-semibold text-sm uppercase tracking-wider">Services</h5>
+          <ul class="mt-4 space-y-2 text-sm">
+            <li><a href="#" class="footer-link">Social media</a></li>
+            <li><a href="#" class="footer-link">Videography</a></li>
+            <li><a href="#" class="footer-link">Branding</a></li>
+            <li><a href="#" class="footer-link">Web development</a></li>
+            <li><a href="#" class="footer-link">Paid ads</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5 class="text-white font-semibold text-sm uppercase tracking-wider">Company</h5>
+          <ul class="mt-4 space-y-2 text-sm">
+            <li><a href="about.html" class="footer-link">About</a></li>
+            <li><a href="careers.html" class="footer-link">Careers</a></li>
+            <li><a href="case-studies.html" class="footer-link">Case studies</a></li>
+            <li><a href="blog.html" class="footer-link">Blog</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5 class="text-white font-semibold text-sm uppercase tracking-wider">Contact</h5>
+          <ul class="mt-4 space-y-2 text-sm">
+            <li><a href="contact.html" class="footer-link"><i class="far fa-envelope mr-2"></i> hello@clanmedia.co</a></li>
+            <li><a href="contact.html" class="footer-link"><i class="fas fa-phone-alt mr-2"></i> +1 (555) 000-1111</a></li>
+            <li><a href="contact.html" class="footer-link"><i class="fas fa-map-marker-alt mr-2"></i> NYC / remote</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="pt-6 text-xs text-white/40 flex flex-wrap justify-between gap-2">
+        <span>© 2026 Clan Media. All rights reserved.</span>
+        <span><a href="privacy.html" class="footer-link text-xs">Privacy</a> · <a href="terms.html" class="footer-link text-xs">Terms</a></span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clan Media · full-service agency</title>
+  <!-- Tailwind via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome 6 (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <!-- Google Font: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+  <style>
+    * { font-family: 'Inter', system-ui, sans-serif; }
+    body { background: #fafcfc; }
+
+    .bg-brand-black { background-color: #000000; }
+    .bg-brand-orange { background-color: #f88313; }
+    .text-brand-orange { color: #f88313; }
+    .border-brand-black-subtle { border-color: rgba(0,0,0,0.08); }
+
+    .btn-orange {
+      background: #f88313;
+      color: white;
+      transition: 0.2s;
+    }
+    .btn-orange:hover {
+      background: #e06f0a;
+      box-shadow: 0 8px 22px -8px rgba(248, 131, 19, 0.4);
+    }
+
+    .btn-outline-dark {
+      border: 1.5px solid #000;
+      color: #000;
+      transition: 0.2s;
+    }
+    .btn-outline-dark:hover {
+      background: #000;
+      color: white;
+    }
+
+    .btn-outline-light {
+      border: 1.5px solid rgba(255,255,255,0.4);
+      color: white;
+      transition: 0.2s;
+    }
+    .btn-outline-light:hover {
+      background: rgba(255,255,255,0.07);
+      border-color: white;
+    }
+
+    .cta-gradient {
+      background: linear-gradient(145deg, #000000 0%, #1a1a1a 100%);
+    }
+
+    .card-hover {
+      transition: transform 0.25s ease, box-shadow 0.3s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 35px -10px rgba(0,0,0,0.12);
+    }
+
+    .service-icon {
+      color: #000000;
+      background: #f5f5f5;
+      width: 56px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 16px;
+      font-size: 1.6rem;
+    }
+
+    .section-title { letter-spacing: -0.025em; }
+
+    .badge-clan {
+      background: #f88313;
+      color: white;
+    }
+
+    .footer-link {
+      color: #b6cbd6;
+      transition: 0.2s;
+    }
+    .footer-link:hover { color: white; }
+
+    .stat-number {
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .border-subtle { border-color: rgba(0,0,0,0.07); }
+
+    .img-hover {
+      transition: transform 0.4s ease, filter 0.3s ease;
+    }
+    .img-hover:hover {
+      transform: scale(1.02);
+      filter: brightness(1.05);
+    }
+
+    /* Video wrapper */
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 1.5rem;
+      background: #000;
+      box-shadow: 0 20px 40px -12px rgba(0,0,0,0.2);
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* ===== NAV ===== */
+    .nav-link {
+      position: relative;
+      font-weight: 500;
+      color: #1e1e1e;
+      transition: color 0.2s;
+      padding-bottom: 4px;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2.5px;
+      background: #f88313;
+      transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      border-radius: 4px;
+    }
+    .nav-link:hover { color: #f88313; }
+    .nav-link:hover::after { width: 100%; }
+    .nav-link.active { color: #f88313; }
+    .nav-link.active::after { width: 100%; }
+
+    .nav-cta {
+      background: #000000;
+      color: white;
+      padding: 0.6rem 1.8rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    .nav-cta:hover {
+      background: #1a1a1a;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+
+    .mobile-menu {
+      transition: max-height 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s ease;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      background: white;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    .mobile-menu.open {
+      max-height: 500px;
+      opacity: 1;
+    }
+
+    .mobile-link {
+      font-weight: 500;
+      color: #1e1e1e;
+      padding: 0.75rem 1rem;
+      border-radius: 0.75rem;
+      transition: all 0.2s;
+    }
+    .mobile-link:hover {
+      background: #f88313;
+      color: white;
+    }
+
+    .hamburger {
+      width: 28px;
+      height: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      padding: 0;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      height: 2.5px;
+      background: #000000;
+      border-radius: 4px;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transform-origin: center;
+    }
+    .hamburger.open span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 6px);
+    }
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+    .hamburger.open span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -6px);
+    }
+
+    .navbar-fixed {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 1px 30px rgba(0,0,0,0.06);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      padding-top: 0.75rem;
+      padding-bottom: 0.75rem;
+      transition: all 0.3s ease;
+    }
+    .navbar-placeholder { height: 76px; }
+    @media (max-width: 768px) { .navbar-placeholder { height: 68px; } }
+
+    /* Work / Portfolio card */
+    .work-card {
+      border-radius: 1.2rem;
+      overflow: hidden;
+      background: white;
+      border: 1px solid rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+    }
+    .work-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px -12px rgba(0,0,0,0.15);
+    }
+    .work-card img {
+      height: 220px;
+      object-fit: cover;
+      width: 100%;
+    }
+
+    /* Blog card */
+    .blog-card {
+      border-radius: 1.2rem;
+      overflow: hidden;
+      background: white;
+      border: 1px solid rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+    }
+    .blog-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 35px -10px rgba(0,0,0,0.1);
+    }
+    .blog-card img {
+      height: 200px;
+      object-fit: cover;
+      width: 100%;
+    }
+
+    /* Contact form */
+    .form-input {
+      width: 100%;
+      padding: 0.9rem 1.2rem;
+      border-radius: 1rem;
+      border: 1.5px solid rgba(0,0,0,0.08);
+      background: white;
+      transition: border 0.2s;
+      font-size: 0.95rem;
+    }
+    .form-input:focus {
+      outline: none;
+      border-color: #f88313;
+      box-shadow: 0 0 0 4px rgba(248, 131, 19, 0.08);
+    }
+
+    /* Service detail page */
+    .service-detail-card {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 2rem;
+      border: 1px solid rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+    }
+    .service-detail-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px -10px rgba(0,0,0,0.08);
+    }
+    .service-detail-card .icon-circle {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: #f88313;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAV PLACEHOLDER ===== -->
+  <div class="navbar-placeholder"></div>
+
+  <!-- ===== FIXED NAV ===== -->
+  <nav id="navbar" class="navbar-fixed max-w-7xl mx-auto px-6 md:px-10 flex items-center justify-between transition-all duration-300">
+    <div class="text-2xl font-bold tracking-tight text-black flex items-center gap-1">
+      Clan <span class="font-light">Media</span>
+      <span class="ml-2 text-[10px] font-semibold uppercase tracking-widest text-[#f88313] bg-[#f88313]/10 px-2.5 py-0.5 rounded-full hidden sm:inline-block">agency</span>
+    </div>
+
+    <div class="hidden md:flex items-center gap-7 text-sm">
+      <a href="index.html" class="nav-link active">home</a>
+      <a href="services.html" class="nav-link">Services</a>
+      <a href="work.html" class="nav-link">Work</a>
+      <a href="blog.html" class="nav-link">Blog</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+      <a href="get-started.html" class="nav-cta">
+        <i class="fas fa-arrow-right mr-2 text-xs"></i>Get Started
+      </a>
+    </div>
+
+    <button id="menuToggle" class="md:hidden hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div id="mobileMenu" class="md:hidden mobile-menu px-6 py-2 flex flex-col" style="position:fixed; top:68px; left:0; right:0; z-index:998; background:white; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
+
+    <a href="index.html" class="mobile-link active">home</a>
+    <a href="services.html" class="mobile-link">Services</a>
+    <a href="work.html" class="mobile-link">Work</a>
+    <a href="blog.html" class="mobile-link">Blog</a>
+    <a href="about.html" class="mobile-link">About</a>
+    <a href="contact.html" class="mobile-link">Contact</a>
+    <a href="get-started.html" class="mobile-link bg-black text-white hover:bg-[#1a1a1a] text-center mt-2">
+      <i class="fas fa-arrow-right mr-2"></i>Get Started
+    </a>
+  </div>
+
+  <script>
+    const toggle = document.getElementById('menuToggle');
+    const menu = document.getElementById('mobileMenu');
+    toggle.addEventListener('click', () => {
+      toggle.classList.toggle('open');
+      menu.classList.toggle('open');
+    });
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        toggle.classList.remove('open');
+        menu.classList.remove('open');
+      });
+    });
+  </script>
+
+  <!-- ============================================================ -->
+  <!-- ===== HERO ===== -->
+  <!-- ============================================================ -->
+  <header class="max-w-7xl mx-auto px-6 md:px-10 pt-8 pb-16 md:pt-16 md:pb-24">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <span class="inline-block badge-clan text-xs font-semibold tracking-wider uppercase px-4 py-1.5 rounded-full mb-5">
+          <i class="fas fa-bolt mr-2 text-xs"></i> full-service agency
+        </span>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight text-black">
+          Scale your brand <br />
+          <span class="text-[#f88313]">with digital precision</span>
+        </h1>
+        <p class="text-[#2f2f2f] text-lg md:text-xl max-w-lg mt-6 leading-relaxed">
+          We blend strategy, creativity & performance — social, video, branding, web & ads. 
+          Built for startups, real estate, and high-growth brands.
+        </p>
+        <div class="flex flex-wrap gap-4 mt-8">
+          <a href="get-started.html" class="btn-orange px-8 py-4 rounded-full text-sm font-semibold shadow-lg shadow-[#f88313]/20">
+            <i class="fas fa-arrow-right mr-2"></i> Work With Us
+          </a>
+          <a href="services.html" class="border border-black/20 px-8 py-4 rounded-full text-sm font-medium text-black hover:bg-black/5 transition">
+            View services
+          </a>
+        </div>
+        <div class="flex items-center gap-6 mt-8 text-sm text-[#2f2f2f]">
+          <span><i class="fas fa-check-circle text-[#f88313] mr-2"></i> 100+ clients</span>
+          <span><i class="fas fa-check-circle text-[#f88313] mr-2"></i> 4.9 ⭐ avg.</span>
+        </div>
+      </div>
+      <div class="relative">
+        <div class="bg-[#f0f0f0] rounded-3xl p-1 shadow-2xl shadow-black/5">
+          <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=600&h=400&fit=crop&crop=center" alt="Clan Media creative studio" class="rounded-2xl w-full object-cover h-72 md:h-auto img-hover" />
+        </div>
+        <div class="absolute -bottom-4 -right-4 bg-white rounded-2xl shadow-xl p-4 border border-white/40 backdrop-blur-sm hidden md:block">
+          <div class="flex items-center gap-3">
+            <div class="bg-[#f88313] w-10 h-10 rounded-full flex items-center justify-center text-white"><i class="fas fa-play"></i></div>
+            <div><p class="text-xs font-medium text-black">showreel</p><p class="text-[10px] text-[#4a4a4a]">see our work</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================================ -->
+  <!-- ===== VIDEO SECTION ===== -->
+  <!-- ============================================================ -->
+  <section id="video" class="max-w-7xl mx-auto px-6 md:px-10 py-16 md:py-20 border-y border-subtle">
+    <div class="text-center max-w-2xl mx-auto">
+      <span class="inline-block badge-clan text-xs font-semibold tracking-wider uppercase px-4 py-1.5 rounded-full">watch</span>
+      <h2 class="section-title text-3xl md:text-4xl font-bold text-black mt-5">Featured video</h2>
+      <p class="text-[#2f2f2f] mt-3 text-lg">See our approach in action.</p>
+    </div>
+
+    <div class="max-w-4xl mx-auto mt-12">
+      <div class="video-wrapper">
+        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=8nMpPxXw5F7GqPcV" title="Clan Media showreel" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+      <p class="text-center text-sm text-[#4a4a4a] mt-4">How Clan Media helps brands scale with digital precision.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- ===== SERVICES PAGE ===== -->
+  <!-- ============================================================ -->
+  <section id="services" class="max-w-7xl mx-auto px-6 md:px-10 py-16 md:py-20 border-b border-subtle">
+    <div class="text-center max-w-2xl mx-auto">
+      <span class="inline-block badge-clan text-xs font-semibold tracking-wider uppercase px-4 py-1.5 rounded-full">our services</span>
+      <h2 class="section-title text-3xl md:text-4xl font-bold text-black mt-5">What we deliver</h2>
+      <p class="text-[#2f2f2f] mt-3 text-lg">End-to-end digital solutions crafted for growth.</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mt-14">
+      <div class="service-detail-card card-hover">
+        <div class="icon-circle"><i class="fas fa-hashtag"></i></div>
+        <h3 class="text-xl font-bold text-black mt-4">Social Media Management</h3>
+        <p class="text-[#2f2f2f] text-sm leading-relaxed mt-2">Strategic content, community engagement, and paid social that drives real business results.</p>
+        <ul class="mt-4 text-sm text-[#2f2f2f] space-y-1">
+          <li><i class="fas fa-check text-[#f88313] mr-2"></i>Content calendars & creation</li>
+          <li><i class="fas fa-check text-[#f88313] mr-2"></i>Community management</li>
+          <li><i class="fas fa-check text-[#f88313] mr-2"></i>Analytics & reporting</li>
+        </ul>
+      </div>
+
+      <div class="service-detail-card card-hover">
+        <div class="icon-circle"><i class="fas fa-video"></i></div>
+        <h3 class="text-xl font-bold text-black mt-4">Mobile Videography & Editing</h3>
+        <p class="text-[#2f2f2f] text-sm leading-relaxed mt-2">Cinematic-quality video content captured and edited for social, ads, and brand storytelling.</p>
+        <ul class="mt-4 text-sm text-[#2f2f2f] space-y-1">
+          <li><i class="fas fa-check text-[#f88313] mr-2"></i>Short-form & long-form video</li>
+          <li><i class="fas fa-check text-[#f88313] mr-2"></i>On-location & studio shoots</li>
+          <li><i class="fas fa-check text-[#f88313] mr-2"></i>Post-production & color grading</li>
+        </ul>
+      </div>
+
+      <div class="service-detail-card card-hover">
+        <div class="icon-circle"><i class="fas fa-pen-fancy"></i></div>
+        <h3 class="text-xl font-bold text-black mt-4">Branding & Identity</h3>
+        <p class="text-[#2f2f2f] text-sm leading-relaxed mt-2">Distinctive brand identities that resonate with your audience and stand out in the market.</p>
+        <ul class="mt-4 text-sm text-[#2f2f2f] space-y-1">
+          <li><i class="fas fa-check text-[#f88313] mr-2"></i>Logo & visual identity</li>
+          <li><i class="fas fa-check text-[#f88313] mr-2"></i>Brand guidelines</li>
+          <li><i class="fas fa-check text-[#f88313] mr-2"></i>Messaging & positioning</li>
+        </ul>
+      </div>
+
+      <div class="service-detail-card card-hover">
+        <div class="icon-circle"><i class="fas fa-code"></i></div>
+        <h3 class="text-xl font-bold text-black mt-4">Website Development</h3>
+        <p class="text-[#2f2f2f] text-sm leading-relaxed mt-2">High-performance, conversion-optimized websites built to attract, engage, and convert.</p>
+        <ul class="mt-4 text-sm text-[#2f2f2f] space-y-1">
+          <li><i class="fas fa-check text-[#f88313] mr-2"></i>Custom web design & development</li>
+          <li><i class="fas fa-check text-[#f88313] mr-2"></i>E-commerce & CMS solutions</li>
+          <li><i class="fas fa-check text-[#f88313] mr-2"></i>SEO & performance optimization</li>
+        </ul>
+      </div>
+
+      <div class="service-detail-card card-hover">
+        <div class="icon-circle"><i class="fas fa-bullhorn"></i></div>
+        <h3 class="text-xl font-bold text-black mt-4">Paid Advertising</h3>
+        <p class="text-[#2f2f2f] text-sm leading-relaxed mt-2">Data-driven ad campaigns across Meta, Google, LinkedIn, and more with measurable ROAS.</p>
+        <ul class="mt-4 text-sm text-[#2f2f2f] space-y-1">
+          <li><i class="fas fa-check text-[#f88313] mr-2"></i>Strategy & audience targeting</li>
+          <li><i class="fas fa-check text-[#f88313] mr-2"></i>Creative & copywriting</li>
+          <li><i class="fas fa-check text-[#f88313] mr-2"></i>Daily optimization & reporting</li>
+        </ul>
+      </div>
+
+      <div class="service-detail-card card-hover">
+        <div class="icon-circle"><i class="fas fa-chart-line"></i></div>
+        <h3 class="text-xl font-bold text-black mt-4">Growth Strategy</h3>
+        <p class="text-[#2f2f2f] text-sm leading-relaxed mt-2">Comprehensive growth roadmaps that align marketing, sales, and product for scalable revenue.</p>
+        <ul class="mt-4 text-sm text-[#2f2f2f] space-y-1">
+          <li><i class="fas fa-check text-[#f88313] mr-2"></i>Market research & positioning</li>
+          <li><i class="fas fa-check text-[#f88313] mr-2"></i>Funnel optimization</li>
+          <li><i class="fas fa-check text-[#f88313] mr-2"></i>Retention & lifecycle marketing</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- ===== WORK PAGE (Portfolio) ===== -->
+  <!-- ============================================================ -->
+  <section id="work" class="max-w-7xl mx-auto px-6 md:px-10 py-16 md:py-20">
+    <div class="text-center max-w-2xl mx-auto">
+      <span class="inline-block badge-clan text-xs font-semibold tracking-wider uppercase px-4 py-1.5 rounded-full">portfolio</span>
+      <h2 class="section-title text-3xl md:text-4xl font-bold text-black mt-5">Our featured work</h2>
+      <p class="text-[#2f2f2f] mt-3 text-lg">Real results for real brands.</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+      <div class="work-card">
+        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop&crop=center" alt="Project 1" />
+        <div class="p-6">
+          <span class="text-xs font-semibold text-[#f88313] uppercase tracking-wider">Social Media</span>
+          <h3 class="text-lg font-bold text-black mt-1">Lumos Realty · Social Growth</h3>
+          <p class="text-sm text-[#2f2f2f] mt-2">300% engagement increase in 3 months.</p>
+        </div>
+      </div>
+      <div class="work-card">
+        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop&crop=center" alt="Project 2" />
+        <div class="p-6">
+          <span class="text-xs font-semibold text-[#f88313] uppercase tracking-wider">Web Development</span>
+          <h3 class="text-lg font-bold text-black mt-1">Bloom Skincare · E-commerce</h3>
+          <p class="text-sm text-[#2f2f2f] mt-2">45% conversion rate increase post-launch.</p>
+        </div>
+      </div>
+      <div class="work-card">
+        <img src="https://images.unsplash.com/photo-1536240478700-b869070f9279?w=600&h=400&fit=crop&crop=center" alt="Project 3" />
+        <div class="p-6">
+          <span class="text-xs font-semibold text-[#f88313] uppercase tracking-wider">Video</span>
+          <h3 class="text-lg font-bold text-black mt-1">Swift Logistics · Brand Film</h3>
+          <p class="text-sm text-[#2f2f2f] mt-2">2.5M views, 60% ad engagement lift.</p>
+        </div>
+      </div>
+      <div class="work-card">
+        <img src="https://images.unsplash.com/photo-1432889821006-c50c4f69b1fd?w=600&h=400&fit=crop&crop=center" alt="Project 4" />
+        <div class="p-6">
+          <span class="text-xs font-semibold text-[#f88313] uppercase tracking-wider">Branding</span>
+          <h3 class="text-lg font-bold text-black mt-1">NovaTech · Rebrand</h3>
+          <p class="text-sm text-[#2f2f2f] mt-2">Complete brand overhaul & market repositioning.</p>
+        </div>
+      </div>
+      <div class="work-card">
+        <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=600&h=400&fit=crop&crop=center" alt="Project 5" />
+        <div class="p-6">
+          <span class="text-xs font-semibold text-[#f88313] uppercase tracking-wider">Paid Ads</span>
+          <h3 class="text-lg font-bold text-black mt-1">FitLife · Paid Campaign</h3>
+          <p class="text-sm text-[#2f2f2f] mt-2">4.2x ROAS, 150% increase in leads.</p>
+        </div>
+      </div>
+      <div class="work-card">
+        <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=600&h=400&fit=crop&crop=center" alt="Project 6" />
+        <div class="p-6">
+          <span class="text-xs font-semibold text-[#f88313] uppercase tracking-wider">Strategy</span>
+          <h3 class="text-lg font-bold text-black mt-1">UrbanEats · Growth Strategy</h3>
+          <p class="text-sm text-[#2f2f2f] mt-2">Scaled from 5 to 50 locations in 18 months.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- ===== BLOG PAGE ===== -->
+  <!-- ============================================================ -->
+  <section id="blog" class="max-w-7xl mx-auto px-6 md:px-10 py-16 md:py-20 border-y border-subtle">
+    <div class="text-center max-w-2xl mx-auto">
+      <span class="inline-block badge-clan text-xs font-semibold tracking-wider uppercase px-4 py-1.5 rounded-full">insights</span>
+      <h2 class="section-title text-3xl md:text-4xl font-bold text-black mt-5">From the blog</h2>
+      <p class="text-[#2f2f2f] mt-3 text-lg">Actionable tips and industry trends.</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6 mt-12">
+      <div class="blog-card">
+        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=300&fit=crop&crop=center" alt="blog" />
+        <div class="p-6">
+          <span class="text-xs font-semibold text-[#f88313] uppercase tracking-wider">Strategy</span>
+          <h3 class="text-lg font-bold text-black mt-2">5 Social Media Trends to Watch in 2026</h3>
+          <p class="text-[#2f2f2f] text-sm leading-relaxed mt-2">From AI-generated content to micro-communities, we break down what matters.</p>
+          <a href="#" class="inline-flex items-center gap-1 text-sm font-medium text-[#f88313] mt-4 hover:underline">Read more <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+      <div class="blog-card">
+        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=300&fit=crop&crop=center" alt="blog" />
+        <div class="p-6">
+          <span class="text-xs font-semibold text-[#f88313] uppercase tracking-wider">Development</span>
+          <h3 class="text-lg font-bold text-black mt-2">Why Speed Matters: Core Web Vitals for Lead Gen</h3>
+          <p class="text-[#2f2f2f] text-sm leading-relaxed mt-2">Slow websites kill conversions. Optimize for performance and revenue.</p>
+          <a href="#" class="inline-flex items-center gap-1 text-sm font-medium text-[#f88313] mt-4 hover:underline">Read more <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+      <div class="blog-card">
+        <img src="https://images.unsplash.com/photo-1536240478700-b869070f9279?w=600&h=300&fit=crop&crop=center" alt="blog" />
+        <div class="p-6">
+          <span class="text-xs font-semibold text-[#f88313] uppercase tracking-wider">Video</span>
+          <h3 class="text-lg font-bold text-black mt-2">Mobile Videography: The Future of Brand Storytelling</h3>
+          <p class="text-[#2f2f2f] text-sm leading-relaxed mt-2">How brands use mobile-first video to connect authentically and drive action.</p>
+          <a href="#" class="inline-flex items-center gap-1 text-sm font-medium text-[#f88313] mt-4 hover:underline">Read more <i class="fas fa-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- ===== ABOUT PAGE ===== -->
+  <!-- ============================================================ -->
+  <section id="about" class="max-w-7xl mx-auto px-6 md:px-10 py-16 md:py-20">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <span class="inline-block badge-clan text-xs font-semibold tracking-wider uppercase px-4 py-1.5 rounded-full mb-4">
+          <i class="fas fa-users mr-2"></i> about us
+        </span>
+        <h2 class="text-3xl md:text-4xl font-bold text-black section-title">
+          A creative collective <br />with a <span class="text-[#f88313]">strategic edge</span>
+        </h2>
+        <p class="text-[#2f2f2f] text-lg leading-relaxed mt-5">
+          Clan Media isn’t just a service provider — we’re a partner in growth. 
+          With a blend of design thinking, data, and deep platform expertise, 
+          we help brands build authority and generate revenue.
+        </p>
+        <p class="text-[#2f2f2f] text-base leading-relaxed mt-3">
+          From real estate to DTC, we’ve helped 100+ brands scale their digital presence 
+          with clarity and intention.
+        </p>
+        <div class="flex flex-wrap gap-6 mt-6 text-sm">
+          <div><span class="font-bold text-black text-xl">5+</span> <span class="text-[#2f2f2f]">years</span></div>
+          <div><span class="font-bold text-black text-xl">100+</span> <span class="text-[#2f2f2f]">clients</span></div>
+          <div><span class="font-bold text-black text-xl">4.9⭐</span> <span class="text-[#2f2f2f]">avg. rating</span></div>
+        </div>
+        <a href="#" class="inline-flex items-center gap-2 mt-6 text-black font-semibold border-b-2 border-[#f88313]/30 pb-1 hover:border-[#f88313] transition">
+          Meet the team <i class="fas fa-arrow-right text-sm"></i>
+        </a>
+      </div>
+      <div class="relative">
+        <div class="bg-[#f0f0f0] rounded-3xl p-1 shadow-2xl shadow-black/5">
+          <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=420&fit=crop&crop=center" alt="Clan Media team" class="rounded-2xl w-full object-cover h-72 md:h-auto img-hover" />
+        </div>
+        <div class="absolute -top-4 -left-4 bg-white rounded-2xl shadow-lg px-5 py-3 border border-white/30 backdrop-blur-sm hidden md:flex items-center gap-3">
+          <i class="fas fa-crown text-[#f88313] text-xl"></i>
+          <div><span class="text-xs font-bold text-black">#1 agency</span><p class="text-[10px] text-[#4a4a4a]">for startups</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- ===== CONTACT PAGE ===== -->
+  <!-- ============================================================ -->
+  <section id="contact" class="max-w-7xl mx-auto px-6 md:px-10 py-16 md:py-20 border-y border-subtle">
+    <div class="text-center max-w-2xl mx-auto">
+      <span class="inline-block badge-clan text-xs font-semibold tracking-wider uppercase px-4 py-1.5 rounded-full">contact</span>
+      <h2 class="section-title text-3xl md:text-4xl font-bold text-black mt-5">Let's talk</h2>
+      <p class="text-[#2f2f2f] mt-3 text-lg">Have a project in mind? We'd love to hear from you.</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-12 mt-12">
+      <div>
+        <div class="bg-white rounded-2xl p-8 shadow-sm border border-black/5">
+          <form>
+            <div class="mb-5">
+              <label class="block text-sm font-medium text-black mb-1.5">Full name</label>
+              <input type="text" class="form-input" placeholder="John Doe" />
+            </div>
+            <div class="mb-5">
+              <label class="block text-sm font-medium text-black mb-1.5">Email address</label>
+              <input type="email" class="form-input" placeholder="john@company.com" />
+            </div>
+            <div class="mb-5">
+              <label class="block text-sm font-medium text-black mb-1.5">Phone number</label>
+              <input type="tel" class="form-input" placeholder="+1 (555) 000-0000" />
+            </div>
+            <div class="mb-5">
+              <label class="block text-sm font-medium text-black mb-1.5">Message</label>
+              <textarea rows="4" class="form-input" placeholder="Tell us about your project..."></textarea>
+            </div>
+            <button type="submit" class="btn-orange w-full py-3.5 rounded-full text-sm font-semibold">
+              <i class="fas fa-paper-plane mr-2"></i> Send message
+            </button>
+          </form>
+        </div>
+      </div>
+      <div class="space-y-6">
+        <div class="bg-white rounded-2xl p-8 shadow-sm border border-black/5">
+          <h3 class="text-lg font-bold text-black">Get in touch</h3>
+          <div class="space-y-4 mt-4">
+            <div class="flex items-center gap-4 text-[#2f2f2f]">
+              <div class="w-10 h-10 rounded-full bg-[#f88313]/10 flex items-center justify-center text-[#f88313]"><i class="fas fa-envelope"></i></div>
+              <div><p class="text-sm font-medium">Email</p><p class="text-sm">hello@clanmedia.co</p></div>
+            </div>
+            <div class="flex items-center gap-4 text-[#2f2f2f]">
+              <div class="w-10 h-10 rounded-full bg-[#f88313]/10 flex items-center justify-center text-[#f88313]"><i class="fas fa-phone-alt"></i></div>
+              <div><p class="text-sm font-medium">Phone</p><p class="text-sm">+1 (555) 000-1111</p></div>
+            </div>
+            <div class="flex items-center gap-4 text-[#2f2f2f]">
+              <div class="w-10 h-10 rounded-full bg-[#f88313]/10 flex items-center justify-center text-[#f88313]"><i class="fas fa-map-marker-alt"></i></div>
+              <div><p class="text-sm font-medium">Location</p><p class="text-sm">NYC / Remote</p></div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white rounded-2xl p-8 shadow-sm border border-black/5">
+          <h3 class="text-lg font-bold text-black">Follow us</h3>
+          <div class="flex gap-4 mt-4 text-xl">
+            <a href="#" class="w-12 h-12 rounded-full bg-black/5 flex items-center justify-center hover:bg-[#f88313] hover:text-white transition"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="w-12 h-12 rounded-full bg-black/5 flex items-center justify-center hover:bg-[#f88313] hover:text-white transition"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="w-12 h-12 rounded-full bg-black/5 flex items-center justify-center hover:bg-[#f88313] hover:text-white transition"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="w-12 h-12 rounded-full bg-black/5 flex items-center justify-center hover:bg-[#f88313] hover:text-white transition"><i class="fab fa-x-twitter"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- ===== GET STARTED PAGE ===== -->
+  <!-- ============================================================ -->
+  <section id="get-started" class="max-w-7xl mx-auto px-6 md:px-10 py-16 md:py-20">
+    <div class="cta-gradient rounded-3xl px-8 py-16 md:px-16 md:py-20 text-white relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-96 h-96 bg-[#f88313]/15 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4"></div>
+      <div class="relative z-10 max-w-3xl mx-auto text-center">
+        <span class="inline-block bg-[#f88313] text-white text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full mb-5">get started</span>
+        <h2 class="text-3xl md:text-5xl font-bold leading-tight">Ready to scale your brand?</h2>
+        <p class="text-white/80 text-lg mt-4 max-w-xl mx-auto">Book a free strategy call and discover how Clan Media can accelerate your growth.</p>
+
+        <div class="grid sm:grid-cols-2 gap-6 mt-10 max-w-2xl mx-auto text-left">
+          <div class="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/10">
+            <div class="w-10 h-10 rounded-full bg-[#f88313] flex items-center justify-center text-white mb-3"><i class="fas fa-calendar-check"></i></div>
+            <h4 class="font-semibold">1. Book a call</h4>
+            <p class="text-sm text-white/70">Schedule a 30-min discovery session.</p>
+          </div>
+          <div class="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/10">
+            <div class="w-10 h-10 rounded-full bg-[#f88313] flex items-center justify-center text-white mb-3"><i class="fas fa-lightbulb"></i></div>
+            <h4 class="font-semibold">2. Strategy session</h4>
+            <p class="text-sm text-white/70">We align on goals and opportunities.</p>
+          </div>
+          <div class="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/10">
+            <div class="w-10 h-10 rounded-full bg-[#f88313] flex items-center justify-center text-white mb-3"><i class="fas fa-rocket"></i></div>
+            <h4 class="font-semibold">3. Launch & grow</h4>
+            <p class="text-sm text-white/70">We execute and optimize for results.</p>
+          </div>
+          <div class="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/10">
+            <div class="w-10 h-10 rounded-full bg-[#f88313] flex items-center justify-center text-white mb-3"><i class="fas fa-handshake"></i></div>
+            <h4 class="font-semibold">4. Long-term partnership</h4>
+            <p class="text-sm text-white/70">We grow with you, every step of the way.</p>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap justify-center gap-4 mt-10">
+          <a href="#contact" class="bg-[#f88313] text-white px-10 py-4 rounded-full text-sm font-semibold shadow-lg shadow-[#f88313]/30 hover:bg-[#e06f0a] transition">
+            <i class="fas fa-calendar-alt mr-2"></i> Book a call
+          </a>
+          <a href="#services" class="btn-outline-light px-10 py-4 rounded-full text-sm font-medium">
+            <i class="fas fa-arrow-right mr-2"></i> Explore services
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- ===== STATS ===== -->
+  <!-- ============================================================ -->
+  <section class="max-w-7xl mx-auto px-6 md:px-10 pb-16">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 divide-y md:divide-y-0 md:divide-x divide-black/10">
+      <div class="text-center py-4"><div class="stat-number text-4xl text-black">98%</div><div class="text-sm text-[#2f2f2f]">client retention</div></div>
+      <div class="text-center py-4"><div class="stat-number text-4xl text-black">4.9</div><div class="text-sm text-[#2f2f2f]">average rating</div></div>
+      <div class="text-center py-4"><div class="stat-number text-4xl text-black">120+</div><div class="text-sm text-[#2f2f2f]">projects delivered</div></div>
+      <div class="text-center py-4"><div class="stat-number text-4xl text-black">3.2x</div><div class="text-sm text-[#2f2f2f]">avg. ROAS for ads</div></div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- ===== FOOTER ===== -->
+  <!-- ============================================================ -->
+  <footer class="bg-black text-white/70 pt-16 pb-8 mt-8">
+    <div class="max-w-7xl mx-auto px-6 md:px-10">
+      <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-10 pb-12 border-b border-white/10">
+        <div>
+          <span class="text-2xl font-bold tracking-tight text-white">Clan <span class="font-light">Media</span></span>
+          <p class="text-sm mt-4 max-w-xs leading-relaxed">Full-service digital agency for startups, real estate & high-growth brands.</p>
+          <div class="flex gap-4 mt-6 text-white/60 text-lg">
+            <a href="#" class="hover:text-[#f88313] transition"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="hover:text-[#f88313] transition"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="hover:text-[#f88313] transition"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="hover:text-[#f88313] transition"><i class="fab fa-x-twitter"></i></a>
+          </div>
+        </div>
+        <div>
+          <h5 class="text-white font-semibold text-sm uppercase tracking-wider">Services</h5>
+          <ul class="mt-4 space-y-2 text-sm">
+            <li><a href="#services" class="footer-link">Social media</a></li>
+            <li><a href="#services" class="footer-link">Videography</a></li>
+            <li><a href="#services" class="footer-link">Branding</a></li>
+            <li><a href="#services" class="footer-link">Web development</a></li>
+            <li><a href="#services" class="footer-link">Paid ads</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5 class="text-white font-semibold text-sm uppercase tracking-wider">Company</h5>
+          <ul class="mt-4 space-y-2 text-sm">
+            <li><a href="#about" class="footer-link">About</a></li>
+            <li><a href="#" class="footer-link">Careers</a></li>
+            <li><a href="#work" class="footer-link">Case studies</a></li>
+            <li><a href="#blog" class="footer-link">Blog</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5 class="text-white font-semibold text-sm uppercase tracking-wider">Contact</h5>
+          <ul class="mt-4 space-y-2 text-sm">
+            <li><a href="#contact" class="footer-link"><i class="far fa-envelope mr-2"></i> hello@clanmedia.co</a></li>
+            <li><a href="#contact" class="footer-link"><i class="fas fa-phone-alt mr-2"></i> +1 (555) 000-1111</a></li>
+            <li><a href="#contact" class="footer-link"><i class="fas fa-map-marker-alt mr-2"></i> NYC / remote</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="pt-6 text-xs text-white/40 flex flex-wrap justify-between gap-2">
+        <span>© 2026 Clan Media. All rights reserved.</span>
+        <span><a href="#" class="footer-link text-xs">Privacy</a> · <a href="#" class="footer-link text-xs">Terms</a></span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

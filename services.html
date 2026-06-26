@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clan Media · Services</title>
+  <!-- Tailwind via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome 6 (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <!-- Google Font: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+  <style>
+    * { font-family: 'Inter', system-ui, sans-serif; }
+    body { background: #fafcfc; }
+
+    .bg-brand-black { background-color: #000000; }
+    .bg-brand-orange { background-color: #f88313; }
+    .text-brand-orange { color: #f88313; }
+    .border-brand-black-subtle { border-color: rgba(0,0,0,0.08); }
+
+    .btn-orange {
+      background: #f88313;
+      color: white;
+      transition: 0.2s;
+    }
+    .btn-orange:hover {
+      background: #e06f0a;
+      box-shadow: 0 8px 22px -8px rgba(248, 131, 19, 0.4);
+    }
+
+    .btn-outline-dark {
+      border: 1.5px solid #000;
+      color: #000;
+      transition: 0.2s;
+    }
+    .btn-outline-dark:hover {
+      background: #000;
+      color: white;
+    }
+
+    .btn-outline-light {
+      border: 1.5px solid rgba(255,255,255,0.4);
+      color: white;
+      transition: 0.2s;
+    }
+    .btn-outline-light:hover {
+      background: rgba(255,255,255,0.07);
+      border-color: white;
+    }
+
+    .cta-gradient {
+      background: linear-gradient(145deg, #000000 0%, #1a1a1a 100%);
+    }
+
+    .card-hover {
+      transition: transform 0.25s ease, box-shadow 0.3s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 35px -10px rgba(0,0,0,0.12);
+    }
+
+    .section-title { letter-spacing: -0.025em; }
+
+    .badge-clan {
+      background: #f88313;
+      color: white;
+    }
+
+    .footer-link {
+      color: #b6cbd6;
+      transition: 0.2s;
+    }
+    .footer-link:hover { color: white; }
+
+    .stat-number {
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .border-subtle { border-color: rgba(0,0,0,0.07); }
+
+    .img-hover {
+      transition: transform 0.4s ease, filter 0.3s ease;
+    }
+    .img-hover:hover {
+      transform: scale(1.02);
+      filter: brightness(1.05);
+    }
+
+    /* ===== NAV ===== */
+    .nav-link {
+      position: relative;
+      font-weight: 500;
+      color: #1e1e1e;
+      transition: color 0.2s;
+      padding-bottom: 4px;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2.5px;
+      background: #f88313;
+      transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      border-radius: 4px;
+    }
+    .nav-link:hover { color: #f88313; }
+    .nav-link:hover::after { width: 100%; }
+    .nav-link.active { color: #f88313; }
+    .nav-link.active::after { width: 100%; }
+
+    .nav-cta {
+      background: #000000;
+      color: white;
+      padding: 0.6rem 1.8rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    .nav-cta:hover {
+      background: #1a1a1a;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+
+    .mobile-menu {
+      transition: max-height 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s ease;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      background: white;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    .mobile-menu.open {
+      max-height: 500px;
+      opacity: 1;
+    }
+
+    .mobile-link {
+      font-weight: 500;
+      color: #1e1e1e;
+      padding: 0.75rem 1rem;
+      border-radius: 0.75rem;
+      transition: all 0.2s;
+    }
+    .mobile-link:hover {
+      background: #f88313;
+      color: white;
+    }
+
+    .hamburger {
+      width: 28px;
+      height: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      padding: 0;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      height: 2.5px;
+      background: #000000;
+      border-radius: 4px;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transform-origin: center;
+    }
+    .hamburger.open span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 6px);
+    }
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+    .hamburger.open span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -6px);
+    }
+
+    .navbar-fixed {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 1px 30px rgba(0,0,0,0.06);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      padding-top: 0.75rem;
+      padding-bottom: 0.75rem;
+      transition: all 0.3s ease;
+    }
+    .navbar-placeholder { height: 76px; }
+    @media (max-width: 768px) { .navbar-placeholder { height: 68px; } }
+
+    /* Service detail card */
+    .service-detail-card {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 2rem;
+      border: 1px solid rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+    }
+    .service-detail-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px -10px rgba(0,0,0,0.08);
+    }
+    .service-detail-card .icon-circle {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: #f88313;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      flex-shrink: 0;
+    }
+
+    .service-detail-card .icon-circle-outline {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(248, 131, 19, 0.08);
+      color: #f88313;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      flex-shrink: 0;
+    }
+
+    /* Pricing card */
+    .pricing-card {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 2rem;
+      border: 1px solid rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+    .pricing-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 35px -10px rgba(0,0,0,0.1);
+    }
+    .pricing-card.featured {
+      border: 2px solid #f88313;
+      position: relative;
+    }
+    .pricing-card.featured::before {
+      content: 'Most Popular';
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #f88313;
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.25rem 1rem;
+      border-radius: 9999px;
+    }
+    .pricing-card .price {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #000;
+    }
+    .pricing-card .price span {
+      font-size: 1rem;
+      font-weight: 400;
+      color: #6b7280;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAV PLACEHOLDER ===== -->
+  <div class="navbar-placeholder"></div>
+
+  <!-- ===== FIXED NAV ===== -->
+  <nav id="navbar" class="navbar-fixed max-w-7xl mx-auto px-6 md:px-10 flex items-center justify-between transition-all duration-300">
+    <div class="text-2xl font-bold tracking-tight text-black flex items-center gap-1">
+      Clan <span class="font-light">Media</span>
+      <span class="ml-2 text-[10px] font-semibold uppercase tracking-widest text-[#f88313] bg-[#f88313]/10 px-2.5 py-0.5 rounded-full hidden sm:inline-block">agency</span>
+    </div>
+
+    <div class="hidden md:flex items-center gap-7 text-sm">
+           <a href="index.html" class="nav-link ">home</a>
+      <a href="services.html" class="nav-link active">Services</a>
+      <a href="work.html" class="nav-link">Work</a>
+      <a href="about.html" class="nav-link">About</a>
+      <a href="blog.html" class="nav-link">Blog</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+      <a href="get-started.html" class="nav-cta">
+        <i class="fas fa-arrow-right mr-2 text-xs"></i>Get Started
+      </a>
+    </div>
+
+    <button id="menuToggle" class="md:hidden hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div id="mobileMenu" class="md:hidden mobile-menu px-6 py-2 flex flex-col" style="position:fixed; top:68px; left:0; right:0; z-index:998; background:white; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
+   
+    <a href="index.html" class="mobile-link">home</a>
+    <a href="services.html" class="mobile-link active">Services</a>
+    <a href="work.html" class="mobile-link">Work</a>
+    <a href="about.html" class="mobile-link">About</a>
+    <a href="blog.html" class="mobile-link">Blog</a>
+    <a href="contact.html" class="mobile-link">Contact</a>
+    <a href="get-started.html" class="mobile-link bg-black text-white hover:bg-[#1a1a1a] text-center mt-2">
+      <i class="fas fa-arrow-right mr-2"></i>Get Started
+    </a>
+  </div>
+
+  <script>
+    const toggle = document.getElementById('menuToggle');
+    const menu = document.getElementById('mobileMenu');
+    toggle.addEventListener('click', () => {
+      toggle.classList.toggle('open');
+      menu.classList.toggle('open');
+    });
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        toggle.classList.remove('open');
+        menu.classList.remove('open');
+      });
+    });
+  </script>
+
+  <!-- ============================================================ -->
+  <!-- ===== SERVICES HERO ===== -->
+  <!-- ============================================================ -->
+  <section class="max-w-7xl mx-auto px-6 md:px-10 pt-8 pb-12 md:pt-16 md:pb-20">
+    <div class="text-center max-w-3xl mx-auto">
+      <span class="inline-block badge-clan text-xs font-semibold tracking-wider uppercase px-4 py-1.5 rounded-full mb-5">
+        <i class="fas fa-cogs mr-2"></i> our services
+      </span>
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight text-black">
+        End-to-end <br /><span class="text-[#f88313]">digital solutions</span>
+      </h1>
+      <p class="text-[#2f2f2f] text-lg md:text-xl max-w-2xl mx-auto mt-4 leading-relaxed">
+        From strategy to execution — we provide everything you need to build a powerful digital presence and drive measurable growth.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- ===== ALL SERVICES ===== -->
+  <!-- ============================================================ -->
+  <section class="max-w-7xl mx-auto px-6 md:px-10 pb-16 md:pb-24">
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Service 1 -->
+      <div class="service-detail-card card-hover">
+        <div class="icon-circle"><i class="fas fa-hashtag"></i></div>
+        <h3 class="text-xl font-bold text-black mt-4">Social Media Management</h3>
+        <p class="text-[#2f2f2f] text-sm leading-relaxed mt-2">Strategic content creation, community engagement, and paid social that drives real business results.</p>
+        <ul class="mt-4 text-sm text-[#2f2f2f] space-y-2">
+          <li class="flex items-start gap-2"><i class="fas fa-check text-[#f88313] mt-0.5"></i> Content calendars & creation</li>
+          <li class="flex items-start gap-2"><i class="fas fa-check text-[#f88313] mt-0.5"></i> Community management & engagement</li>
+          <li class="flex items-start gap-2"><i class="fas fa-check text-[#f88313] mt-0.5"></i> Analytics & performance reporting</li>
+          <li class="flex items-start gap-2"><i class="fas fa-check text-[#f88313] mt-0.5"></i> Paid social campaign management</li>
+        </ul>
+        <a href="social-media.html" class="inline-flex items-center gap-2 mt-4 text-sm font-semibold text-[#f88313] hover:underline">Learn more <i class="fas fa-arrow-right"></i></a>
+      </div>
+
+      <!-- Service 2 -->
+      <div class="service-detail-card card-hover">
+        <div class="icon-circle"><i class="fas fa-video"></i></div>
+        <h3 class="text-xl font-bold text-black mt-4">Mobile Videography & Editing</h3>
+        <p class="text-[#2f2f2f] text-sm leading-relaxed mt-2">Cinematic-quality video content captured and edited for social, ads, and brand storytelling.</p>
+        <ul class="mt-4 text-sm text-[#2f2f2f] space-y-2">
+          <li class="flex items-start gap-2"><i class="fas fa-check text-[#f88313] mt-0.5"></i> Short-form & long-form video</li>
+          <li class="flex items-start gap-2"><i class="fas fa-check text-[#f88313] mt-0.5"></i> On-location & studio shoots</li>
+          <li class="flex items-start gap-2"><i class="fas fa-check text-[#f88313] mt-0.5"></i> Post-production & color grading</li>
+          <li class="flex items-start gap-2"><i class="fas fa-check text-[#f88313] mt-0.5"></i> Motion graphics & animation</li>
+        </ul>
+        <a href="#" class="inline-flex items-center gap-2 mt-4 text-sm font-semibold text-[#f88313] hover:underline">Learn more <i class="fas fa-arrow-right"></i></a>
+      </div>
+
+      <!-- Service 3 -->
+      <div class="service-detail-card card-hover">
+        <div class="icon-circle"><i class="fas fa-pen-fancy"></i></div>
+        <h3 class="text-xl font-bold text-black mt-4">Branding & Identity</h3>
+        <p class="text-[#2f2f2f] text-sm leading-relaxed mt-2">Distinctive brand identities that resonate with your audience and stand out in the market.</p>
+        <ul class="mt-4 text-sm text-[#2f2f2f] space-y-2">
+          <li class="flex items-start gap-2"><i class="fas fa-check text-[#f88313] mt-0.5"></i> Logo & visual identity design</li>
+          <li class="flex items-start gap-2"><i class="fas fa-check text-[#f88313] mt-0.5"></i> Brand guidelines & style guides</li>
+          <li class="flex items-start gap-2"><i class="fas fa-check text-[#f88313] mt-0.5"></i> Messaging & brand positioning</li>
+          <li class="flex items-start gap-2"><i class="fas fa-check text-[#f88313] mt-0.5"></i> Packaging & collateral design</li>
+        </ul>
+        <a href="#" class="inline-flex items-center gap-2 mt-4 text-sm font-semibold text-[#f88313] hover:underline">Learn more <i class="fas fa-arrow-right"></i></a>
+      </div>
+
+      <!-- Service 4 -->
+      <div class="service-detail-card card-hover">
+        <div class="icon-circle"><i class="fas fa-code"></i></div>
+        <h3 class="text-xl font-bold text-black mt-4">Website Development</h3>
+        <p class="text-[#2f2f2f] text-sm leading-relaxed mt-2">High-performance, conversion-optimized websites built to attract, engage, and convert.</p>
+        <ul class="mt-4 text-sm text-[#2f2f2f] space-y-2">
+          <li class="flex items-start gap-2"><i class="fas fa-check text-[#f88313] mt-0.5"></i> Custom web design & development</li>
+          <li class="flex items-start gap-2"><i class="fas fa-check text-[#f88313] mt-0.5"></i> E-commerce & CMS solutions</li>
+          <li class="flex items-start gap-2"><i class="fas fa-check text-[#f88313] mt-0.5"></i> SEO & performance optimization</li>
+          <li class="flex items-start gap-2"><i class="fas fa-check text-[#f88313] mt-0.5"></i> Ongoing maintenance & support</li>
+        </ul>
+        <a href="#" class="inline-flex items-center gap-2 mt-4 text-sm font-semibold text-[#f88313] hover:underline">Learn more <i class="fas fa-arrow-right"></i></a>
+      </div>
+
+      <!-- Service 5 -->
+      <div class="service-detail-card card-hover">
+        <div class="icon-circle"><i class="fas fa-bullhorn"></i></div>
+        <h3 class="text-xl font-bold text-black mt-4">Paid Advertising</h3>
+        <p class="text-[#2f2f2f] text-sm leading-relaxed mt-2">Data-driven ad campaigns across Meta, Google, LinkedIn, and more with measurable ROAS.</p>
+        <ul class="mt-4 text-sm text-[#2f2f2f] space-y-2">
+          <li class="flex items-start gap-2"><i class="fas fa-check text-[#f88313] mt-0.5"></i> Strategy & audience targeting</li>
+          <li class="flex items-start gap-2"><i class="fas fa-check text-[#f88313] mt-0.5"></i> Creative development & copywriting</li>
+          <li class="flex items-start gap-2"><i class="fas fa-check text-[#f88313] mt-0.5"></i> Daily optimization & A/B testing</li>
+          <li class="flex items-start gap-2"><i class="fas fa-check text-[#f88313] mt-0.5"></i> Detailed performance reporting</li>
+        </ul>
+        <a href="#" class="inline-flex items-center gap-2 mt-4 text-sm font-semibold text-[#f88313] hover:underline">Learn more <i class="fas fa-arrow-right"></i></a>
+      </div>
+
+      <!-- Service 6 -->
+      <div class="service-detail-card card-hover">
+        <div class="icon-circle"><i class="fas fa-chart-line"></i></div>
+        <h3 class="text-xl font-bold text-black mt-4">Growth Strategy</h3>
+        <p class="text-[#2f2f2f] text-sm leading-relaxed mt-2">Comprehensive growth roadmaps that align marketing, sales, and product for scalable revenue.</p>
+        <ul class="mt-4 text-sm text-[#2f2f2f] space-y-2">
+          <li class="flex items-start gap-2"><i class="fas fa-check text-[#f88313] mt-0.5"></i> Market research & competitor analysis</li>
+          <li class="flex items-start gap-2"><i class="fas fa-check text-[#f88313] mt-0.5"></i> Funnel optimization & CRO</li>
+          <li class="flex items-start gap-2"><i class="fas fa-check text-[#f88313] mt-0.5"></i> Retention & lifecycle marketing</li>
+          <li class="flex items-start gap-2"><i class="fas fa-check text-[#f88313] mt-0.5"></i> Revenue forecasting & KPIs</li>
+        </ul>
+        <a href="#" class="inline-flex items-center gap-2 mt-4 text-sm font-semibold text-[#f88313] hover:underline">Learn more <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- ===== PROCESS ===== -->
+  <!-- ============================================================ -->
+  <section class="max-w-7xl mx-auto px-6 md:px-10 py-16 md:py-20 border-y border-subtle">
+    <div class="text-center max-w-2xl mx-auto">
+      <span class="inline-block text-xs font-semibold tracking-wider uppercase text-[#f88313] bg-[#f88313]/10 px-4 py-1.5 rounded-full mb-4">how we work</span>
+      <h2 class="section-title text-3xl md:text-4xl font-bold text-black mt-5">Our process</h2>
+      <p class="text-[#2f2f2f] mt-3 text-lg">A proven framework for delivering results.</p>
+    </div>
+
+    <div class="grid md:grid-cols-4 gap-6 mt-12">
+      <div class="text-center">
+        <div class="w-16 h-16 rounded-full bg-[#f88313] text-white flex items-center justify-center text-2xl font-bold mx-auto">1</div>
+        <h4 class="font-bold text-black mt-4">Discovery</h4>
+        <p class="text-sm text-[#2f2f2f] mt-1">We dive deep into your goals, audience, and competitive landscape.</p>
+      </div>
+      <div class="text-center">
+        <div class="w-16 h-16 rounded-full bg-[#f88313] text-white flex items-center justify-center text-2xl font-bold mx-auto">2</div>
+        <h4 class="font-bold text-black mt-4">Strategy</h4>
+        <p class="text-sm text-[#2f2f2f] mt-1">We build a tailored roadmap with clear objectives and KPIs.</p>
+      </div>
+      <div class="text-center">
+        <div class="w-16 h-16 rounded-full bg-[#f88313] text-white flex items-center justify-center text-2xl font-bold mx-auto">3</div>
+        <h4 class="font-bold text-black mt-4">Execution</h4>
+        <p class="text-sm text-[#2f2f2f] mt-1">Our team brings the strategy to life with creativity and precision.</p>
+      </div>
+      <div class="text-center">
+        <div class="w-16 h-16 rounded-full bg-[#f88313] text-white flex items-center justify-center text-2xl font-bold mx-auto">4</div>
+        <h4 class="font-bold text-black mt-4">Optimization</h4>
+        <p class="text-sm text-[#2f2f2f] mt-1">We continuously refine and scale what's working for maximum impact.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- ===== PRICING ===== -->
+  <!-- ============================================================ -->
+  <section class="max-w-7xl mx-auto px-6 md:px-10 py-16 md:py-20">
+    <div class="text-center max-w-2xl mx-auto">
+      <span class="inline-block text-xs font-semibold tracking-wider uppercase text-[#f88313] bg-[#f88313]/10 px-4 py-1.5 rounded-full mb-4">pricing</span>
+      <h2 class="section-title text-3xl md:text-4xl font-bold text-black mt-5">Flexible plans for every stage</h2>
+      <p class="text-[#2f2f2f] mt-3 text-lg">Choose a package that fits your needs. All plans include a dedicated account manager.</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6 mt-12 max-w-5xl mx-auto">
+      <div class="pricing-card card-hover">
+        <h4 class="text-lg font-bold text-black">Starter</h4>
+        <p class="text-sm text-[#2f2f2f] mt-1">Perfect for emerging brands</p>
+        <div class="mt-4"><span class="price">$2,500</span> <span>/mo</span></div>
+        <ul class="mt-4 text-sm text-[#2f2f2f] space-y-2 text-left">
+          <li class="flex items-start gap-2"><i class="fas fa-check text-[#f88313] mt-0.5"></i> Social media management</li>
+          <li class="flex items-start gap-2"><i class="fas fa-check text-[#f88313] mt-0.5"></i> 2 video shoots / month</li>
+          <li class="flex items-start gap-2"><i class="fas fa-check text-[#f88313] mt-0.5"></i> Monthly performance report</li>
+          <li class="flex items-start gap-2"><i class="fas fa-check text-[#f88313] mt-0.5"></i> Dedicated account manager</li>
+        </ul>
+        <a href="#" class="btn-orange w-full mt-6 py-3 rounded-full text-sm font-semibold inline-block text-center">Get Started</a>
+      </div>
+
+      <div class="pricing-card featured card-hover">
+        <h4 class="text-lg font-bold text-black">Growth</h4>
+        <p class="text-sm text-[#2f2f2f] mt-1">For scaling businesses</p>
+        <div class="mt-4"><span class="price">$5,000</span> <span>/mo</span></div>
+        <ul class="mt-4 text-sm text-[#2f2f2f] space-y-2 text-left">
+          <li class="flex items-start gap-2"><i class="fas fa-check text-[#f88313] mt-0.5"></i> Everything in Starter +</li>
+          <li class="flex items-start gap-2"><i class="fas fa-check text-[#f88313] mt-0.5"></i> Paid ad management</li>
+          <li class="flex items-start gap-2"><i class="fas fa-check text-[#f88313] mt-0.5"></i> 4 video shoots / month</li>
+          <li class="flex items-start gap-2"><i class="fas fa-check text-[#f88313] mt-0.5"></i> Brand strategy & positioning</li>
+          <li class="flex items-start gap-2"><i class="fas fa-check text-[#f88313] mt-0.5"></i> Weekly optimization reviews</li>
+        </ul>
+        <a href="#" class="btn-orange w-full mt-6 py-3 rounded-full text-sm font-semibold inline-block text-center">Get Started</a>
+      </div>
+
+      <div class="pricing-card card-hover">
+        <h4 class="text-lg font-bold text-black">Enterprise</h4>
+        <p class="text-sm text-[#2f2f2f] mt-1">Custom solutions for scale</p>
+        <div class="mt-4"><span class="price">Custom</span></div>
+        <ul class="mt-4 text-sm text-[#2f2f2f] space-y-2 text-left">
+          <li class="flex items-start gap-2"><i class="fas fa-check text-[#f88313] mt-0.5"></i> Everything in Growth +</li>
+          <li class="flex items-start gap-2"><i class="fas fa-check text-[#f88313] mt-0.5"></i> Full-service ecosystem</li>
+          <li class="flex items-start gap-2"><i class="fas fa-check text-[#f88313] mt-0.5"></i> Dedicated strategy team</li>
+          <li class="flex items-start gap-2"><i class="fas fa-check text-[#f88313] mt-0.5"></i> Custom integrations & tools</li>
+          <li class="flex items-start gap-2"><i class="fas fa-check text-[#f88313] mt-0.5"></i> Quarterly business reviews</li>
+        </ul>
+        <a href="#" class="btn-orange w-full mt-6 py-3 rounded-full text-sm font-semibold inline-block text-center">Contact Sales</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- ===== CTA ===== -->
+  <!-- ============================================================ -->
+  <section class="max-w-7xl mx-auto px-6 md:px-10 pb-20">
+    <div class="cta-gradient rounded-3xl px-8 py-16 md:px-16 md:py-20 text-white relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-96 h-96 bg-[#f88313]/15 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4"></div>
+      <div class="relative z-10 max-w-2xl">
+        <span class="inline-block bg-[#f88313] text-white text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full mb-5">ready to scale?</span>
+        <h2 class="text-3xl md:text-4xl font-bold leading-tight">Let's build something <br />exceptional together.</h2>
+        <p class="text-white/80 text-lg mt-4 max-w-lg">Book a free strategy call and discover how Clan Media can accelerate your brand.</p>
+        <div class="flex flex-wrap gap-4 mt-8">
+          <a href="contact.html" class="bg-[#f88313] text-white px-8 py-4 rounded-full text-sm font-semibold shadow-lg shadow-[#f88313]/30 hover:bg-[#e06f0a] transition">
+            <i class="fas fa-calendar-alt mr-2"></i> Book a call
+          </a>
+          <a href="get-started.html" class="btn-outline-light px-8 py-4 rounded-full text-sm font-medium">
+            <i class="fas fa-arrow-right mr-2"></i> Get Started
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- ===== STATS ===== -->
+  <!-- ============================================================ -->
+  <section class="max-w-7xl mx-auto px-6 md:px-10 pb-16">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 divide-y md:divide-y-0 md:divide-x divide-black/10">
+      <div class="text-center py-4"><div class="stat-number text-4xl text-black">98%</div><div class="text-sm text-[#2f2f2f]">client retention</div></div>
+      <div class="text-center py-4"><div class="stat-number text-4xl text-black">4.9</div><div class="text-sm text-[#2f2f2f]">average rating</div></div>
+      <div class="text-center py-4"><div class="stat-number text-4xl text-black">120+</div><div class="text-sm text-[#2f2f2f]">projects delivered</div></div>
+      <div class="text-center py-4"><div class="stat-number text-4xl text-black">3.2x</div><div class="text-sm text-[#2f2f2f]">avg. ROAS for ads</div></div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- ===== FOOTER ===== -->
+  <!-- ============================================================ -->
+  <footer class="bg-black text-white/70 pt-16 pb-8 mt-8">
+    <div class="max-w-7xl mx-auto px-6 md:px-10">
+      <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-10 pb-12 border-b border-white/10">
+        <div>
+          <span class="text-2xl font-bold tracking-tight text-white">Clan <span class="font-light">Media</span></span>
+          <p class="text-sm mt-4 max-w-xs leading-relaxed">Full-service digital agency for startups, real estate & high-growth brands.</p>
+          <div class="flex gap-4 mt-6 text-white/60 text-lg">
+            <a href="#" class="hover:text-[#f88313] transition"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="hover:text-[#f88313] transition"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="hover:text-[#f88313] transition"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="hover:text-[#f88313] transition"><i class="fab fa-x-twitter"></i></a>
+          </div>
+        </div>
+        <div>
+          <h5 class="text-white font-semibold text-sm uppercase tracking-wider">Services</h5>
+          <ul class="mt-4 space-y-2 text-sm">
+            <li><a href="social-media.html" class="footer-link">Social media</a></li>
+            <li><a href="videography.html" class="footer-link">Videography</a></li>
+            <li><a href="branding.html" class="footer-link">Branding</a></li>
+            <li><a href="web-development.html" class="footer-link">Web development</a></li>
+            <li><a href="paid-ads.html" class="footer-link">Paid ads</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5 class="text-white font-semibold text-sm uppercase tracking-wider">Company</h5>
+          <ul class="mt-4 space-y-2 text-sm">
+            <li><a href="about.html" class="footer-link">About</a></li>
+            <li><a href="careers.html" class="footer-link">Careers</a></li>
+            <li><a href="case-studies.html" class="footer-link">Case studies</a></li>
+            <li><a href="blog.html" class="footer-link">Blog</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5 class="text-white font-semibold text-sm uppercase tracking-wider">Contact</h5>
+          <ul class="mt-4 space-y-2 text-sm">
+            <li><a href="contact.html" class="footer-link"><i class="far fa-envelope mr-2"></i> hello@clanmedia.co</a></li>
+            <li><a href="contact.html" class="footer-link"><i class="fas fa-phone-alt mr-2"></i> +1 (555) 000-1111</a></li>
+            <li><a href="contact.html" class="footer-link"><i class="fas fa-map-marker-alt mr-2"></i> NYC / remote</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="pt-6 text-xs text-white/40 flex flex-wrap justify-between gap-2">
+        <span>© 2026 Clan Media. All rights reserved.</span>
+        <span><a href="privacy.html" class="footer-link text-xs">Privacy</a> · <a href="terms.html" class="footer-link text-xs">Terms</a></span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

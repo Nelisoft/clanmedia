@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clan Media · Admin Dashboard</title>
+  <!-- Tailwind via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome 6 (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <!-- Google Font: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+  <style>
+    * { font-family: 'Inter', system-ui, sans-serif; }
+    body { background: #f1f5f9; }
+
+    .bg-brand-black { background-color: #000000; }
+    .bg-brand-orange { background-color: #f88313; }
+    .text-brand-orange { color: #f88313; }
+    .border-brand-orange { border-color: #f88313; }
+
+    .stat-card {
+      background: white;
+      border-radius: 1.2rem;
+      padding: 1.5rem;
+      border: 1px solid rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+    }
+    .stat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px -10px rgba(0,0,0,0.08);
+    }
+
+    .stat-card .icon-circle {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      flex-shrink: 0;
+    }
+
+    .table-row {
+      transition: background 0.2s;
+    }
+    .table-row:hover {
+      background: #f8fafc;
+    }
+
+    .status-badge {
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .status-badge.active { background: #dcfce7; color: #166534; }
+    .status-badge.pending { background: #fef3c7; color: #92400e; }
+    .status-badge.completed { background: #dbeafe; color: #1e40af; }
+    .status-badge.inactive { background: #f3f4f6; color: #4b5563; }
+
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      border-radius: 0.75rem;
+      color: #64748b;
+      transition: all 0.2s;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+    .sidebar-link:hover {
+      background: rgba(248, 131, 19, 0.08);
+      color: #f88313;
+    }
+    .sidebar-link.active {
+      background: #f88313;
+      color: white;
+    }
+    .sidebar-link i { width: 20px; text-align: center; }
+
+    .activity-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    .activity-item:last-child { border-bottom: none; }
+
+    .activity-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 5px;
+    }
+    .activity-dot.orange { background: #f88313; }
+    .activity-dot.green { background: #22c55e; }
+    .activity-dot.blue { background: #3b82f6; }
+    .activity-dot.purple { background: #8b5cf6; }
+
+    /* ===== SIDEBAR ===== */
+    .sidebar {
+      transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .sidebar.closed {
+      transform: translateX(-100%);
+    }
+    @media (min-width: 1024px) {
+      .sidebar.closed {
+        transform: translateX(0);
+      }
+    }
+
+    /* ===== RESPONSIVE TABLE ===== */
+    .table-wrapper {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 0 -0.5rem;
+      padding: 0 0.5rem;
+    }
+    @media (max-width: 640px) {
+      .table-wrapper table {
+        min-width: 480px;
+      }
+    }
+
+    /* ===== CHARTS ===== */
+    .chart-bar {
+      transition: height 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .chart-bar:hover {
+      opacity: 0.8;
+    }
+
+    /* ===== SCROLLBAR ===== */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+      border-radius: 8px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 8px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================ -->
+  <!-- ===== ADMIN LAYOUT ===== -->
+  <!-- ============================================================ -->
+  <div class="flex min-h-screen">
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside id="sidebar" class="sidebar fixed lg:sticky top-0 left-0 z-50 w-64 h-screen bg-white border-r border-black/5 flex flex-col shadow-sm">
+      <!-- Brand -->
+      <div class="px-6 py-5 border-b border-black/5 flex items-center justify-between">
+        <div class="text-xl font-bold tracking-tight text-black flex items-center gap-1">
+          Clan <span class="font-light">Media</span>
+          <span class="ml-2 text-[9px] font-semibold uppercase tracking-widest text-[#f88313] bg-[#f88313]/10 px-2 py-0.5 rounded-full">admin</span>
+        </div>
+        <button id="sidebarClose" class="lg:hidden text-[#64748b] hover:text-black text-lg">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <!-- Navigation -->
+      <nav class="flex-1 px-4 py-6 space-y-1 overflow-y-auto">
+        <a href="#" class="sidebar-link active"><i class="fas fa-th-large"></i> Dashboard</a>
+        <a href="#" class="sidebar-link"><i class="fas fa-briefcase"></i> Projects</a>
+        <a href="#" class="sidebar-link"><i class="fas fa-users"></i> Clients</a>
+        <a href="#" class="sidebar-link"><i class="fas fa-file-alt"></i> Blog Posts</a>
+        <a href="#" class="sidebar-link"><i class="fas fa-envelope"></i> Inquiries</a>
+        <a href="#" class="sidebar-link"><i class="fas fa-calendar"></i> Schedule</a>
+        <a href="#" class="sidebar-link"><i class="fas fa-chart-bar"></i> Analytics</a>
+        <a href="#" class="sidebar-link"><i class="fas fa-cog"></i> Settings</a>
+      </nav>
+
+      <!-- User -->
+      <div class="px-6 py-4 border-t border-black/5">
+        <div class="flex items-center gap-3">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=center" alt="Admin" class="w-9 h-9 rounded-full object-cover" />
+          <div class="min-w-0 flex-1">
+            <p class="text-sm font-semibold text-black truncate">Alex Rivera</p>
+            <p class="text-xs text-[#64748b] truncate">admin@clanmedia.co</p>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ===== OVERLAY (mobile) ===== -->
+    <div id="sidebarOverlay" class="fixed inset-0 bg-black/30 z-40 hidden lg:hidden" onclick="closeSidebar()"></div>
+
+    <!-- ============================================================ -->
+    <!-- ===== MAIN CONTENT ===== -->
+    <!-- ============================================================ -->
+    <div class="flex-1 min-w-0">
+
+      <!-- ===== TOP BAR ===== -->
+      <header class="bg-white border-b border-black/5 px-4 sm:px-6 py-4 sticky top-0 z-30 flex items-center justify-between gap-3">
+        <div class="flex items-center gap-3 min-w-0">
+          <button id="sidebarToggle" class="lg:hidden text-black text-xl flex-shrink-0">
+            <i class="fas fa-bars"></i>
+          </button>
+          <h1 class="text-lg sm:text-xl font-bold text-black truncate">Dashboard</h1>
+        </div>
+        <div class="flex items-center gap-3 flex-shrink-0">
+          <button class="relative text-[#64748b] hover:text-black transition">
+            <i class="fas fa-bell text-lg"></i>
+            <span class="absolute -top-1 -right-1 w-4 h-4 bg-[#f88313] text-white text-[9px] font-bold rounded-full flex items-center justify-center">3</span>
+          </button>
+          <button class="text-[#64748b] hover:text-black transition hidden sm:inline-block"><i class="fas fa-search text-lg"></i></button>
+          <div class="hidden md:flex items-center gap-2 text-xs text-[#64748b]">
+            <span>Updated: Today, 2:30 PM</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- ===== DASHBOARD CONTENT ===== -->
+      <main class="p-4 sm:p-6 md:p-8 space-y-6 md:space-y-8">
+
+        <!-- ===== STATS ===== -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+          <div class="stat-card">
+            <div class="flex items-center justify-between">
+              <div class="min-w-0">
+                <p class="text-sm text-[#64748b] font-medium">Total Projects</p>
+                <p class="text-2xl font-bold text-black mt-1">48</p>
+                <p class="text-xs text-[#22c55e] mt-1 truncate"><i class="fas fa-arrow-up mr-1"></i> +12% this month</p>
+              </div>
+              <div class="icon-circle bg-[#f88313]/10 text-[#f88313] flex-shrink-0"><i class="fas fa-briefcase"></i></div>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="flex items-center justify-between">
+              <div class="min-w-0">
+                <p class="text-sm text-[#64748b] font-medium">Active Clients</p>
+                <p class="text-2xl font-bold text-black mt-1">32</p>
+                <p class="text-xs text-[#22c55e] mt-1 truncate"><i class="fas fa-arrow-up mr-1"></i> +4 this month</p>
+              </div>
+              <div class="icon-circle bg-[#3b82f6]/10 text-[#3b82f6] flex-shrink-0"><i class="fas fa-users"></i></div>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="flex items-center justify-between">
+              <div class="min-w-0">
+                <p class="text-sm text-[#64748b] font-medium">Pending Inquiries</p>
+                <p class="text-2xl font-bold text-black mt-1">7</p>
+                <p class="text-xs text-[#f88313] mt-1 truncate"><i class="fas fa-clock mr-1"></i> 3 need follow-up</p>
+              </div>
+              <div class="icon-circle bg-[#fef3c7] text-[#d97706] flex-shrink-0"><i class="fas fa-envelope"></i></div>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="flex items-center justify-between">
+              <div class="min-w-0">
+                <p class="text-sm text-[#64748b] font-medium">Revenue (MTD)</p>
+                <p class="text-2xl font-bold text-black mt-1">$84.5K</p>
+                <p class="text-xs text-[#22c55e] mt-1 truncate"><i class="fas fa-arrow-up mr-1"></i> +18% vs last month</p>
+              </div>
+              <div class="icon-circle bg-[#22c55e]/10 text-[#22c55e] flex-shrink-0"><i class="fas fa-dollar-sign"></i></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== CHARTS ROW ===== -->
+        <div class="grid lg:grid-cols-2 gap-6">
+          <div class="bg-white rounded-2xl p-4 sm:p-6 border border-black/5">
+            <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+              <h3 class="font-semibold text-black">Revenue Overview</h3>
+              <span class="text-xs text-[#64748b]">Last 6 months</span>
+            </div>
+            <div class="h-48 flex items-end gap-1 sm:gap-2">
+              <div class="flex-1 flex flex-col items-center gap-1">
+                <div class="w-full bg-[#f88313]/20 rounded-t-sm chart-bar" style="height: 60px;"></div>
+                <span class="text-[10px] sm:text-xs text-[#64748b]">Jan</span>
+              </div>
+              <div class="flex-1 flex flex-col items-center gap-1">
+                <div class="w-full bg-[#f88313]/30 rounded-t-sm chart-bar" style="height: 80px;"></div>
+                <span class="text-[10px] sm:text-xs text-[#64748b]">Feb</span>
+              </div>
+              <div class="flex-1 flex flex-col items-center gap-1">
+                <div class="w-full bg-[#f88313]/40 rounded-t-sm chart-bar" style="height: 65px;"></div>
+                <span class="text-[10px] sm:text-xs text-[#64748b]">Mar</span>
+              </div>
+              <div class="flex-1 flex flex-col items-center gap-1">
+                <div class="w-full bg-[#f88313]/50 rounded-t-sm chart-bar" style="height: 90px;"></div>
+                <span class="text-[10px] sm:text-xs text-[#64748b]">Apr</span>
+              </div>
+              <div class="flex-1 flex flex-col items-center gap-1">
+                <div class="w-full bg-[#f88313]/70 rounded-t-sm chart-bar" style="height: 110px;"></div>
+                <span class="text-[10px] sm:text-xs text-[#64748b]">May</span>
+              </div>
+              <div class="flex-1 flex flex-col items-center gap-1">
+                <div class="w-full bg-[#f88313] rounded-t-sm chart-bar" style="height: 140px;"></div>
+                <span class="text-[10px] sm:text-xs text-[#64748b]">Jun</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-2xl p-4 sm:p-6 border border-black/5">
+            <h3 class="font-semibold text-black mb-4">Project Status</h3>
+            <div class="space-y-3">
+              <div>
+                <div class="flex justify-between text-sm">
+                  <span class="text-[#64748b]">In Progress</span>
+                  <span class="font-medium text-black">8</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
+                  <div class="bg-[#f88313] h-2 rounded-full" style="width: 45%"></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between text-sm">
+                  <span class="text-[#64748b]">Completed</span>
+                  <span class="font-medium text-black">24</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
+                  <div class="bg-[#22c55e] h-2 rounded-full" style="width: 60%"></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between text-sm">
+                  <span class="text-[#64748b]">Pending Review</span>
+                  <span class="font-medium text-black">6</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
+                  <div class="bg-[#f59e0b] h-2 rounded-full" style="width: 20%"></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between text-sm">
+                  <span class="text-[#64748b]">On Hold</span>
+                  <span class="font-medium text-black">4</span>
+                </div>
+                <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
+                  <div class="bg-[#6b7280] h-2 rounded-full" style="width: 15%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== RECENT PROJECTS & ACTIVITY ===== -->
+        <div class="grid lg:grid-cols-3 gap-6">
+          <!-- Recent Projects -->
+          <div class="lg:col-span-2 bg-white rounded-2xl p-4 sm:p-6 border border-black/5">
+            <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+              <h3 class="font-semibold text-black">Recent Projects</h3>
+              <a href="#" class="text-sm text-[#f88313] hover:underline flex-shrink-0">View all</a>
+            </div>
+            <div class="table-wrapper">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="text-left text-[#64748b] border-b border-black/5">
+                    <th class="pb-3 pr-2 font-medium">Project</th>
+                    <th class="pb-3 pr-2 font-medium hidden sm:table-cell">Client</th>
+                    <th class="pb-3 pr-2 font-medium">Status</th>
+                    <th class="pb-3 font-medium text-right">Due</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="table-row border-b border-black/5">
+                    <td class="py-3 pr-2 font-medium text-black">Lumos Realty Rebrand</td>
+                    <td class="py-3 pr-2 text-[#64748b] hidden sm:table-cell">Lumos Realty</td>
+                    <td class="py-3 pr-2"><span class="status-badge active">Active</span></td>
+                    <td class="py-3 text-right text-[#64748b] text-xs sm:text-sm">Jul 15</td>
+                  </tr>
+                  <tr class="table-row border-b border-black/5">
+                    <td class="py-3 pr-2 font-medium text-black">Bloom Skincare E-commerce</td>
+                    <td class="py-3 pr-2 text-[#64748b] hidden sm:table-cell">Bloom Skincare</td>
+                    <td class="py-3 pr-2"><span class="status-badge completed">Completed</span></td>
+                    <td class="py-3 text-right text-[#64748b] text-xs sm:text-sm">Jun 28</td>
+                  </tr>
+                  <tr class="table-row border-b border-black/5">
+                    <td class="py-3 pr-2 font-medium text-black">Swift Logistics Brand Film</td>
+                    <td class="py-3 pr-2 text-[#64748b] hidden sm:table-cell">Swift Logistics</td>
+                    <td class="py-3 pr-2"><span class="status-badge pending">Pending</span></td>
+                    <td class="py-3 text-right text-[#64748b] text-xs sm:text-sm">Jul 22</td>
+                  </tr>
+                  <tr class="table-row">
+                    <td class="py-3 pr-2 font-medium text-black">NovaTech Growth Strategy</td>
+                    <td class="py-3 pr-2 text-[#64748b] hidden sm:table-cell">NovaTech</td>
+                    <td class="py-3 pr-2"><span class="status-badge active">Active</span></td>
+                    <td class="py-3 text-right text-[#64748b] text-xs sm:text-sm">Aug 5</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Recent Activity -->
+          <div class="bg-white rounded-2xl p-4 sm:p-6 border border-black/5">
+            <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+              <h3 class="font-semibold text-black">Recent Activity</h3>
+              <span class="text-xs text-[#64748b] flex-shrink-0">Today</span>
+            </div>
+            <div class="space-y-1 max-h-[280px] overflow-y-auto pr-1">
+              <div class="activity-item">
+                <div class="activity-dot orange"></div>
+                <div class="min-w-0">
+                  <p class="text-sm font-medium text-black truncate">New inquiry received</p>
+                  <p class="text-xs text-[#64748b]">from UrbanEats · 10 min ago</p>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-dot green"></div>
+                <div class="min-w-0">
+                  <p class="text-sm font-medium text-black truncate">Project completed</p>
+                  <p class="text-xs text-[#64748b]">Bloom Skincare · 1 hour ago</p>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-dot blue"></div>
+                <div class="min-w-0">
+                  <p class="text-sm font-medium text-black truncate">Client meeting scheduled</p>
+                  <p class="text-xs text-[#64748b]">with NovaTech · 3 hours ago</p>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-dot purple"></div>
+                <div class="min-w-0">
+                  <p class="text-sm font-medium text-black truncate">Blog post published</p>
+                  <p class="text-xs text-[#64748b]">"5 Social Media Trends" · 5 hours ago</p>
+                </div>
+              </div>
+              <div class="activity-item">
+                <div class="activity-dot orange"></div>
+                <div class="min-w-0">
+                  <p class="text-sm font-medium text-black truncate">New team member added</p>
+                  <p class="text-xs text-[#64748b]">Sarah Kim · Design Lead</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ===== QUICK ACTIONS ===== -->
+        <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+          <a href="#" class="bg-white rounded-2xl p-4 sm:p-5 border border-black/5 flex items-center gap-3 sm:gap-4 hover:shadow-md transition">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#f88313]/10 text-[#f88313] flex items-center justify-center text-lg sm:text-xl flex-shrink-0"><i class="fas fa-plus"></i></div>
+            <div class="min-w-0">
+              <p class="font-medium text-black text-sm sm:text-base truncate">New Project</p>
+              <p class="text-xs text-[#64748b] truncate hidden sm:block">Start a new project</p>
+            </div>
+          </a>
+          <a href="#" class="bg-white rounded-2xl p-4 sm:p-5 border border-black/5 flex items-center gap-3 sm:gap-4 hover:shadow-md transition">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#3b82f6]/10 text-[#3b82f6] flex items-center justify-center text-lg sm:text-xl flex-shrink-0"><i class="fas fa-user-plus"></i></div>
+            <div class="min-w-0">
+              <p class="font-medium text-black text-sm sm:text-base truncate">Add Client</p>
+              <p class="text-xs text-[#64748b] truncate hidden sm:block">Register a new client</p>
+            </div>
+          </a>
+          <a href="#" class="bg-white rounded-2xl p-4 sm:p-5 border border-black/5 flex items-center gap-3 sm:gap-4 hover:shadow-md transition">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#22c55e]/10 text-[#22c55e] flex items-center justify-center text-lg sm:text-xl flex-shrink-0"><i class="fas fa-file-alt"></i></div>
+            <div class="min-w-0">
+              <p class="font-medium text-black text-sm sm:text-base truncate">Create Blog</p>
+              <p class="text-xs text-[#64748b] truncate hidden sm:block">Write a new post</p>
+            </div>
+          </a>
+          <a href="#" class="bg-white rounded-2xl p-4 sm:p-5 border border-black/5 flex items-center gap-3 sm:gap-4 hover:shadow-md transition">
+            <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#8b5cf6]/10 text-[#8b5cf6] flex items-center justify-center text-lg sm:text-xl flex-shrink-0"><i class="fas fa-calendar-plus"></i></div>
+            <div class="min-w-0">
+              <p class="font-medium text-black text-sm sm:text-base truncate">Schedule Call</p>
+              <p class="text-xs text-[#64748b] truncate hidden sm:block">Book a client meeting</p>
+            </div>
+          </a>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- ===== SCRIPTS ===== -->
+  <!-- ============================================================ -->
+  <script>
+    // Sidebar toggle
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    const sidebarClose = document.getElementById('sidebarClose');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+
+    function openSidebar() {
+      sidebar.classList.remove('closed');
+      overlay.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeSidebar() {
+      sidebar.classList.add('closed');
+      overlay.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    sidebarToggle.addEventListener('click', openSidebar);
+    sidebarClose.addEventListener('click', closeSidebar);
+
+    // Close sidebar on overlay click
+    overlay.addEventListener('click', closeSidebar);
+
+    // Close sidebar on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeSidebar();
+    });
+
+    // Handle window resize - close sidebar on large screens if open
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 1024) {
+        overlay.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+    });
+
+    // Mobile: close sidebar when a nav link is clicked
+    document.querySelectorAll('.sidebar-link').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth < 1024) {
+          closeSidebar();
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

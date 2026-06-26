@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clan Media · About Us</title>
+  <!-- Tailwind via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome 6 (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <!-- Google Font: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+  <style>
+    * { font-family: 'Inter', system-ui, sans-serif; }
+    body { background: #fafcfc; }
+
+    .bg-brand-black { background-color: #000000; }
+    .bg-brand-orange { background-color: #f88313; }
+    .text-brand-orange { color: #f88313; }
+    .border-brand-black-subtle { border-color: rgba(0,0,0,0.08); }
+
+    .btn-orange {
+      background: #f88313;
+      color: white;
+      transition: 0.2s;
+    }
+    .btn-orange:hover {
+      background: #e06f0a;
+      box-shadow: 0 8px 22px -8px rgba(248, 131, 19, 0.4);
+    }
+
+    .btn-outline-dark {
+      border: 1.5px solid #000;
+      color: #000;
+      transition: 0.2s;
+    }
+    .btn-outline-dark:hover {
+      background: #000;
+      color: white;
+    }
+
+    .btn-outline-light {
+      border: 1.5px solid rgba(255,255,255,0.4);
+      color: white;
+      transition: 0.2s;
+    }
+    .btn-outline-light:hover {
+      background: rgba(255,255,255,0.07);
+      border-color: white;
+    }
+
+    .cta-gradient {
+      background: linear-gradient(145deg, #000000 0%, #1a1a1a 100%);
+    }
+
+    .card-hover {
+      transition: transform 0.25s ease, box-shadow 0.3s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 35px -10px rgba(0,0,0,0.12);
+    }
+
+    .section-title { letter-spacing: -0.025em; }
+
+    .badge-clan {
+      background: #f88313;
+      color: white;
+    }
+
+    .footer-link {
+      color: #b6cbd6;
+      transition: 0.2s;
+    }
+    .footer-link:hover { color: white; }
+
+    .stat-number {
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .border-subtle { border-color: rgba(0,0,0,0.07); }
+
+    .img-hover {
+      transition: transform 0.4s ease, filter 0.3s ease;
+    }
+    .img-hover:hover {
+      transform: scale(1.02);
+      filter: brightness(1.05);
+    }
+
+    /* ===== NAV ===== */
+    .nav-link {
+      position: relative;
+      font-weight: 500;
+      color: #1e1e1e;
+      transition: color 0.2s;
+      padding-bottom: 4px;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2.5px;
+      background: #f88313;
+      transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      border-radius: 4px;
+    }
+    .nav-link:hover { color: #f88313; }
+    .nav-link:hover::after { width: 100%; }
+    .nav-link.active { color: #f88313; }
+    .nav-link.active::after { width: 100%; }
+
+    .nav-cta {
+      background: #000000;
+      color: white;
+      padding: 0.6rem 1.8rem;
+      border-radius: 9999px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    .nav-cta:hover {
+      background: #1a1a1a;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+
+    .mobile-menu {
+      transition: max-height 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s ease;
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      background: white;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+    .mobile-menu.open {
+      max-height: 500px;
+      opacity: 1;
+    }
+
+    .mobile-link {
+      font-weight: 500;
+      color: #1e1e1e;
+      padding: 0.75rem 1rem;
+      border-radius: 0.75rem;
+      transition: all 0.2s;
+    }
+    .mobile-link:hover {
+      background: #f88313;
+      color: white;
+    }
+
+    .hamburger {
+      width: 28px;
+      height: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      padding: 0;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      height: 2.5px;
+      background: #000000;
+      border-radius: 4px;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transform-origin: center;
+    }
+    .hamburger.open span:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 6px);
+    }
+    .hamburger.open span:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+    .hamburger.open span:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -6px);
+    }
+
+    .navbar-fixed {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 1px 30px rgba(0,0,0,0.06);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+      padding-top: 0.75rem;
+      padding-bottom: 0.75rem;
+      transition: all 0.3s ease;
+    }
+    .navbar-placeholder { height: 76px; }
+    @media (max-width: 768px) { .navbar-placeholder { height: 68px; } }
+
+    /* Team member card */
+    .team-card {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      text-align: center;
+      border: 1px solid rgba(0,0,0,0.05);
+      transition: all 0.3s ease;
+    }
+    .team-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 35px -10px rgba(0,0,0,0.1);
+    }
+    .team-card img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 1rem;
+      border: 3px solid #f88313;
+    }
+
+    /* Value icon */
+    .value-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: #f88313;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      margin: 0 auto 1rem;
+    }
+
+    /* Timeline */
+    .timeline-item {
+      position: relative;
+      padding-left: 2rem;
+      border-left: 3px solid #f88313;
+      padding-bottom: 2rem;
+    }
+    .timeline-item:last-child {
+      border-left: 3px solid transparent;
+      padding-bottom: 0;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -9px;
+      top: 4px;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: #f88313;
+      border: 3px solid white;
+      box-shadow: 0 0 0 3px #f88313;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAV PLACEHOLDER ===== -->
+  <div class="navbar-placeholder"></div>
+
+  <!-- ===== FIXED NAV ===== -->
+  <nav id="navbar" class="navbar-fixed max-w-7xl mx-auto px-6 md:px-10 flex items-center justify-between transition-all duration-300">
+    <div class="text-2xl font-bold tracking-tight text-black flex items-center gap-1">
+      Clan <span class="font-light">Media</span>
+      <span class="ml-2 text-[10px] font-semibold uppercase tracking-widest text-[#f88313] bg-[#f88313]/10 px-2.5 py-0.5 rounded-full hidden sm:inline-block">agency</span>
+    </div>
+
+    <div class="hidden md:flex items-center gap-7 text-sm">
+      <a href="index.html" class="nav-link active">home</a>
+      <a href="services.html" class="nav-link">Services</a>
+      <a href="work.html" class="nav-link">Work</a>
+      <a href="about.html" class="nav-link active">About</a>
+      <a href="blog.html" class="nav-link">Blog</a>
+      <a href="contact.html" class="nav-link">Contact</a>
+      <a href="get-started.html" class="nav-cta">
+        <i class="fas fa-arrow-right mr-2 text-xs"></i>Get Started
+      </a>
+    </div>
+
+    <button id="menuToggle" class="md:hidden hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div id="mobileMenu" class="md:hidden mobile-menu px-6 py-2 flex flex-col" style="position:fixed; top:68px; left:0; right:0; z-index:998; background:white; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
+    
+    <a href="index.html" class="mobile-link ">home</a>
+    <a href="services.html" class="mobile-link">Services</a>
+    <a href="work.html" class="mobile-link">Work</a>
+    <a href="about.html" class="mobile-link active">About</a>
+    <a href="blog.html" class="mobile-link">Blog</a>
+    <a href="contact.html" class="mobile-link">Contact</a>
+    <a href="get-started.html" class="mobile-link bg-black text-white hover:bg-[#1a1a1a] text-center mt-2">
+      <i class="fas fa-arrow-right mr-2"></i>Get Started
+    </a>
+  </div>
+
+  <script>
+    const toggle = document.getElementById('menuToggle');
+    const menu = document.getElementById('mobileMenu');
+    toggle.addEventListener('click', () => {
+      toggle.classList.toggle('open');
+      menu.classList.toggle('open');
+    });
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        toggle.classList.remove('open');
+        menu.classList.remove('open');
+      });
+    });
+  </script>
+
+  <!-- ============================================================ -->
+  <!-- ===== ABOUT HERO ===== -->
+  <!-- ============================================================ -->
+  <section class="max-w-7xl mx-auto px-6 md:px-10 pt-8 pb-16 md:pt-16 md:pb-24">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <span class="inline-block badge-clan text-xs font-semibold tracking-wider uppercase px-4 py-1.5 rounded-full mb-5">
+          <i class="fas fa-users mr-2"></i> about us
+        </span>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight text-black">
+          We're Clan Media
+        </h1>
+        <p class="text-[#2f2f2f] text-lg md:text-xl max-w-lg mt-6 leading-relaxed">
+          A creative collective with a strategic edge. We partner with ambitious brands to build authority, drive revenue, and create lasting impact.
+        </p>
+        <div class="flex flex-wrap gap-6 mt-8 text-sm">
+          <div><span class="font-bold text-black text-2xl">5+</span> <span class="text-[#2f2f2f]">years</span></div>
+          <div><span class="font-bold text-black text-2xl">100+</span> <span class="text-[#2f2f2f]">clients</span></div>
+          <div><span class="font-bold text-black text-2xl">4.9⭐</span> <span class="text-[#2f2f2f]">avg. rating</span></div>
+        </div>
+        <div class="flex flex-wrap gap-4 mt-8">
+          <a href="team.html" class="btn-orange px-8 py-4 rounded-full text-sm font-semibold shadow-lg shadow-[#f88313]/20">
+            <i class="fas fa-arrow-right mr-2"></i> Meet the team
+          </a>
+          <a href="work.html" class="border border-black/20 px-8 py-4 rounded-full text-sm font-medium text-black hover:bg-black/5 transition">
+            View our work
+          </a>
+        </div>
+      </div>
+      <div class="relative">
+        <div class="bg-[#f0f0f0] rounded-3xl p-1 shadow-2xl shadow-black/5">
+          <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=420&fit=crop&crop=center" alt="Clan Media team" class="rounded-2xl w-full object-cover h-72 md:h-auto img-hover" />
+        </div>
+        <div class="absolute -bottom-4 -right-4 bg-white rounded-2xl shadow-xl p-4 border border-white/40 backdrop-blur-sm hidden md:block">
+          <div class="flex items-center gap-3">
+            <div class="bg-[#f88313] w-10 h-10 rounded-full flex items-center justify-center text-white"><i class="fas fa-crown"></i></div>
+            <div><p class="text-xs font-medium text-black">#1 agency</p><p class="text-[10px] text-[#4a4a4a]">for startups</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- ===== OUR STORY ===== -->
+  <!-- ============================================================ -->
+  <section class="max-w-7xl mx-auto px-6 md:px-10 py-16 md:py-20 border-y border-subtle">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <span class="inline-block text-xs font-semibold tracking-wider uppercase text-[#f88313] bg-[#f88313]/10 px-4 py-1.5 rounded-full mb-4">our story</span>
+        <h2 class="text-3xl md:text-4xl font-bold text-black section-title">Built by creators,<br />for <span class="text-[#f88313]">growth-driven brands</span></h2>
+        <p class="text-[#2f2f2f] text-base leading-relaxed mt-4">
+          Clan Media was founded in 2020 with a simple belief: that brands deserve more than just service providers — they need true partners who understand the intersection of creativity, strategy, and technology.
+        </p>
+        <p class="text-[#2f2f2f] text-base leading-relaxed mt-3">
+          What started as a small creative collective has grown into a full-service digital agency trusted by over 100 brands across real estate, DTC, technology, and professional services.
+        </p>
+        <div class="grid grid-cols-2 gap-4 mt-6">
+          <div class="bg-white rounded-xl p-4 border border-black/5 text-center">
+            <div class="text-3xl font-bold text-[#f88313]">100+</div>
+            <p class="text-sm text-[#2f2f2f]">Projects delivered</p>
+          </div>
+          <div class="bg-white rounded-xl p-4 border border-black/5 text-center">
+            <div class="text-3xl font-bold text-[#f88313]">98%</div>
+            <p class="text-sm text-[#2f2f2f]">Client retention</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="space-y-6">
+          <div class="timeline-item">
+            <h3 class="font-bold text-black">2020 · Founded</h3>
+            <p class="text-sm text-[#2f2f2f]">Clan Media launched as a creative collective focused on social media and branding.</p>
+          </div>
+          <div class="timeline-item">
+            <h3 class="font-bold text-black">2021 · Expanded</h3>
+            <p class="text-sm text-[#2f2f2f]">Added videography, web development, and paid advertising to our service offering.</p>
+          </div>
+          <div class="timeline-item">
+            <h3 class="font-bold text-black">2023 · Scaled</h3>
+            <p class="text-sm text-[#2f2f2f]">Grew to a team of 15+ specialists and surpassed 100 clients.</p>
+          </div>
+          <div class="timeline-item">
+            <h3 class="font-bold text-black">2026 · Today</h3>
+            <p class="text-sm text-[#2f2f2f]">A full-service agency helping high-growth brands scale with digital precision.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- ===== OUR VALUES ===== -->
+  <!-- ============================================================ -->
+  <section class="max-w-7xl mx-auto px-6 md:px-10 py-16 md:py-20">
+    <div class="text-center max-w-2xl mx-auto">
+      <span class="inline-block text-xs font-semibold tracking-wider uppercase text-[#f88313] bg-[#f88313]/10 px-4 py-1.5 rounded-full mb-4">values</span>
+      <h2 class="section-title text-3xl md:text-4xl font-bold text-black mt-5">What we stand for</h2>
+      <p class="text-[#2f2f2f] mt-3 text-lg">The principles that guide everything we do.</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
+      <div class="bg-white rounded-2xl p-6 text-center border border-black/5 card-hover">
+        <div class="value-icon"><i class="fas fa-lightbulb"></i></div>
+        <h3 class="font-bold text-black text-lg">Creativity</h3>
+        <p class="text-sm text-[#2f2f2f] mt-2">We push boundaries and craft work that stands out.</p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 text-center border border-black/5 card-hover">
+        <div class="value-icon"><i class="fas fa-chart-line"></i></div>
+        <h3 class="font-bold text-black text-lg">Results</h3>
+        <p class="text-sm text-[#2f2f2f] mt-2">Everything we do is measured by real business impact.</p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 text-center border border-black/5 card-hover">
+        <div class="value-icon"><i class="fas fa-handshake"></i></div>
+        <h3 class="font-bold text-black text-lg">Partnership</h3>
+        <p class="text-sm text-[#2f2f2f] mt-2">We grow with our clients, every step of the way.</p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 text-center border border-black/5 card-hover">
+        <div class="value-icon"><i class="fas fa-gem"></i></div>
+        <h3 class="font-bold text-black text-lg">Excellence</h3>
+        <p class="text-sm text-[#2f2f2f] mt-2">We deliver premium quality in everything we create.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- ===== TEAM ===== -->
+  <!-- ============================================================ -->
+  <section class="max-w-7xl mx-auto px-6 md:px-10 py-16 md:py-20 border-y border-subtle">
+    <div class="text-center max-w-2xl mx-auto">
+      <span class="inline-block text-xs font-semibold tracking-wider uppercase text-[#f88313] bg-[#f88313]/10 px-4 py-1.5 rounded-full mb-4">team</span>
+      <h2 class="section-title text-3xl md:text-4xl font-bold text-black mt-5">Meet the Clan</h2>
+      <p class="text-[#2f2f2f] mt-3 text-lg">The talented people behind our work.</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
+      <div class="team-card">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=center" alt="Team member" />
+        <h3 class="font-bold text-black">Alex Rivera</h3>
+        <p class="text-sm text-[#f88313] font-medium">CEO & Founder</p>
+        <p class="text-sm text-[#2f2f2f] mt-1">Strategy & Vision</p>
+      </div>
+      <div class="team-card">
+        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop&crop=center" alt="Team member" />
+        <h3 class="font-bold text-black">Maya Chen</h3>
+        <p class="text-sm text-[#f88313] font-medium">Creative Director</p>
+        <p class="text-sm text-[#2f2f2f] mt-1">Brand & Design</p>
+      </div>
+      <div class="team-card">
+        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=center" alt="Team member" />
+        <h3 class="font-bold text-black">James Okafor</h3>
+        <p class="text-sm text-[#f88313] font-medium">Head of Video</p>
+        <p class="text-sm text-[#2f2f2f] mt-1">Videography & Editing</p>
+      </div>
+      <div class="team-card">
+        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&crop=center" alt="Team member" />
+        <h3 class="font-bold text-black">Sarah Kim</h3>
+        <p class="text-sm text-[#f88313] font-medium">Growth Lead</p>
+        <p class="text-sm text-[#2f2f2f] mt-1">Paid Ads & Strategy</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- ===== STATS / IMPACT ===== -->
+  <!-- ============================================================ -->
+  <section class="max-w-7xl mx-auto px-6 md:px-10 py-16 md:py-20">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 divide-y md:divide-y-0 md:divide-x divide-black/10">
+      <div class="text-center py-4"><div class="stat-number text-4xl text-black">98%</div><div class="text-sm text-[#2f2f2f]">client retention</div></div>
+      <div class="text-center py-4"><div class="stat-number text-4xl text-black">4.9</div><div class="text-sm text-[#2f2f2f]">average rating</div></div>
+      <div class="text-center py-4"><div class="stat-number text-4xl text-black">120+</div><div class="text-sm text-[#2f2f2f]">projects delivered</div></div>
+      <div class="text-center py-4"><div class="stat-number text-4xl text-black">3.2x</div><div class="text-sm text-[#2f2f2f]">avg. ROAS for ads</div></div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- ===== CTA ===== -->
+  <!-- ============================================================ -->
+  <section class="max-w-7xl mx-auto px-6 md:px-10 pb-20">
+    <div class="cta-gradient rounded-3xl px-8 py-16 md:px-16 md:py-20 text-white relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-96 h-96 bg-[#f88313]/15 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4"></div>
+      <div class="relative z-10 max-w-2xl">
+        <span class="inline-block bg-[#f88313] text-white text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full mb-5">join the clan</span>
+        <h2 class="text-3xl md:text-4xl font-bold leading-tight">Ready to work with <br />a team that gets it?</h2>
+        <p class="text-white/80 text-lg mt-4 max-w-lg">Let's talk about your goals and how we can help you achieve them.</p>
+        <div class="flex flex-wrap gap-4 mt-8">
+          <a href="#" class="bg-[#f88313] text-white px-8 py-4 rounded-full text-sm font-semibold shadow-lg shadow-[#f88313]/30 hover:bg-[#e06f0a] transition">
+            <i class="fas fa-calendar-alt mr-2"></i> Book a call
+          </a>
+          <a href="#" class="btn-outline-light px-8 py-4 rounded-full text-sm font-medium">
+            <i class="fas fa-arrow-right mr-2"></i> Get Started
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- ===== FOOTER ===== -->
+  <!-- ============================================================ -->
+  <footer class="bg-black text-white/70 pt-16 pb-8 mt-8">
+    <div class="max-w-7xl mx-auto px-6 md:px-10">
+      <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-10 pb-12 border-b border-white/10">
+        <div>
+          <span class="text-2xl font-bold tracking-tight text-white">Clan <span class="font-light">Media</span></span>
+          <p class="text-sm mt-4 max-w-xs leading-relaxed">Full-service digital agency for startups, real estate & high-growth brands.</p>
+          <div class="flex gap-4 mt-6 text-white/60 text-lg">
+            <a href="#" class="hover:text-[#f88313] transition"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="hover:text-[#f88313] transition"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="hover:text-[#f88313] transition"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="hover:text-[#f88313] transition"><i class="fab fa-x-twitter"></i></a>
+          </div>
+        </div>
+        <div>
+          <h5 class="text-white font-semibold text-sm uppercase tracking-wider">Services</h5>
+          <ul class="mt-4 space-y-2 text-sm">
+            <li><a href="#" class="footer-link">Social media</a></li>
+            <li><a href="#" class="footer-link">Videography</a></li>
+            <li><a href="#" class="footer-link">Branding</a></li>
+            <li><a href="#" class="footer-link">Web development</a></li>
+            <li><a href="#" class="footer-link">Paid ads</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5 class="text-white font-semibold text-sm uppercase tracking-wider">Company</h5>
+          <ul class="mt-4 space-y-2 text-sm">
+            <li><a href="#" class="footer-link">About</a></li>
+            <li><a href="#" class="footer-link">Careers</a></li>
+            <li><a href="#" class="footer-link">Case studies</a></li>
+            <li><a href="#" class="footer-link">Blog</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5 class="text-white font-semibold text-sm uppercase tracking-wider">Contact</h5>
+          <ul class="mt-4 space-y-2 text-sm">
+            <li><a href="#" class="footer-link"><i class="far fa-envelope mr-2"></i> hello@clanmedia.co</a></li>
+            <li><a href="#" class="footer-link"><i class="fas fa-phone-alt mr-2"></i> +1 (555) 000-1111</a></li>
+            <li><a href="#" class="footer-link"><i class="fas fa-map-marker-alt mr-2"></i> NYC / remote</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="pt-6 text-xs text-white/40 flex flex-wrap justify-between gap-2">
+        <span>© 2026 Clan Media. All rights reserved.</span>
+        <span><a href="#" class="footer-link text-xs">Privacy</a> · <a href="#" class="footer-link text-xs">Terms</a></span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
