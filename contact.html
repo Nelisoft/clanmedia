@@ -9,87 +9,145 @@
   <!-- Font Awesome 6 (free) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <!-- Google Font: Inter -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet" />
   <style>
     * { font-family: 'Inter', system-ui, sans-serif; }
+    html { scroll-behavior: smooth; }
     body { background: #fafcfc; }
 
-    .bg-brand-black { background-color: #000000; }
     .bg-brand-orange { background-color: #f88313; }
     .text-brand-orange { color: #f88313; }
-    .border-brand-black-subtle { border-color: rgba(0,0,0,0.08); }
+    .border-brand-orange { border-color: #f88313; }
 
     .btn-orange {
       background: #f88313;
       color: white;
-      transition: 0.2s;
+      transition: 0.3s;
+      padding: 0.9rem 2.2rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 8px 30px rgba(248, 131, 19, 0.2);
     }
     .btn-orange:hover {
       background: #e06f0a;
-      box-shadow: 0 8px 22px -8px rgba(248, 131, 19, 0.4);
-    }
-
-    .btn-outline-dark {
-      border: 1.5px solid #000;
-      color: #000;
-      transition: 0.2s;
-    }
-    .btn-outline-dark:hover {
-      background: #000;
-      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 16px 40px rgba(248, 131, 19, 0.3);
     }
 
     .btn-outline-light {
-      border: 1.5px solid rgba(255,255,255,0.4);
+      border: 1.5px solid rgba(255,255,255,0.25);
       color: white;
-      transition: 0.2s;
+      padding: 0.9rem 2rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      background: transparent;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
     }
     .btn-outline-light:hover {
-      background: rgba(255,255,255,0.07);
+      background: rgba(255,255,255,0.08);
       border-color: white;
+      transform: translateY(-3px);
     }
 
-    .cta-gradient {
-      background: linear-gradient(145deg, #000000 0%, #1a1a1a 100%);
-    }
+    .section-padding { padding: 5rem 0; }
+    @media (min-width: 768px) { .section-padding { padding: 6rem 0; } }
 
-    .card-hover {
-      transition: transform 0.25s ease, box-shadow 0.3s ease;
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.1;
     }
-    .card-hover:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 35px -10px rgba(0,0,0,0.12);
-    }
-
-    .section-title { letter-spacing: -0.025em; }
+    @media (min-width: 768px) { .section-title { font-size: 3rem; } }
+    @media (min-width: 1024px) { .section-title { font-size: 3.5rem; } }
 
     .badge-clan {
       background: #f88313;
       color: white;
+      padding: 0.3rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: inline-block;
     }
 
-    .footer-link {
-      color: #b6cbd6;
-      transition: 0.2s;
+    .card-hover {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    .footer-link:hover { color: white; }
-
-    .stat-number {
-      font-weight: 700;
-      letter-spacing: -0.02em;
+    .card-hover:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px -12px rgba(0,0,0,0.08);
     }
 
-    .border-subtle { border-color: rgba(0,0,0,0.07); }
-
-    .img-hover {
-      transition: transform 0.4s ease, filter 0.3s ease;
+    /* Form styles */
+    .form-input {
+      width: 100%;
+      padding: 0.9rem 1.2rem;
+      border-radius: 1rem;
+      border: 1.5px solid rgba(0,0,0,0.06);
+      background: white;
+      transition: border 0.2s;
+      font-size: 0.95rem;
     }
-    .img-hover:hover {
-      transform: scale(1.02);
-      filter: brightness(1.05);
+    .form-input:focus {
+      outline: none;
+      border-color: #f88313;
+      box-shadow: 0 0 0 4px rgba(248, 131, 19, 0.06);
+    }
+    .form-input::placeholder { color: #aaa; }
+
+    .contact-icon-box {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: #f88313;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+    .contact-icon-box-outline {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: rgba(248, 131, 19, 0.08);
+      color: #f88313;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
     }
 
     /* ===== NAV ===== */
+    .navbar-fixed {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 1px 30px rgba(0,0,0,0.04);
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+      padding: 0.75rem 0;
+      transition: all 0.3s ease;
+    }
+
     .nav-link {
       position: relative;
       font-weight: 500;
@@ -116,12 +174,14 @@
     .nav-cta {
       background: #000000;
       color: white;
-      padding: 0.6rem 1.8rem;
+      padding: 0.5rem 1.8rem;
       border-radius: 9999px;
-      font-size: 0.875rem;
+      font-size: 0.85rem;
       font-weight: 600;
       transition: all 0.25s ease;
       box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      border: none;
+      cursor: pointer;
     }
     .nav-cta:hover {
       background: #1a1a1a;
@@ -184,67 +244,44 @@
       transform: rotate(-45deg) translate(5px, -6px);
     }
 
-    .navbar-fixed {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 999;
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      box-shadow: 0 1px 30px rgba(0,0,0,0.06);
-      border-bottom: 1px solid rgba(0,0,0,0.05);
-      padding-top: 0.75rem;
-      padding-bottom: 0.75rem;
-      transition: all 0.3s ease;
-    }
     .navbar-placeholder { height: 76px; }
     @media (max-width: 768px) { .navbar-placeholder { height: 68px; } }
 
-    /* Contact form */
-    .form-input {
-      width: 100%;
-      padding: 0.9rem 1.2rem;
-      border-radius: 1rem;
-      border: 1.5px solid rgba(0,0,0,0.08);
-      background: white;
-      transition: border 0.2s;
-      font-size: 0.95rem;
+    .footer-link {
+      color: #b6cbd6;
+      transition: 0.2s;
     }
-    .form-input:focus {
-      outline: none;
-      border-color: #f88313;
-      box-shadow: 0 0 0 4px rgba(248, 131, 19, 0.08);
-    }
-    .form-input::placeholder {
-      color: #aaa;
-    }
+    .footer-link:hover { color: white; }
 
-    .contact-icon-box {
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      background: #f88313;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.4rem;
-      flex-shrink: 0;
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
-    .contact-icon-box-outline {
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      background: rgba(248, 131, 19, 0.08);
-      color: #f88313;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.4rem;
-      flex-shrink: 0;
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .reveal-right.visible { opacity: 1; transform: translateX(0); }
+    .reveal-scale {
+      opacity: 0;
+      transform: scale(0.95);
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .reveal-scale.visible { opacity: 1; transform: scale(1); }
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+    .delay-4 { transition-delay: 0.4s; }
   </style>
 </head>
 <body>
@@ -252,42 +289,43 @@
   <!-- ===== NAV PLACEHOLDER ===== -->
   <div class="navbar-placeholder"></div>
 
-  <!-- ===== FIXED NAV ===== -->
-  <nav id="navbar" class="navbar-fixed max-w-7xl mx-auto px-6 md:px-10 flex items-center justify-between transition-all duration-300">
-    <div class="text-2xl font-bold tracking-tight text-black flex items-center gap-1">
-      Clan <span class="font-light">Media</span>
-      <span class="ml-2 text-[10px] font-semibold uppercase tracking-widest text-[#f88313] bg-[#f88313]/10 px-2.5 py-0.5 rounded-full hidden sm:inline-block">agency</span>
+  <!-- ===== NAV ===== -->
+  <nav class="navbar-fixed">
+    <div class="max-w-7xl mx-auto px-6 md:px-10 flex items-center justify-between">
+      <div class="text-2xl font-bold tracking-tight text-black flex items-center gap-1">
+        Clan <span class="font-light">Media</span>
+        <span class="ml-2 text-[10px] font-semibold uppercase tracking-widest text-[#f88313] bg-[#f88313]/10 px-2.5 py-0.5 rounded-full hidden sm:inline-block">agency</span>
+      </div>
+
+      <div class="hidden md:flex items-center gap-7 text-sm">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="services.html" class="nav-link">Services</a>
+        <a href="work.html" class="nav-link">Work</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="contact.html" class="nav-link active">Contact</a>
+        <a href="get-started.html" class="nav-cta">
+          <i class="fas fa-arrow-right mr-2 text-xs"></i>Get Started
+        </a>
+      </div>
+
+      <button id="menuToggle" class="md:hidden hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
 
-    <div class="hidden md:flex items-center gap-7 text-sm">
-           <a href="index.html" class="nav-link ">home</a>
-      <a href="services.html" class="nav-link">Services</a>
-      <a href="work.html" class="nav-link">Work</a>
-      <a href="about.html" class="nav-link">About</a>
-      <a href="blog.html" class="nav-link">Blog</a>
-      <a href="contact.html" class="nav-link active">Contact</a>
-      <a href="get-started.html" class="nav-cta">
-        <i class="fas fa-arrow-right mr-2 text-xs"></i>Get Started
+    <div id="mobileMenu" class="md:hidden mobile-menu px-6 py-2 flex flex-col" style="position:fixed; top:68px; left:0; right:0; z-index:998; background:white; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
+      <a href="index.html" class="mobile-link">Home</a>
+      <a href="services.html" class="mobile-link">Services</a>
+      <a href="work.html" class="mobile-link">Work</a>
+      <a href="blog.html" class="mobile-link">Blog</a>
+      <a href="about.html" class="mobile-link">About</a>
+      <a href="contact.html" class="mobile-link active">Contact</a>
+      <a href="get-started.html" class="mobile-link bg-black text-white hover:bg-[#1a1a1a] text-center mt-2">
+        <i class="fas fa-arrow-right mr-2"></i>Get Started
       </a>
     </div>
-
-    <button id="menuToggle" class="md:hidden hamburger" aria-label="Toggle menu">
-      <span></span><span></span><span></span>
-    </button>
   </nav>
-
-  <!-- Mobile menu -->
-  <div id="mobileMenu" class="md:hidden mobile-menu px-6 py-2 flex flex-col" style="position:fixed; top:68px; left:0; right:0; z-index:998; background:white; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
-    <a href="index.html" class="mobile-link">home</a>
-    <a href="services.html" class="mobile-link">Services</a>
-    <a href="work.html" class="mobile-link">Work</a>
-    <a href="about.html" class="mobile-link">About</a>
-    <a href="blog.html" class="mobile-link">Blog</a>
-    <a href="contact.html" class="mobile-link active">Contact</a>
-    <a href="get-started.html" class="mobile-link bg-black text-white hover:bg-[#1a1a1a] text-center mt-2">
-      <i class="fas fa-arrow-right mr-2"></i>Get Started
-    </a>
-  </div>
 
   <script>
     const toggle = document.getElementById('menuToggle');
@@ -308,11 +346,9 @@
   <!-- ===== CONTACT HERO ===== -->
   <!-- ============================================================ -->
   <section class="max-w-7xl mx-auto px-6 md:px-10 pt-8 pb-12 md:pt-16 md:pb-20">
-    <div class="text-center max-w-3xl mx-auto">
-      <span class="inline-block badge-clan text-xs font-semibold tracking-wider uppercase px-4 py-1.5 rounded-full mb-5">
-        <i class="fas fa-envelope mr-2"></i> contact
-      </span>
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight text-black">
+    <div class="text-center max-w-3xl mx-auto reveal">
+      <span class="badge-clan">contact</span>
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight text-black mt-4">
         Let's talk
       </h1>
       <p class="text-[#2f2f2f] text-lg md:text-xl max-w-2xl mx-auto mt-4 leading-relaxed">
@@ -327,7 +363,7 @@
   <section class="max-w-7xl mx-auto px-6 md:px-10 pb-16 md:pb-24">
     <div class="grid lg:grid-cols-5 gap-8">
       <!-- Form - 3 columns -->
-      <div class="lg:col-span-3">
+      <div class="lg:col-span-3 reveal-left">
         <div class="bg-white rounded-3xl p-6 md:p-10 shadow-sm border border-black/5">
           <h2 class="text-2xl font-bold text-black mb-6">Send us a message</h2>
           <form>
@@ -365,7 +401,7 @@
       </div>
 
       <!-- Contact info - 2 columns -->
-      <div class="lg:col-span-2 space-y-6">
+      <div class="lg:col-span-2 space-y-6 reveal-right">
         <div class="bg-white rounded-3xl p-6 md:p-8 shadow-sm border border-black/5">
           <h3 class="text-lg font-bold text-black mb-6">Contact information</h3>
           <div class="space-y-5">
@@ -424,7 +460,7 @@
             <div>
               <h4 class="font-bold text-black">Ready to get started?</h4>
               <p class="text-sm text-[#2f2f2f] mt-1">Book a free strategy call and let's talk about your goals.</p>
-              <a href="#" class="inline-flex items-center gap-2 mt-3 text-sm font-semibold text-[#f88313] hover:underline">
+              <a href="get-started.html" class="inline-flex items-center gap-2 mt-3 text-sm font-semibold text-[#f88313] hover:underline">
                 Book a call <i class="fas fa-arrow-right"></i>
               </a>
             </div>
@@ -437,11 +473,11 @@
   <!-- ============================================================ -->
   <!-- ===== MAP / LOCATION ===== -->
   <!-- ============================================================ -->
-  <section class="max-w-7xl mx-auto px-6 md:px-10 pb-16 md:pb-20">
+  <section class="max-w-7xl mx-auto px-6 md:px-10 pb-16 md:pb-20 reveal">
     <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-black/5">
       <div class="relative" style="padding-bottom: 40%; min-height: 280px;">
         <iframe 
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1!2d-74.0060!3d40.7128!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a316bb7e1b9%3A0xb4c8f0f7c5f8b0a9!2sNew%20York%2C%20NY!5e0!3m2!1sen!2sus!4v1700000000000" 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.1!2d-74.0060!3d40.7128!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c25a316bb7e1b9%3A0xb4c8f0f7c5f8b0a9!2sNew%20York%2C%20NY!5e0!3m2!1sen!2sus!4v1700000000000" 
           style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;" 
           allowfullscreen="" 
           loading="lazy" 
@@ -452,29 +488,29 @@
   </section>
 
   <!-- ============================================================ -->
-  <!-- ===== FAQ / ADDITIONAL ===== -->
+  <!-- ===== FAQ ===== -->
   <!-- ============================================================ -->
-  <section class="max-w-7xl mx-auto px-6 md:px-10 pb-16 md:pb-24 border-y border-subtle py-16 md:py-20">
-    <div class="text-center max-w-2xl mx-auto">
+  <section class="max-w-7xl mx-auto px-6 md:px-10 pb-16 md:pb-24 border-y border-black/5 py-16 md:py-20">
+    <div class="text-center max-w-2xl mx-auto reveal">
       <span class="inline-block text-xs font-semibold tracking-wider uppercase text-[#f88313] bg-[#f88313]/10 px-4 py-1.5 rounded-full mb-4">faq</span>
-      <h2 class="section-title text-3xl md:text-4xl font-bold text-black mt-5">Frequently asked questions</h2>
+      <h2 class="section-title text-black mt-5">Frequently asked questions</h2>
       <p class="text-[#2f2f2f] mt-3 text-lg">Quick answers to common questions.</p>
     </div>
 
     <div class="grid md:grid-cols-2 gap-6 mt-12 max-w-4xl mx-auto">
-      <div class="bg-white rounded-2xl p-6 border border-black/5 card-hover">
+      <div class="bg-white rounded-2xl p-6 border border-black/5 card-hover reveal delay-1">
         <h3 class="font-bold text-black flex items-center gap-2"><i class="fas fa-clock text-[#f88313]"></i> What's your typical turnaround time?</h3>
         <p class="text-sm text-[#2f2f2f] mt-2">Timelines vary by project scope. Most website projects take 4-8 weeks, while social and video work is ongoing. We'll provide a clear timeline during the discovery call.</p>
       </div>
-      <div class="bg-white rounded-2xl p-6 border border-black/5 card-hover">
+      <div class="bg-white rounded-2xl p-6 border border-black/5 card-hover reveal delay-2">
         <h3 class="font-bold text-black flex items-center gap-2"><i class="fas fa-dollar-sign text-[#f88313]"></i> How much do your services cost?</h3>
         <p class="text-sm text-[#2f2f2f] mt-2">We offer customized packages based on your specific needs and goals. Prices typically range from $2,500/month for social management to $15,000+ for full website builds.</p>
       </div>
-      <div class="bg-white rounded-2xl p-6 border border-black/5 card-hover">
+      <div class="bg-white rounded-2xl p-6 border border-black/5 card-hover reveal delay-3">
         <h3 class="font-bold text-black flex items-center gap-2"><i class="fas fa-users text-[#f88313]"></i> Do you work with startups?</h3>
         <p class="text-sm text-[#2f2f2f] mt-2">Absolutely! We specialize in helping startups and high-growth brands scale their digital presence. We offer flexible packages to fit different budget stages.</p>
       </div>
-      <div class="bg-white rounded-2xl p-6 border border-black/5 card-hover">
+      <div class="bg-white rounded-2xl p-6 border border-black/5 card-hover reveal delay-4">
         <h3 class="font-bold text-black flex items-center gap-2"><i class="fas fa-handshake text-[#f88313]"></i> How do we get started?</h3>
         <p class="text-sm text-[#2f2f2f] mt-2">Simple: book a free strategy call. We'll discuss your goals, assess your current digital presence, and map out a tailored plan that drives results.</p>
       </div>
@@ -484,19 +520,19 @@
   <!-- ============================================================ -->
   <!-- ===== CTA ===== -->
   <!-- ============================================================ -->
-  <section class="max-w-7xl mx-auto px-6 md:px-10 pb-20">
-    <div class="cta-gradient rounded-3xl px-8 py-16 md:px-16 md:py-20 text-white relative overflow-hidden">
+  <section class="max-w-7xl mx-auto px-6 md:px-10 pb-20 reveal-scale">
+    <div class="bg-black rounded-3xl px-8 py-16 md:px-16 md:py-20 text-white relative overflow-hidden">
       <div class="absolute top-0 right-0 w-96 h-96 bg-[#f88313]/15 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4"></div>
       <div class="relative z-10 max-w-2xl">
         <span class="inline-block bg-[#f88313] text-white text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full mb-5">ready to scale?</span>
         <h2 class="text-3xl md:text-4xl font-bold leading-tight">Let's build something <br />exceptional together.</h2>
         <p class="text-white/80 text-lg mt-4 max-w-lg">Book a free strategy call and discover how Clan Media can accelerate your brand.</p>
         <div class="flex flex-wrap gap-4 mt-8">
-          <a href="#" class="bg-[#f88313] text-white px-8 py-4 rounded-full text-sm font-semibold shadow-lg shadow-[#f88313]/30 hover:bg-[#e06f0a] transition">
+          <a href="get-started.html" class="bg-[#f88313] text-white px-8 py-4 rounded-full text-sm font-semibold shadow-lg shadow-[#f88313]/30 hover:bg-[#e06f0a] transition">
             <i class="fas fa-calendar-alt mr-2"></i> Book a call
           </a>
-          <a href="get-started.html" class="btn-outline-light px-8 py-4 rounded-full text-sm font-medium">
-            <i class="fas fa-arrow-right mr-2"></i> Get Started
+          <a href="services.html" class="btn-outline-light px-8 py-4 rounded-full text-sm font-medium">
+            <i class="fas fa-arrow-right mr-2"></i> Explore services
           </a>
         </div>
       </div>
@@ -522,19 +558,19 @@
         <div>
           <h5 class="text-white font-semibold text-sm uppercase tracking-wider">Services</h5>
           <ul class="mt-4 space-y-2 text-sm">
-            <li><a href="#" class="footer-link">Social media</a></li>
-            <li><a href="#" class="footer-link">Videography</a></li>
-            <li><a href="#" class="footer-link">Branding</a></li>
-            <li><a href="#" class="footer-link">Web development</a></li>
-            <li><a href="#" class="footer-link">Paid ads</a></li>
+            <li><a href="services.html" class="footer-link">Social media</a></li>
+            <li><a href="services.html" class="footer-link">Videography</a></li>
+            <li><a href="services.html" class="footer-link">Branding</a></li>
+            <li><a href="services.html" class="footer-link">Web development</a></li>
+            <li><a href="services.html" class="footer-link">Paid ads</a></li>
           </ul>
         </div>
         <div>
           <h5 class="text-white font-semibold text-sm uppercase tracking-wider">Company</h5>
           <ul class="mt-4 space-y-2 text-sm">
             <li><a href="about.html" class="footer-link">About</a></li>
-            <li><a href="careers.html" class="footer-link">Careers</a></li>
-            <li><a href="case-studies.html" class="footer-link">Case studies</a></li>
+            <li><a href="#" class="footer-link">Careers</a></li>
+            <li><a href="work.html" class="footer-link">Case studies</a></li>
             <li><a href="blog.html" class="footer-link">Blog</a></li>
           </ul>
         </div>
@@ -549,10 +585,31 @@
       </div>
       <div class="pt-6 text-xs text-white/40 flex flex-wrap justify-between gap-2">
         <span>© 2026 Clan Media. All rights reserved.</span>
-        <span><a href="privacy.html" class="footer-link text-xs">Privacy</a> · <a href="terms.html" class="footer-link text-xs">Terms</a></span>
+        <span><a href="#" class="footer-link text-xs">Privacy</a> · <a href="#" class="footer-link text-xs">Terms</a></span>
       </div>
     </div>
   </footer>
+
+  <!-- ============================================================ -->
+  <!-- ===== SCROLL REVEAL ===== -->
+  <!-- ============================================================ -->
+  <script>
+    const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    document.querySelectorAll('.delay-1, .delay-2, .delay-3, .delay-4').forEach(el => {
+      if (!el.classList.contains('reveal') && !el.classList.contains('reveal-left') && 
+          !el.classList.contains('reveal-right') && !el.classList.contains('reveal-scale')) {
+        el.classList.add('reveal');
+        revealObserver.observe(el);
+      }
+    });
+  </script>
 
 </body>
 </html>

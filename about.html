@@ -9,87 +9,166 @@
   <!-- Font Awesome 6 (free) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <!-- Google Font: Inter -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet" />
   <style>
     * { font-family: 'Inter', system-ui, sans-serif; }
+    html { scroll-behavior: smooth; }
     body { background: #fafcfc; }
 
-    .bg-brand-black { background-color: #000000; }
     .bg-brand-orange { background-color: #f88313; }
     .text-brand-orange { color: #f88313; }
-    .border-brand-black-subtle { border-color: rgba(0,0,0,0.08); }
+    .border-brand-orange { border-color: #f88313; }
 
     .btn-orange {
       background: #f88313;
       color: white;
-      transition: 0.2s;
+      transition: 0.3s;
+      padding: 0.9rem 2.2rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 8px 30px rgba(248, 131, 19, 0.2);
     }
     .btn-orange:hover {
       background: #e06f0a;
-      box-shadow: 0 8px 22px -8px rgba(248, 131, 19, 0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 16px 40px rgba(248, 131, 19, 0.3);
     }
 
-    .btn-outline-dark {
-      border: 1.5px solid #000;
-      color: #000;
-      transition: 0.2s;
+    .btn-outline {
+      background: transparent;
+      color: #1e1e1e;
+      padding: 0.9rem 2rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: 1.5px solid rgba(0,0,0,0.08);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
     }
-    .btn-outline-dark:hover {
-      background: #000;
-      color: white;
-    }
-
-    .btn-outline-light {
-      border: 1.5px solid rgba(255,255,255,0.4);
-      color: white;
-      transition: 0.2s;
-    }
-    .btn-outline-light:hover {
-      background: rgba(255,255,255,0.07);
-      border-color: white;
-    }
-
-    .cta-gradient {
-      background: linear-gradient(145deg, #000000 0%, #1a1a1a 100%);
+    .btn-outline:hover {
+      border-color: #f88313;
+      color: #f88313;
+      transform: translateY(-3px);
     }
 
-    .card-hover {
-      transition: transform 0.25s ease, box-shadow 0.3s ease;
-    }
-    .card-hover:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 35px -10px rgba(0,0,0,0.12);
-    }
+    .section-padding { padding: 5rem 0; }
+    @media (min-width: 768px) { .section-padding { padding: 6rem 0; } }
 
-    .section-title { letter-spacing: -0.025em; }
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+    }
+    @media (min-width: 768px) { .section-title { font-size: 3rem; } }
+    @media (min-width: 1024px) { .section-title { font-size: 3.5rem; } }
 
     .badge-clan {
       background: #f88313;
       color: white;
+      padding: 0.3rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: inline-block;
     }
-
-    .footer-link {
-      color: #b6cbd6;
-      transition: 0.2s;
-    }
-    .footer-link:hover { color: white; }
 
     .stat-number {
       font-weight: 700;
       letter-spacing: -0.02em;
     }
 
-    .border-subtle { border-color: rgba(0,0,0,0.07); }
-
-    .img-hover {
-      transition: transform 0.4s ease, filter 0.3s ease;
+    .card-hover {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    .img-hover:hover {
-      transform: scale(1.02);
-      filter: brightness(1.05);
+    .card-hover:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px -12px rgba(0,0,0,0.08);
+    }
+
+    /* Team card */
+    .team-card {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      text-align: center;
+      border: 1px solid rgba(0,0,0,0.04);
+      transition: all 0.3s ease;
+    }
+    .team-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px -12px rgba(0,0,0,0.08);
+    }
+    .team-card img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 1rem;
+      border: 3px solid #f88313;
+    }
+
+    .value-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: #f88313;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      margin: 0 auto 1rem;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-left: 2rem;
+      border-left: 3px solid #f88313;
+      padding-bottom: 2rem;
+    }
+    .timeline-item:last-child {
+      border-left: 3px solid transparent;
+      padding-bottom: 0;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -9px;
+      top: 4px;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: #f88313;
+      border: 3px solid white;
+      box-shadow: 0 0 0 3px #f88313;
     }
 
     /* ===== NAV ===== */
+    .navbar-fixed {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 1px 30px rgba(0,0,0,0.04);
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+      padding: 0.75rem 0;
+      transition: all 0.3s ease;
+    }
+
     .nav-link {
       position: relative;
       font-weight: 500;
@@ -116,12 +195,14 @@
     .nav-cta {
       background: #000000;
       color: white;
-      padding: 0.6rem 1.8rem;
+      padding: 0.5rem 1.8rem;
       border-radius: 9999px;
-      font-size: 0.875rem;
+      font-size: 0.85rem;
       font-weight: 600;
       transition: all 0.25s ease;
       box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      border: none;
+      cursor: pointer;
     }
     .nav-cta:hover {
       background: #1a1a1a;
@@ -184,83 +265,52 @@
       transform: rotate(-45deg) translate(5px, -6px);
     }
 
-    .navbar-fixed {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 999;
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      box-shadow: 0 1px 30px rgba(0,0,0,0.06);
-      border-bottom: 1px solid rgba(0,0,0,0.05);
-      padding-top: 0.75rem;
-      padding-bottom: 0.75rem;
-      transition: all 0.3s ease;
-    }
     .navbar-placeholder { height: 76px; }
     @media (max-width: 768px) { .navbar-placeholder { height: 68px; } }
 
-    /* Team member card */
-    .team-card {
-      background: white;
-      border-radius: 1.5rem;
-      padding: 1.5rem;
-      text-align: center;
-      border: 1px solid rgba(0,0,0,0.05);
-      transition: all 0.3s ease;
+    .img-hover {
+      transition: transform 0.4s ease, filter 0.3s ease;
     }
-    .team-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 35px -10px rgba(0,0,0,0.1);
-    }
-    .team-card img {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin: 0 auto 1rem;
-      border: 3px solid #f88313;
+    .img-hover:hover {
+      transform: scale(1.02);
+      filter: brightness(1.05);
     }
 
-    /* Value icon */
-    .value-icon {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      background: #f88313;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.8rem;
-      margin: 0 auto 1rem;
+    .footer-link {
+      color: #b6cbd6;
+      transition: 0.2s;
     }
+    .footer-link:hover { color: white; }
 
-    /* Timeline */
-    .timeline-item {
-      position: relative;
-      padding-left: 2rem;
-      border-left: 3px solid #f88313;
-      padding-bottom: 2rem;
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
-    .timeline-item:last-child {
-      border-left: 3px solid transparent;
-      padding-bottom: 0;
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
-    .timeline-item::before {
-      content: '';
-      position: absolute;
-      left: -9px;
-      top: 4px;
-      width: 15px;
-      height: 15px;
-      border-radius: 50%;
-      background: #f88313;
-      border: 3px solid white;
-      box-shadow: 0 0 0 3px #f88313;
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
+    .reveal-right.visible { opacity: 1; transform: translateX(0); }
+    .reveal-scale {
+      opacity: 0;
+      transform: scale(0.95);
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .reveal-scale.visible { opacity: 1; transform: scale(1); }
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+    .delay-4 { transition-delay: 0.4s; }
   </style>
 </head>
 <body>
@@ -268,43 +318,43 @@
   <!-- ===== NAV PLACEHOLDER ===== -->
   <div class="navbar-placeholder"></div>
 
-  <!-- ===== FIXED NAV ===== -->
-  <nav id="navbar" class="navbar-fixed max-w-7xl mx-auto px-6 md:px-10 flex items-center justify-between transition-all duration-300">
-    <div class="text-2xl font-bold tracking-tight text-black flex items-center gap-1">
-      Clan <span class="font-light">Media</span>
-      <span class="ml-2 text-[10px] font-semibold uppercase tracking-widest text-[#f88313] bg-[#f88313]/10 px-2.5 py-0.5 rounded-full hidden sm:inline-block">agency</span>
+  <!-- ===== NAV ===== -->
+  <nav class="navbar-fixed">
+    <div class="max-w-7xl mx-auto px-6 md:px-10 flex items-center justify-between">
+      <div class="text-2xl font-bold tracking-tight text-black flex items-center gap-1">
+        Clan <span class="font-light">Media</span>
+        <span class="ml-2 text-[10px] font-semibold uppercase tracking-widest text-[#f88313] bg-[#f88313]/10 px-2.5 py-0.5 rounded-full hidden sm:inline-block">agency</span>
+      </div>
+
+      <div class="hidden md:flex items-center gap-7 text-sm">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="services.html" class="nav-link">Services</a>
+        <a href="work.html" class="nav-link">Work</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="about.html" class="nav-link active">About</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <a href="get-started.html" class="nav-cta">
+          <i class="fas fa-arrow-right mr-2 text-xs"></i>Get Started
+        </a>
+      </div>
+
+      <button id="menuToggle" class="md:hidden hamburger" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
 
-    <div class="hidden md:flex items-center gap-7 text-sm">
-      <a href="index.html" class="nav-link active">home</a>
-      <a href="services.html" class="nav-link">Services</a>
-      <a href="work.html" class="nav-link">Work</a>
-      <a href="about.html" class="nav-link active">About</a>
-      <a href="blog.html" class="nav-link">Blog</a>
-      <a href="contact.html" class="nav-link">Contact</a>
-      <a href="get-started.html" class="nav-cta">
-        <i class="fas fa-arrow-right mr-2 text-xs"></i>Get Started
+    <div id="mobileMenu" class="md:hidden mobile-menu px-6 py-2 flex flex-col" style="position:fixed; top:68px; left:0; right:0; z-index:998; background:white; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
+      <a href="index.html" class="mobile-link">Home</a>
+      <a href="services.html" class="mobile-link">Services</a>
+      <a href="work.html" class="mobile-link">Work</a>
+      <a href="blog.html" class="mobile-link">Blog</a>
+      <a href="about.html" class="mobile-link active">About</a>
+      <a href="contact.html" class="mobile-link">Contact</a>
+      <a href="get-started.html" class="mobile-link bg-black text-white hover:bg-[#1a1a1a] text-center mt-2">
+        <i class="fas fa-arrow-right mr-2"></i>Get Started
       </a>
     </div>
-
-    <button id="menuToggle" class="md:hidden hamburger" aria-label="Toggle menu">
-      <span></span><span></span><span></span>
-    </button>
   </nav>
-
-  <!-- Mobile menu -->
-  <div id="mobileMenu" class="md:hidden mobile-menu px-6 py-2 flex flex-col" style="position:fixed; top:68px; left:0; right:0; z-index:998; background:white; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
-    
-    <a href="index.html" class="mobile-link ">home</a>
-    <a href="services.html" class="mobile-link">Services</a>
-    <a href="work.html" class="mobile-link">Work</a>
-    <a href="about.html" class="mobile-link active">About</a>
-    <a href="blog.html" class="mobile-link">Blog</a>
-    <a href="contact.html" class="mobile-link">Contact</a>
-    <a href="get-started.html" class="mobile-link bg-black text-white hover:bg-[#1a1a1a] text-center mt-2">
-      <i class="fas fa-arrow-right mr-2"></i>Get Started
-    </a>
-  </div>
 
   <script>
     const toggle = document.getElementById('menuToggle');
@@ -324,41 +374,37 @@
   <!-- ============================================================ -->
   <!-- ===== ABOUT HERO ===== -->
   <!-- ============================================================ -->
-  <section class="max-w-7xl mx-auto px-6 md:px-10 pt-8 pb-16 md:pt-16 md:pb-24">
+  <section class="max-w-7xl mx-auto px-6 md:px-10 pt-8 pb-12 md:pt-16 md:pb-20">
     <div class="grid md:grid-cols-2 gap-12 items-center">
-      <div>
-        <span class="inline-block badge-clan text-xs font-semibold tracking-wider uppercase px-4 py-1.5 rounded-full mb-5">
-          <i class="fas fa-users mr-2"></i> about us
-        </span>
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight text-black">
+      <div class="reveal-left">
+        <span class="badge-clan">about us</span>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight text-black mt-4">
           We're Clan Media
         </h1>
-        <p class="text-[#2f2f2f] text-lg md:text-xl max-w-lg mt-6 leading-relaxed">
+        <p class="text-[#2f2f2f] text-lg md:text-xl max-w-lg mt-4 leading-relaxed">
           A creative collective with a strategic edge. We partner with ambitious brands to build authority, drive revenue, and create lasting impact.
         </p>
-        <div class="flex flex-wrap gap-6 mt-8 text-sm">
+        <div class="flex flex-wrap gap-6 mt-6">
           <div><span class="font-bold text-black text-2xl">5+</span> <span class="text-[#2f2f2f]">years</span></div>
           <div><span class="font-bold text-black text-2xl">100+</span> <span class="text-[#2f2f2f]">clients</span></div>
           <div><span class="font-bold text-black text-2xl">4.9⭐</span> <span class="text-[#2f2f2f]">avg. rating</span></div>
         </div>
-        <div class="flex flex-wrap gap-4 mt-8">
-          <a href="team.html" class="btn-orange px-8 py-4 rounded-full text-sm font-semibold shadow-lg shadow-[#f88313]/20">
-            <i class="fas fa-arrow-right mr-2"></i> Meet the team
+        <div class="flex flex-wrap gap-4 mt-6">
+          <a href="#team" class="btn-orange">
+            <i class="fas fa-arrow-right"></i> Meet the team
           </a>
-          <a href="work.html" class="border border-black/20 px-8 py-4 rounded-full text-sm font-medium text-black hover:bg-black/5 transition">
-            View our work
+          <a href="#story" class="btn-outline">
+            <i class="fas fa-book-open"></i> Our story
           </a>
         </div>
       </div>
-      <div class="relative">
+      <div class="relative reveal-right">
         <div class="bg-[#f0f0f0] rounded-3xl p-1 shadow-2xl shadow-black/5">
           <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=420&fit=crop&crop=center" alt="Clan Media team" class="rounded-2xl w-full object-cover h-72 md:h-auto img-hover" />
         </div>
-        <div class="absolute -bottom-4 -right-4 bg-white rounded-2xl shadow-xl p-4 border border-white/40 backdrop-blur-sm hidden md:block">
-          <div class="flex items-center gap-3">
-            <div class="bg-[#f88313] w-10 h-10 rounded-full flex items-center justify-center text-white"><i class="fas fa-crown"></i></div>
-            <div><p class="text-xs font-medium text-black">#1 agency</p><p class="text-[10px] text-[#4a4a4a]">for startups</p></div>
-          </div>
+        <div class="absolute -top-4 -left-4 bg-white rounded-2xl shadow-lg px-5 py-3 border border-white/30 backdrop-blur-sm hidden md:flex items-center gap-3">
+          <i class="fas fa-crown text-[#f88313] text-xl"></i>
+          <div><span class="text-xs font-bold text-black">#1 agency</span><p class="text-[10px] text-[#4a4a4a]">for startups</p></div>
         </div>
       </div>
     </div>
@@ -367,9 +413,9 @@
   <!-- ============================================================ -->
   <!-- ===== OUR STORY ===== -->
   <!-- ============================================================ -->
-  <section class="max-w-7xl mx-auto px-6 md:px-10 py-16 md:py-20 border-y border-subtle">
+  <section id="story" class="max-w-7xl mx-auto px-6 md:px-10 py-16 md:py-20 border-y border-black/5">
     <div class="grid md:grid-cols-2 gap-12 items-center">
-      <div>
+      <div class="reveal-left">
         <span class="inline-block text-xs font-semibold tracking-wider uppercase text-[#f88313] bg-[#f88313]/10 px-4 py-1.5 rounded-full mb-4">our story</span>
         <h2 class="text-3xl md:text-4xl font-bold text-black section-title">Built by creators,<br />for <span class="text-[#f88313]">growth-driven brands</span></h2>
         <p class="text-[#2f2f2f] text-base leading-relaxed mt-4">
@@ -389,7 +435,7 @@
           </div>
         </div>
       </div>
-      <div>
+      <div class="reveal-right">
         <div class="space-y-6">
           <div class="timeline-item">
             <h3 class="font-bold text-black">2020 · Founded</h3>
@@ -416,29 +462,29 @@
   <!-- ===== OUR VALUES ===== -->
   <!-- ============================================================ -->
   <section class="max-w-7xl mx-auto px-6 md:px-10 py-16 md:py-20">
-    <div class="text-center max-w-2xl mx-auto">
+    <div class="text-center max-w-2xl mx-auto reveal">
       <span class="inline-block text-xs font-semibold tracking-wider uppercase text-[#f88313] bg-[#f88313]/10 px-4 py-1.5 rounded-full mb-4">values</span>
-      <h2 class="section-title text-3xl md:text-4xl font-bold text-black mt-5">What we stand for</h2>
+      <h2 class="section-title text-black mt-5">What we stand for</h2>
       <p class="text-[#2f2f2f] mt-3 text-lg">The principles that guide everything we do.</p>
     </div>
 
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
-      <div class="bg-white rounded-2xl p-6 text-center border border-black/5 card-hover">
+      <div class="bg-white rounded-2xl p-6 text-center border border-black/5 card-hover reveal delay-1">
         <div class="value-icon"><i class="fas fa-lightbulb"></i></div>
         <h3 class="font-bold text-black text-lg">Creativity</h3>
         <p class="text-sm text-[#2f2f2f] mt-2">We push boundaries and craft work that stands out.</p>
       </div>
-      <div class="bg-white rounded-2xl p-6 text-center border border-black/5 card-hover">
+      <div class="bg-white rounded-2xl p-6 text-center border border-black/5 card-hover reveal delay-2">
         <div class="value-icon"><i class="fas fa-chart-line"></i></div>
         <h3 class="font-bold text-black text-lg">Results</h3>
         <p class="text-sm text-[#2f2f2f] mt-2">Everything we do is measured by real business impact.</p>
       </div>
-      <div class="bg-white rounded-2xl p-6 text-center border border-black/5 card-hover">
+      <div class="bg-white rounded-2xl p-6 text-center border border-black/5 card-hover reveal delay-3">
         <div class="value-icon"><i class="fas fa-handshake"></i></div>
         <h3 class="font-bold text-black text-lg">Partnership</h3>
         <p class="text-sm text-[#2f2f2f] mt-2">We grow with our clients, every step of the way.</p>
       </div>
-      <div class="bg-white rounded-2xl p-6 text-center border border-black/5 card-hover">
+      <div class="bg-white rounded-2xl p-6 text-center border border-black/5 card-hover reveal delay-4">
         <div class="value-icon"><i class="fas fa-gem"></i></div>
         <h3 class="font-bold text-black text-lg">Excellence</h3>
         <p class="text-sm text-[#2f2f2f] mt-2">We deliver premium quality in everything we create.</p>
@@ -449,33 +495,33 @@
   <!-- ============================================================ -->
   <!-- ===== TEAM ===== -->
   <!-- ============================================================ -->
-  <section class="max-w-7xl mx-auto px-6 md:px-10 py-16 md:py-20 border-y border-subtle">
-    <div class="text-center max-w-2xl mx-auto">
+  <section id="team" class="max-w-7xl mx-auto px-6 md:px-10 py-16 md:py-20 border-y border-black/5">
+    <div class="text-center max-w-2xl mx-auto reveal">
       <span class="inline-block text-xs font-semibold tracking-wider uppercase text-[#f88313] bg-[#f88313]/10 px-4 py-1.5 rounded-full mb-4">team</span>
-      <h2 class="section-title text-3xl md:text-4xl font-bold text-black mt-5">Meet the Clan</h2>
+      <h2 class="section-title text-black mt-5">Meet the Clan</h2>
       <p class="text-[#2f2f2f] mt-3 text-lg">The talented people behind our work.</p>
     </div>
 
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
-      <div class="team-card">
+      <div class="team-card reveal delay-1">
         <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=center" alt="Team member" />
         <h3 class="font-bold text-black">Alex Rivera</h3>
         <p class="text-sm text-[#f88313] font-medium">CEO & Founder</p>
         <p class="text-sm text-[#2f2f2f] mt-1">Strategy & Vision</p>
       </div>
-      <div class="team-card">
+      <div class="team-card reveal delay-2">
         <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=200&h=200&fit=crop&crop=center" alt="Team member" />
         <h3 class="font-bold text-black">Maya Chen</h3>
         <p class="text-sm text-[#f88313] font-medium">Creative Director</p>
         <p class="text-sm text-[#2f2f2f] mt-1">Brand & Design</p>
       </div>
-      <div class="team-card">
+      <div class="team-card reveal delay-3">
         <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=center" alt="Team member" />
         <h3 class="font-bold text-black">James Okafor</h3>
         <p class="text-sm text-[#f88313] font-medium">Head of Video</p>
         <p class="text-sm text-[#2f2f2f] mt-1">Videography & Editing</p>
       </div>
-      <div class="team-card">
+      <div class="team-card reveal delay-4">
         <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&crop=center" alt="Team member" />
         <h3 class="font-bold text-black">Sarah Kim</h3>
         <p class="text-sm text-[#f88313] font-medium">Growth Lead</p>
@@ -489,28 +535,28 @@
   <!-- ============================================================ -->
   <section class="max-w-7xl mx-auto px-6 md:px-10 py-16 md:py-20">
     <div class="grid grid-cols-2 md:grid-cols-4 gap-6 divide-y md:divide-y-0 md:divide-x divide-black/10">
-      <div class="text-center py-4"><div class="stat-number text-4xl text-black">98%</div><div class="text-sm text-[#2f2f2f]">client retention</div></div>
-      <div class="text-center py-4"><div class="stat-number text-4xl text-black">4.9</div><div class="text-sm text-[#2f2f2f]">average rating</div></div>
-      <div class="text-center py-4"><div class="stat-number text-4xl text-black">120+</div><div class="text-sm text-[#2f2f2f]">projects delivered</div></div>
-      <div class="text-center py-4"><div class="stat-number text-4xl text-black">3.2x</div><div class="text-sm text-[#2f2f2f]">avg. ROAS for ads</div></div>
+      <div class="text-center py-4 reveal"><div class="stat-number text-4xl text-black">98%</div><div class="text-sm text-[#2f2f2f]">client retention</div></div>
+      <div class="text-center py-4 reveal delay-1"><div class="stat-number text-4xl text-black">4.9</div><div class="text-sm text-[#2f2f2f]">average rating</div></div>
+      <div class="text-center py-4 reveal delay-2"><div class="stat-number text-4xl text-black">120+</div><div class="text-sm text-[#2f2f2f]">projects delivered</div></div>
+      <div class="text-center py-4 reveal delay-3"><div class="stat-number text-4xl text-black">3.2x</div><div class="text-sm text-[#2f2f2f]">avg. ROAS for ads</div></div>
     </div>
   </section>
 
   <!-- ============================================================ -->
   <!-- ===== CTA ===== -->
   <!-- ============================================================ -->
-  <section class="max-w-7xl mx-auto px-6 md:px-10 pb-20">
-    <div class="cta-gradient rounded-3xl px-8 py-16 md:px-16 md:py-20 text-white relative overflow-hidden">
+  <section class="max-w-7xl mx-auto px-6 md:px-10 pb-20 reveal-scale">
+    <div class="bg-black rounded-3xl px-8 py-16 md:px-16 md:py-20 text-white relative overflow-hidden">
       <div class="absolute top-0 right-0 w-96 h-96 bg-[#f88313]/15 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4"></div>
       <div class="relative z-10 max-w-2xl">
         <span class="inline-block bg-[#f88313] text-white text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full mb-5">join the clan</span>
         <h2 class="text-3xl md:text-4xl font-bold leading-tight">Ready to work with <br />a team that gets it?</h2>
         <p class="text-white/80 text-lg mt-4 max-w-lg">Let's talk about your goals and how we can help you achieve them.</p>
         <div class="flex flex-wrap gap-4 mt-8">
-          <a href="#" class="bg-[#f88313] text-white px-8 py-4 rounded-full text-sm font-semibold shadow-lg shadow-[#f88313]/30 hover:bg-[#e06f0a] transition">
+          <a href="contact.html" class="bg-[#f88313] text-white px-8 py-4 rounded-full text-sm font-semibold shadow-lg shadow-[#f88313]/30 hover:bg-[#e06f0a] transition">
             <i class="fas fa-calendar-alt mr-2"></i> Book a call
           </a>
-          <a href="#" class="btn-outline-light px-8 py-4 rounded-full text-sm font-medium">
+          <a href="get-started.html" class="border border-white/30 text-white px-8 py-4 rounded-full text-sm font-medium hover:bg-white/10 transition">
             <i class="fas fa-arrow-right mr-2"></i> Get Started
           </a>
         </div>
@@ -537,28 +583,28 @@
         <div>
           <h5 class="text-white font-semibold text-sm uppercase tracking-wider">Services</h5>
           <ul class="mt-4 space-y-2 text-sm">
-            <li><a href="#" class="footer-link">Social media</a></li>
-            <li><a href="#" class="footer-link">Videography</a></li>
-            <li><a href="#" class="footer-link">Branding</a></li>
-            <li><a href="#" class="footer-link">Web development</a></li>
-            <li><a href="#" class="footer-link">Paid ads</a></li>
+            <li><a href="services.html" class="footer-link">Social media</a></li>
+            <li><a href="services.html" class="footer-link">Videography</a></li>
+            <li><a href="services.html" class="footer-link">Branding</a></li>
+            <li><a href="services.html" class="footer-link">Web development</a></li>
+            <li><a href="services.html" class="footer-link">Paid ads</a></li>
           </ul>
         </div>
         <div>
           <h5 class="text-white font-semibold text-sm uppercase tracking-wider">Company</h5>
           <ul class="mt-4 space-y-2 text-sm">
-            <li><a href="#" class="footer-link">About</a></li>
+            <li><a href="about.html" class="footer-link">About</a></li>
             <li><a href="#" class="footer-link">Careers</a></li>
-            <li><a href="#" class="footer-link">Case studies</a></li>
-            <li><a href="#" class="footer-link">Blog</a></li>
+            <li><a href="work.html" class="footer-link">Case studies</a></li>
+            <li><a href="blog.html" class="footer-link">Blog</a></li>
           </ul>
         </div>
         <div>
           <h5 class="text-white font-semibold text-sm uppercase tracking-wider">Contact</h5>
           <ul class="mt-4 space-y-2 text-sm">
-            <li><a href="#" class="footer-link"><i class="far fa-envelope mr-2"></i> hello@clanmedia.co</a></li>
-            <li><a href="#" class="footer-link"><i class="fas fa-phone-alt mr-2"></i> +1 (555) 000-1111</a></li>
-            <li><a href="#" class="footer-link"><i class="fas fa-map-marker-alt mr-2"></i> NYC / remote</a></li>
+            <li><a href="contact.html" class="footer-link"><i class="far fa-envelope mr-2"></i> hello@clanmedia.co</a></li>
+            <li><a href="contact.html" class="footer-link"><i class="fas fa-phone-alt mr-2"></i> +1 (555) 000-1111</a></li>
+            <li><a href="contact.html" class="footer-link"><i class="fas fa-map-marker-alt mr-2"></i> NYC / remote</a></li>
           </ul>
         </div>
       </div>
@@ -568,6 +614,27 @@
       </div>
     </div>
   </footer>
+
+  <!-- ============================================================ -->
+  <!-- ===== SCROLL REVEAL ===== -->
+  <!-- ============================================================ -->
+  <script>
+    const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    document.querySelectorAll('.delay-1, .delay-2, .delay-3, .delay-4').forEach(el => {
+      if (!el.classList.contains('reveal') && !el.classList.contains('reveal-left') && 
+          !el.classList.contains('reveal-right') && !el.classList.contains('reveal-scale')) {
+        el.classList.add('reveal');
+        revealObserver.observe(el);
+      }
+    });
+  </script>
 
 </body>
 </html>

@@ -3,130 +3,289 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Clan Media · full-service agency</title>
+  <title>Clan Media · Full Modern Website</title>
   <!-- Tailwind via CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Font Awesome 6 (free) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <!-- Google Font: Inter -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet" />
   <style>
     * { font-family: 'Inter', system-ui, sans-serif; }
-    body { background: #fafcfc; }
+    html { scroll-behavior: smooth; }
+    body { background: #fafcfc; overflow-x: hidden; }
 
+    /* ===== BRAND COLORS ===== */
     .bg-brand-black { background-color: #000000; }
     .bg-brand-orange { background-color: #f88313; }
     .text-brand-orange { color: #f88313; }
-    .border-brand-black-subtle { border-color: rgba(0,0,0,0.08); }
+    .border-brand-orange { border-color: #f88313; }
+
+    /* ===== BUTTONS ===== */
+    .btn-primary {
+      background: #000000;
+      color: white;
+      padding: 0.9rem 2.2rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+    }
+    .btn-primary:hover {
+      background: #1a1a1a;
+      transform: translateY(-3px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.15);
+    }
 
     .btn-orange {
       background: #f88313;
       color: white;
-      transition: 0.2s;
+      padding: 0.9rem 2.2rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 8px 30px rgba(248, 131, 19, 0.2);
     }
     .btn-orange:hover {
       background: #e06f0a;
-      box-shadow: 0 8px 22px -8px rgba(248, 131, 19, 0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 16px 40px rgba(248, 131, 19, 0.3);
     }
 
-    .btn-outline-dark {
-      border: 1.5px solid #000;
-      color: #000;
-      transition: 0.2s;
+    .btn-outline {
+      background: transparent;
+      color: #1e1e1e;
+      padding: 0.9rem 2rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      border: 1.5px solid rgba(0,0,0,0.08);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
     }
-    .btn-outline-dark:hover {
-      background: #000;
-      color: white;
+    .btn-outline:hover {
+      border-color: #f88313;
+      color: #f88313;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.04);
     }
 
     .btn-outline-light {
-      border: 1.5px solid rgba(255,255,255,0.4);
+      border: 1.5px solid rgba(255,255,255,0.25);
       color: white;
-      transition: 0.2s;
+      padding: 0.9rem 2rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      background: transparent;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
     }
     .btn-outline-light:hover {
-      background: rgba(255,255,255,0.07);
+      background: rgba(255,255,255,0.08);
       border-color: white;
+      transform: translateY(-3px);
     }
 
-    .cta-gradient {
-      background: linear-gradient(145deg, #000000 0%, #1a1a1a 100%);
+    /* ===== HERO CAROUSEL ===== */
+    .hero-carousel {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 600px;
+      max-height: 900px;
+      overflow: hidden;
     }
 
-    .card-hover {
-      transition: transform 0.25s ease, box-shadow 0.3s ease;
+    .hero-slide {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: opacity 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      z-index: 1;
     }
-    .card-hover:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 20px 35px -10px rgba(0,0,0,0.12);
+    .hero-slide.active {
+      opacity: 1;
+      z-index: 2;
     }
 
-    .service-icon {
-      color: #000000;
-      background: #f5f5f5;
-      width: 56px;
-      height: 56px;
+    .hero-slide .bg-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.4) saturate(1.1);
+      transition: transform 10s ease;
+    }
+    .hero-slide.active .bg-image {
+      transform: scale(1.05);
+    }
+
+    .hero-slide .overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.5) 100%);
+      z-index: 1;
+    }
+
+    .hero-slide .content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      height: 100%;
+    }
+
+    .hero-gradient-text {
+      background: linear-gradient(135deg, #f88313 0%, #ff9a44 50%, #ffffff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ===== CAROUSEL CONTROLS ===== */
+    .carousel-controls {
+      position: absolute;
+      bottom: 3rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .carousel-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.25);
+      border: none;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      padding: 0;
+    }
+    .carousel-dot.active {
+      background: #f88313;
+      width: 40px;
+      border-radius: 6px;
+      box-shadow: 0 0 30px rgba(248, 131, 19, 0.3);
+    }
+
+    .carousel-arrow {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: white;
       display: flex;
       align-items: center;
       justify-content: center;
-      border-radius: 16px;
-      font-size: 1.6rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 1.1rem;
+    }
+    .carousel-arrow:hover {
+      background: rgba(248, 131, 19, 0.2);
+      border-color: #f88313;
+      transform: scale(1.05);
     }
 
-    .section-title { letter-spacing: -0.025em; }
-
-    .badge-clan {
-      background: #f88313;
+    /* ===== FLOATING BADGE ===== */
+    .floating-badge {
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 1rem;
+      padding: 0.8rem 1.2rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
       color: white;
     }
+    .floating-badge .badge-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+    .badge-icon-orange { background: #f88313; color: white; }
+    .badge-icon-green { background: #22c55e; color: white; }
+    .badge-icon-blue { background: #3b82f6; color: white; }
 
-    .footer-link {
-      color: #b6cbd6;
-      transition: 0.2s;
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
-    .footer-link:hover { color: white; }
+    .hero-slide.active .content > * {
+      animation: fadeUp 0.8s ease forwards;
+    }
+    .hero-slide.active .content > *:nth-child(1) { animation-delay: 0.1s; }
+    .hero-slide.active .content > *:nth-child(2) { animation-delay: 0.2s; }
+    .hero-slide.active .content > *:nth-child(3) { animation-delay: 0.3s; }
+    .hero-slide.active .content > *:nth-child(4) { animation-delay: 0.4s; }
+    .hero-slide.active .content > *:nth-child(5) { animation-delay: 0.5s; }
 
-    .stat-number {
-      font-weight: 700;
-      letter-spacing: -0.02em;
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
     }
-
-    .border-subtle { border-color: rgba(0,0,0,0.07); }
-
-    .img-hover {
-      transition: transform 0.4s ease, filter 0.3s ease;
-    }
-    .img-hover:hover {
-      transform: scale(1.02);
-      filter: brightness(1.05);
-    }
-
-    /* Video wrapper */
-    .video-wrapper {
-      position: relative;
-      padding-bottom: 56.25%;
-      height: 0;
-      overflow: hidden;
-      border-radius: 1.5rem;
-      background: #000;
-      box-shadow: 0 20px 40px -12px rgba(0,0,0,0.2);
-    }
-    .video-wrapper iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
+    .float-element { animation: float 6s ease-in-out infinite; }
+    .float-element-2 { animation: float 8s ease-in-out infinite reverse; }
 
     /* ===== NAV ===== */
+    .navbar-fixed {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1rem 0;
+      transition: all 0.3s ease;
+      background: transparent;
+    }
+    .navbar-fixed.scrolled {
+      background: rgba(0,0,0,0.88);
+      backdrop-filter: blur(14px);
+      padding: 0.6rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
     .nav-link {
-      position: relative;
+      color: rgba(255,255,255,0.7);
       font-weight: 500;
-      color: #1e1e1e;
+      font-size: 0.9rem;
       transition: color 0.2s;
-      padding-bottom: 4px;
+      padding-bottom: 2px;
+      position: relative;
     }
     .nav-link::after {
       content: '';
@@ -134,147 +293,113 @@
       bottom: -2px;
       left: 0;
       width: 0;
-      height: 2.5px;
+      height: 2px;
       background: #f88313;
-      transition: width 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      border-radius: 4px;
+      transition: width 0.3s ease;
     }
-    .nav-link:hover { color: #f88313; }
+    .nav-link:hover { color: white; }
     .nav-link:hover::after { width: 100%; }
-    .nav-link.active { color: #f88313; }
+    .nav-link.active { color: white; }
     .nav-link.active::after { width: 100%; }
 
     .nav-cta {
-      background: #000000;
-      color: white;
-      padding: 0.6rem 1.8rem;
-      border-radius: 9999px;
-      font-size: 0.875rem;
-      font-weight: 600;
-      transition: all 0.25s ease;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    }
-    .nav-cta:hover {
-      background: #1a1a1a;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-    }
-
-    .mobile-menu {
-      transition: max-height 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s ease;
-      max-height: 0;
-      opacity: 0;
-      overflow: hidden;
-      background: white;
-      border-bottom: 1px solid rgba(0,0,0,0.05);
-    }
-    .mobile-menu.open {
-      max-height: 500px;
-      opacity: 1;
-    }
-
-    .mobile-link {
-      font-weight: 500;
-      color: #1e1e1e;
-      padding: 0.75rem 1rem;
-      border-radius: 0.75rem;
-      transition: all 0.2s;
-    }
-    .mobile-link:hover {
       background: #f88313;
       color: white;
-    }
-
-    .hamburger {
-      width: 28px;
-      height: 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      cursor: pointer;
-      padding: 0;
-      background: none;
+      padding: 0.5rem 1.8rem;
+      border-radius: 9999px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: all 0.3s ease;
       border: none;
+      cursor: pointer;
     }
-    .hamburger span {
-      display: block;
-      height: 2.5px;
-      background: #000000;
-      border-radius: 4px;
-      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      transform-origin: center;
-    }
-    .hamburger.open span:nth-child(1) {
-      transform: rotate(45deg) translate(5px, 6px);
-    }
-    .hamburger.open span:nth-child(2) {
-      opacity: 0;
-      transform: scaleX(0);
-    }
-    .hamburger.open span:nth-child(3) {
-      transform: rotate(-45deg) translate(5px, -6px);
+    .nav-cta:hover {
+      background: #e06f0a;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(248, 131, 19, 0.3);
     }
 
-    .navbar-fixed {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 999;
-      background: rgba(255,255,255,0.92);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      box-shadow: 0 1px 30px rgba(0,0,0,0.06);
-      border-bottom: 1px solid rgba(0,0,0,0.05);
-      padding-top: 0.75rem;
-      padding-bottom: 0.75rem;
+    /* ===== SECTIONS ===== */
+    .section-padding { padding: 5rem 0; }
+    @media (min-width: 768px) { .section-padding { padding: 6rem 0; } }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+    }
+    @media (min-width: 768px) { .section-title { font-size: 3rem; } }
+    @media (min-width: 1024px) { .section-title { font-size: 3.5rem; } }
+
+    .badge-clan {
+      background: #f88313;
+      color: white;
+      padding: 0.3rem 1rem;
+      border-radius: 9999px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      display: inline-block;
+    }
+
+    /* ===== CARDS ===== */
+    .service-card {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 2rem;
+      border: 1px solid rgba(0,0,0,0.04);
       transition: all 0.3s ease;
     }
-    .navbar-placeholder { height: 76px; }
-    @media (max-width: 768px) { .navbar-placeholder { height: 68px; } }
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px -12px rgba(0,0,0,0.08);
+    }
+    .service-card .icon-circle {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: #f88313;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+    }
 
-    /* Work / Portfolio card */
     .work-card {
+      background: white;
       border-radius: 1.2rem;
       overflow: hidden;
-      background: white;
-      border: 1px solid rgba(0,0,0,0.05);
+      border: 1px solid rgba(0,0,0,0.04);
       transition: all 0.3s ease;
     }
     .work-card:hover {
       transform: translateY(-8px);
-      box-shadow: 0 20px 40px -12px rgba(0,0,0,0.15);
+      box-shadow: 0 24px 48px -12px rgba(0,0,0,0.1);
     }
-    .work-card img {
-      height: 220px;
-      object-fit: cover;
-      width: 100%;
-    }
+    .work-card img { height: 220px; object-fit: cover; width: 100%; }
 
-    /* Blog card */
     .blog-card {
+      background: white;
       border-radius: 1.2rem;
       overflow: hidden;
-      background: white;
-      border: 1px solid rgba(0,0,0,0.05);
+      border: 1px solid rgba(0,0,0,0.04);
       transition: all 0.3s ease;
     }
     .blog-card:hover {
       transform: translateY(-6px);
-      box-shadow: 0 20px 35px -10px rgba(0,0,0,0.1);
+      box-shadow: 0 20px 40px -12px rgba(0,0,0,0.08);
     }
-    .blog-card img {
-      height: 200px;
-      object-fit: cover;
-      width: 100%;
-    }
+    .blog-card img { height: 200px; object-fit: cover; width: 100%; }
 
-    /* Contact form */
+    /* ===== FORM ===== */
     .form-input {
       width: 100%;
       padding: 0.9rem 1.2rem;
       border-radius: 1rem;
-      border: 1.5px solid rgba(0,0,0,0.08);
+      border: 1.5px solid rgba(0,0,0,0.06);
       background: white;
       transition: border 0.2s;
       font-size: 0.95rem;
@@ -282,166 +407,337 @@
     .form-input:focus {
       outline: none;
       border-color: #f88313;
-      box-shadow: 0 0 0 4px rgba(248, 131, 19, 0.08);
+      box-shadow: 0 0 0 4px rgba(248, 131, 19, 0.06);
     }
 
-    /* Service detail page */
-    .service-detail-card {
-      background: white;
-      border-radius: 1.5rem;
-      padding: 2rem;
-      border: 1px solid rgba(0,0,0,0.05);
-      transition: all 0.3s ease;
+    /* ===== CTA ===== */
+    .cta-gradient {
+      background: linear-gradient(145deg, #000000 0%, #1a1a1a 100%);
+      border-radius: 2rem;
     }
-    .service-detail-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 30px -10px rgba(0,0,0,0.08);
+
+    /* ===== FOOTER ===== */
+    .footer-link { color: #b6cbd6; transition: 0.2s; }
+    .footer-link:hover { color: white; }
+
+    /* ===== SCROLL REVEAL ===== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
-    .service-detail-card .icon-circle {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      background: #f88313;
-      color: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.8rem;
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .reveal-left.visible { opacity: 1; transform: translateX(0); }
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .reveal-right.visible { opacity: 1; transform: translateX(0); }
+    .reveal-scale {
+      opacity: 0;
+      transform: scale(0.95);
+      transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .reveal-scale.visible { opacity: 1; transform: scale(1); }
+
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.3s; }
+    .delay-4 { transition-delay: 0.4s; }
+    .delay-5 { transition-delay: 0.5s; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .hero-carousel { height: 100vh; min-height: 500px; max-height: 800px; }
+      .hero-slide .content { padding: 0 1.5rem; }
+      .carousel-controls { bottom: 1.5rem; gap: 1rem; }
+      .carousel-arrow { width: 40px; height: 40px; font-size: 0.9rem; }
+      .floating-badge { display: none; }
+      .section-title { font-size: 2rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ===== NAV PLACEHOLDER ===== -->
-  <div class="navbar-placeholder"></div>
+  <!-- ============================================================ -->
+  <!-- ===== NAV ===== -->
+  <!-- ============================================================ -->
+  <nav id="navbar" class="navbar-fixed">
+    <div class="max-w-7xl mx-auto px-6 md:px-10 flex items-center justify-between">
+      <div class="text-2xl font-bold tracking-tight text-white flex items-center gap-1">
+        Clan <span class="font-light">Media</span>
+        <span class="ml-2 text-[10px] font-semibold uppercase tracking-widest text-[#f88313] bg-white/10 px-2.5 py-0.5 rounded-full hidden sm:inline-block">agency</span>
+      </div>
 
-  <!-- ===== FIXED NAV ===== -->
-  <nav id="navbar" class="navbar-fixed max-w-7xl mx-auto px-6 md:px-10 flex items-center justify-between transition-all duration-300">
-    <div class="text-2xl font-bold tracking-tight text-black flex items-center gap-1">
-      Clan <span class="font-light">Media</span>
-      <span class="ml-2 text-[10px] font-semibold uppercase tracking-widest text-[#f88313] bg-[#f88313]/10 px-2.5 py-0.5 rounded-full hidden sm:inline-block">agency</span>
+      <div class="hidden md:flex items-center gap-7">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="services.html" class="nav-link">Services</a>
+        <a href="work.html" class="nav-link">Work</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="blog.html" class="nav-link">Blog</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+        <a href="get-started.html" class="nav-cta">
+          <i class="fas fa-arrow-right mr-2 text-xs"></i>Get Started
+        </a>
+      </div>
+
+      <button id="menuToggle" class="md:hidden text-white text-2xl">
+        <i class="fas fa-bars"></i>
+      </button>
     </div>
 
-    <div class="hidden md:flex items-center gap-7 text-sm">
-      <a href="index.html" class="nav-link active">home</a>
-      <a href="services.html" class="nav-link">Services</a>
-      <a href="work.html" class="nav-link">Work</a>
-      <a href="blog.html" class="nav-link">Blog</a>
-      <a href="about.html" class="nav-link">About</a>
-      <a href="contact.html" class="nav-link">Contact</a>
-      <a href="get-started.html" class="nav-cta">
-        <i class="fas fa-arrow-right mr-2 text-xs"></i>Get Started
-      </a>
+    <div id="mobileMenu" class="md:hidden bg-black/95 backdrop-blur-md px-6 py-4 flex flex-col gap-4 hidden border-t border-white/5">
+      <a href="index.html" class="text-white/80 hover:text-white transition font-medium">Home</a>
+      <a href="services.html" class="text-white/80 hover:text-white transition font-medium">Services</a>
+      <a href="work.html" class="text-white/80 hover:text-white transition font-medium">Work</a>
+      <a href="about.html" class="text-white/80 hover:text-white transition font-medium">About</a>
+      <a href="blog.html" class="text-white/80 hover:text-white transition font-medium">Blog</a>
+      <a href="contact.html" class="text-white/80 hover:text-white transition font-medium">Contact</a>
+      <a href="get-started.html" class="bg-[#f88313] text-white px-6 py-2.5 rounded-full text-sm font-semibold text-center hover:bg-[#e06f0a] transition">Get Started</a>
     </div>
-
-    <button id="menuToggle" class="md:hidden hamburger" aria-label="Toggle menu">
-      <span></span><span></span><span></span>
-    </button>
   </nav>
 
-  <!-- Mobile menu -->
-  <div id="mobileMenu" class="md:hidden mobile-menu px-6 py-2 flex flex-col" style="position:fixed; top:68px; left:0; right:0; z-index:998; background:white; box-shadow: 0 10px 30px rgba(0,0,0,0.06);">
-
-    <a href="index.html" class="mobile-link active">home</a>
-    <a href="services.html" class="mobile-link">Services</a>
-    <a href="work.html" class="mobile-link">Work</a>
-    <a href="blog.html" class="mobile-link">Blog</a>
-    <a href="about.html" class="mobile-link">About</a>
-    <a href="contact.html" class="mobile-link">Contact</a>
-    <a href="get-started.html" class="mobile-link bg-black text-white hover:bg-[#1a1a1a] text-center mt-2">
-      <i class="fas fa-arrow-right mr-2"></i>Get Started
-    </a>
-  </div>
-
   <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
     const toggle = document.getElementById('menuToggle');
     const menu = document.getElementById('mobileMenu');
-    toggle.addEventListener('click', () => {
-      toggle.classList.toggle('open');
-      menu.classList.toggle('open');
-    });
-    document.querySelectorAll('.mobile-link').forEach(link => {
-      link.addEventListener('click', () => {
-        toggle.classList.remove('open');
-        menu.classList.remove('open');
-      });
+    toggle.addEventListener('click', () => menu.classList.toggle('hidden'));
+    document.querySelectorAll('#mobileMenu a').forEach(link => {
+      link.addEventListener('click', () => menu.classList.add('hidden'));
     });
   </script>
 
   <!-- ============================================================ -->
-  <!-- ===== HERO ===== -->
+  <!-- ===== HERO CAROUSEL ===== -->
   <!-- ============================================================ -->
-  <header class="max-w-7xl mx-auto px-6 md:px-10 pt-8 pb-16 md:pt-16 md:pb-24">
-    <div class="grid md:grid-cols-2 gap-12 items-center">
-      <div>
-        <span class="inline-block badge-clan text-xs font-semibold tracking-wider uppercase px-4 py-1.5 rounded-full mb-5">
-          <i class="fas fa-bolt mr-2 text-xs"></i> full-service agency
-        </span>
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight text-black">
-          Scale your brand <br />
-          <span class="text-[#f88313]">with digital precision</span>
-        </h1>
-        <p class="text-[#2f2f2f] text-lg md:text-xl max-w-lg mt-6 leading-relaxed">
-          We blend strategy, creativity & performance — social, video, branding, web & ads. 
-          Built for startups, real estate, and high-growth brands.
-        </p>
-        <div class="flex flex-wrap gap-4 mt-8">
-          <a href="get-started.html" class="btn-orange px-8 py-4 rounded-full text-sm font-semibold shadow-lg shadow-[#f88313]/20">
-            <i class="fas fa-arrow-right mr-2"></i> Work With Us
-          </a>
-          <a href="services.html" class="border border-black/20 px-8 py-4 rounded-full text-sm font-medium text-black hover:bg-black/5 transition">
-            View services
-          </a>
-        </div>
-        <div class="flex items-center gap-6 mt-8 text-sm text-[#2f2f2f]">
-          <span><i class="fas fa-check-circle text-[#f88313] mr-2"></i> 100+ clients</span>
-          <span><i class="fas fa-check-circle text-[#f88313] mr-2"></i> 4.9 ⭐ avg.</span>
+  <section class="hero-carousel">
+
+    <!-- Slide 1 -->
+    <div class="hero-slide active" data-slide="0">
+      <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=1920&h=1080&fit=crop&crop=center" alt="Creative studio" class="bg-image" />
+      <div class="overlay"></div>
+      <div class="content max-w-7xl mx-auto px-6 md:px-10">
+        <div class="max-w-2xl">
+          <span class="inline-block bg-[#f88313]/20 backdrop-blur-sm text-[#f88313] text-xs font-semibold tracking-wider uppercase px-4 py-1.5 rounded-full mb-5">
+            <i class="fas fa-bolt mr-2"></i> full-service agency
+          </span>
+          <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.05] text-white">
+            Scale your brand <br />
+            <span class="hero-gradient-text">with digital precision</span>
+          </h1>
+          <p class="text-lg md:text-xl text-white/80 max-w-lg mt-6 leading-relaxed">
+            We blend strategy, creativity & performance — social, video, branding, web & ads. 
+            Built for startups, real estate, and high-growth brands.
+          </p>
+          <div class="flex flex-wrap gap-4 mt-8">
+            <a href="get-started.html" class="bg-[#f88313] text-white px-8 py-3.5 rounded-full font-semibold hover:bg-[#e06f0a] transition shadow-lg shadow-[#f88313]/30 flex items-center gap-2">
+              <i class="fas fa-arrow-right"></i> Work With Us
+            </a>
+            <a href="services.html" class="border border-white/30 text-white px-8 py-3.5 rounded-full font-semibold hover:bg-white/10 transition flex items-center gap-2">
+              <i class="fas fa-play-circle"></i> View Services
+            </a>
+          </div>
+          <div class="flex items-center gap-6 mt-8 text-sm text-white/60">
+            <span><i class="fas fa-check-circle text-[#f88313] mr-2"></i> 100+ clients</span>
+            <span><i class="fas fa-check-circle text-[#f88313] mr-2"></i> 4.9 ⭐ avg.</span>
+          </div>
         </div>
       </div>
-      <div class="relative">
-        <div class="bg-[#f0f0f0] rounded-3xl p-1 shadow-2xl shadow-black/5">
-          <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=600&h=400&fit=crop&crop=center" alt="Clan Media creative studio" class="rounded-2xl w-full object-cover h-72 md:h-auto img-hover" />
-        </div>
-        <div class="absolute -bottom-4 -right-4 bg-white rounded-2xl shadow-xl p-4 border border-white/40 backdrop-blur-sm hidden md:block">
-          <div class="flex items-center gap-3">
-            <div class="bg-[#f88313] w-10 h-10 rounded-full flex items-center justify-center text-white"><i class="fas fa-play"></i></div>
-            <div><p class="text-xs font-medium text-black">showreel</p><p class="text-[10px] text-[#4a4a4a]">see our work</p></div>
+      <div class="absolute bottom-8 right-8 z-10 float-element hidden lg:block">
+        <div class="floating-badge">
+          <div class="badge-icon badge-icon-orange"><i class="fas fa-video"></i></div>
+          <div>
+            <p class="text-sm font-bold text-white">Video Production</p>
+            <p class="text-xs text-white/60">2.5M+ views delivered</p>
           </div>
         </div>
       </div>
     </div>
-  </header>
 
-  <!-- ============================================================ -->
-  <!-- ===== VIDEO SECTION ===== -->
-  <!-- ============================================================ -->
-  <section id="video" class="max-w-7xl mx-auto px-6 md:px-10 py-16 md:py-20 border-y border-subtle">
-    <div class="text-center max-w-2xl mx-auto">
-      <span class="inline-block badge-clan text-xs font-semibold tracking-wider uppercase px-4 py-1.5 rounded-full">watch</span>
-      <h2 class="section-title text-3xl md:text-4xl font-bold text-black mt-5">Featured video</h2>
-      <p class="text-[#2f2f2f] mt-3 text-lg">See our approach in action.</p>
-    </div>
-
-    <div class="max-w-4xl mx-auto mt-12">
-      <div class="video-wrapper">
-        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?si=8nMpPxXw5F7GqPcV" title="Clan Media showreel" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <!-- Slide 2 -->
+    <div class="hero-slide" data-slide="1">
+      <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1920&h=1080&fit=crop&crop=center" alt="Digital marketing" class="bg-image" />
+      <div class="overlay"></div>
+      <div class="content max-w-7xl mx-auto px-6 md:px-10">
+        <div class="max-w-2xl">
+          <span class="inline-block bg-[#f88313]/20 backdrop-blur-sm text-[#f88313] text-xs font-semibold tracking-wider uppercase px-4 py-1.5 rounded-full mb-5">
+            <i class="fas fa-rocket mr-2"></i> results-driven
+          </span>
+          <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.05] text-white">
+            We deliver <br />
+            <span class="hero-gradient-text">measurable growth</span>
+          </h1>
+          <p class="text-lg md:text-xl text-white/80 max-w-lg mt-6 leading-relaxed">
+            From 4.2x ROAS on ads to 300% engagement increases — our work speaks for itself. 
+            Let's make your brand the next success story.
+          </p>
+          <div class="flex flex-wrap gap-4 mt-8">
+            <a href="work.html" class="bg-[#f88313] text-white px-8 py-3.5 rounded-full font-semibold hover:bg-[#e06f0a] transition shadow-lg shadow-[#f88313]/30 flex items-center gap-2">
+              <i class="fas fa-arrow-right"></i> View Our Work
+            </a>
+            <a href="get-started.html" class="border border-white/30 text-white px-8 py-3.5 rounded-full font-semibold hover:bg-white/10 transition flex items-center gap-2">
+              <i class="fas fa-arrow-right"></i> Get Started
+            </a>
+          </div>
+          <div class="flex items-center gap-6 mt-8 text-sm text-white/60">
+            <span><i class="fas fa-check-circle text-[#f88313] mr-2"></i> 98% retention</span>
+            <span><i class="fas fa-check-circle text-[#f88313] mr-2"></i> 120+ projects</span>
+          </div>
+        </div>
       </div>
-      <p class="text-center text-sm text-[#4a4a4a] mt-4">How Clan Media helps brands scale with digital precision.</p>
+      <div class="absolute bottom-8 right-8 z-10 float-element-2 hidden lg:block">
+        <div class="floating-badge">
+          <div class="badge-icon badge-icon-green"><i class="fas fa-chart-line"></i></div>
+          <div>
+            <p class="text-sm font-bold text-white">4.2x ROAS</p>
+            <p class="text-xs text-white/60">Average for clients</p>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <!-- Slide 3 -->
+    <div class="hero-slide" data-slide="2">
+      <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1920&h=1080&fit=crop&crop=center" alt="Team collaboration" class="bg-image" />
+      <div class="overlay"></div>
+      <div class="content max-w-7xl mx-auto px-6 md:px-10">
+        <div class="max-w-2xl">
+          <span class="inline-block bg-[#f88313]/20 backdrop-blur-sm text-[#f88313] text-xs font-semibold tracking-wider uppercase px-4 py-1.5 rounded-full mb-5">
+            <i class="fas fa-users mr-2"></i> trusted partners
+          </span>
+          <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.05] text-white">
+            Built for <br />
+            <span class="hero-gradient-text">high-growth brands</span>
+          </h1>
+          <p class="text-lg md:text-xl text-white/80 max-w-lg mt-6 leading-relaxed">
+            We've helped 100+ brands scale their digital presence — from startups to established 
+            enterprises. Your growth is our priority.
+          </p>
+          <div class="flex flex-wrap gap-4 mt-8">
+            <a href="about.html" class="bg-[#f88313] text-white px-8 py-3.5 rounded-full font-semibold hover:bg-[#e06f0a] transition shadow-lg shadow-[#f88313]/30 flex items-center gap-2">
+              <i class="fas fa-arrow-right"></i> Learn About Us
+            </a>
+            <a href="contact.html" class="border border-white/30 text-white px-8 py-3.5 rounded-full font-semibold hover:bg-white/10 transition flex items-center gap-2">
+              <i class="fas fa-arrow-right"></i> Contact Us
+            </a>
+          </div>
+          <div class="flex items-center gap-6 mt-8 text-sm text-white/60">
+            <span><i class="fas fa-check-circle text-[#f88313] mr-2"></i> 5+ years</span>
+            <span><i class="fas fa-check-circle text-[#f88313] mr-2"></i> 4.9 ⭐ rating</span>
+          </div>
+        </div>
+      </div>
+      <div class="absolute bottom-8 right-8 z-10 float-element hidden lg:block">
+        <div class="floating-badge">
+          <div class="badge-icon badge-icon-blue"><i class="fas fa-crown"></i></div>
+          <div>
+            <p class="text-sm font-bold text-white">#1 Agency</p>
+            <p class="text-xs text-white/60">For startups & scale-ups</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="carousel-controls">
+      <button id="prevSlide" class="carousel-arrow"><i class="fas fa-chevron-left"></i></button>
+      <div class="flex gap-2" id="dotsContainer">
+        <button class="carousel-dot active" data-index="0"></button>
+        <button class="carousel-dot" data-index="1"></button>
+        <button class="carousel-dot" data-index="2"></button>
+      </div>
+      <button id="nextSlide" class="carousel-arrow"><i class="fas fa-chevron-right"></i></button>
+    </div>
+
+    <div class="absolute bottom-8 left-8 z-10 text-white/40 text-sm font-medium hidden md:block">
+      <span id="slideCounter">01</span> / 03
+    </div>
+
   </section>
 
+  <script>
+    (function() {
+      const slides = document.querySelectorAll('.hero-slide');
+      const dots = document.querySelectorAll('.carousel-dot');
+      const prevBtn = document.getElementById('prevSlide');
+      const nextBtn = document.getElementById('nextSlide');
+      const counter = document.getElementById('slideCounter');
+      let current = 0;
+      const total = slides.length;
+      let autoplayInterval;
+
+      function goTo(index) {
+        slides.forEach(s => s.classList.remove('active'));
+        dots.forEach(d => d.classList.remove('active'));
+        current = (index + total) % total;
+        slides[current].classList.add('active');
+        dots[current].classList.add('active');
+        if (counter) counter.textContent = String(current + 1).padStart(2, '0');
+      }
+
+      function next() { goTo(current + 1); }
+      function prev() { goTo(current - 1); }
+
+      prevBtn.addEventListener('click', () => { prev(); resetAutoplay(); });
+      nextBtn.addEventListener('click', () => { next(); resetAutoplay(); });
+      dots.forEach((dot, i) => {
+        dot.addEventListener('click', () => { goTo(i); resetAutoplay(); });
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') { next(); resetAutoplay(); }
+        if (e.key === 'ArrowLeft') { prev(); resetAutoplay(); }
+      });
+
+      function resetAutoplay() {
+        clearInterval(autoplayInterval);
+        autoplayInterval = setInterval(next, 6000);
+      }
+
+      autoplayInterval = setInterval(next, 6000);
+
+      const carousel = document.querySelector('.hero-carousel');
+      carousel.addEventListener('mouseenter', () => clearInterval(autoplayInterval));
+      carousel.addEventListener('mouseleave', () => {
+        autoplayInterval = setInterval(next, 6000);
+      });
+
+      let touchStartX = 0;
+      carousel.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+      }, { passive: true });
+      carousel.addEventListener('touchend', (e) => {
+        const diff = touchStartX - e.changedTouches[0].screenX;
+        if (Math.abs(diff) > 50) {
+          if (diff > 0) { next(); resetAutoplay(); }
+          else { prev(); resetAutoplay(); }
+        }
+      }, { passive: true });
+    })();
+  </script>
+
   <!-- ============================================================ -->
-  <!-- ===== SERVICES PAGE ===== -->
+  <!-- ===== SERVICES ===== -->
   <!-- ============================================================ -->
-  <section id="services" class="max-w-7xl mx-auto px-6 md:px-10 py-16 md:py-20 border-b border-subtle">
-    <div class="text-center max-w-2xl mx-auto">
-      <span class="inline-block badge-clan text-xs font-semibold tracking-wider uppercase px-4 py-1.5 rounded-full">our services</span>
-      <h2 class="section-title text-3xl md:text-4xl font-bold text-black mt-5">What we deliver</h2>
-      <p class="text-[#2f2f2f] mt-3 text-lg">End-to-end digital solutions crafted for growth.</p>
+  <section id="services" class="section-padding max-w-7xl mx-auto px-6 md:px-10 border-y border-black/5">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <span class="badge-clan">our services</span>
+      <h2 class="section-title text-black mt-4">What we deliver</h2>
+      <p class="text-[#2f2f2f] text-lg mt-3">End-to-end digital solutions crafted for growth.</p>
     </div>
 
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mt-14">
-      <div class="service-detail-card card-hover">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+      <div class="service-card reveal delay-1">
         <div class="icon-circle"><i class="fas fa-hashtag"></i></div>
         <h3 class="text-xl font-bold text-black mt-4">Social Media Management</h3>
         <p class="text-[#2f2f2f] text-sm leading-relaxed mt-2">Strategic content, community engagement, and paid social that drives real business results.</p>
@@ -452,7 +748,7 @@
         </ul>
       </div>
 
-      <div class="service-detail-card card-hover">
+      <div class="service-card reveal delay-2">
         <div class="icon-circle"><i class="fas fa-video"></i></div>
         <h3 class="text-xl font-bold text-black mt-4">Mobile Videography & Editing</h3>
         <p class="text-[#2f2f2f] text-sm leading-relaxed mt-2">Cinematic-quality video content captured and edited for social, ads, and brand storytelling.</p>
@@ -463,7 +759,7 @@
         </ul>
       </div>
 
-      <div class="service-detail-card card-hover">
+      <div class="service-card reveal delay-3">
         <div class="icon-circle"><i class="fas fa-pen-fancy"></i></div>
         <h3 class="text-xl font-bold text-black mt-4">Branding & Identity</h3>
         <p class="text-[#2f2f2f] text-sm leading-relaxed mt-2">Distinctive brand identities that resonate with your audience and stand out in the market.</p>
@@ -474,7 +770,7 @@
         </ul>
       </div>
 
-      <div class="service-detail-card card-hover">
+      <div class="service-card reveal delay-1">
         <div class="icon-circle"><i class="fas fa-code"></i></div>
         <h3 class="text-xl font-bold text-black mt-4">Website Development</h3>
         <p class="text-[#2f2f2f] text-sm leading-relaxed mt-2">High-performance, conversion-optimized websites built to attract, engage, and convert.</p>
@@ -485,7 +781,7 @@
         </ul>
       </div>
 
-      <div class="service-detail-card card-hover">
+      <div class="service-card reveal delay-2">
         <div class="icon-circle"><i class="fas fa-bullhorn"></i></div>
         <h3 class="text-xl font-bold text-black mt-4">Paid Advertising</h3>
         <p class="text-[#2f2f2f] text-sm leading-relaxed mt-2">Data-driven ad campaigns across Meta, Google, LinkedIn, and more with measurable ROAS.</p>
@@ -496,7 +792,7 @@
         </ul>
       </div>
 
-      <div class="service-detail-card card-hover">
+      <div class="service-card reveal delay-3">
         <div class="icon-circle"><i class="fas fa-chart-line"></i></div>
         <h3 class="text-xl font-bold text-black mt-4">Growth Strategy</h3>
         <p class="text-[#2f2f2f] text-sm leading-relaxed mt-2">Comprehensive growth roadmaps that align marketing, sales, and product for scalable revenue.</p>
@@ -510,79 +806,92 @@
   </section>
 
   <!-- ============================================================ -->
-  <!-- ===== WORK PAGE (Portfolio) ===== -->
+  <!-- ===== WORK ===== -->
   <!-- ============================================================ -->
-  <section id="work" class="max-w-7xl mx-auto px-6 md:px-10 py-16 md:py-20">
-    <div class="text-center max-w-2xl mx-auto">
-      <span class="inline-block badge-clan text-xs font-semibold tracking-wider uppercase px-4 py-1.5 rounded-full">portfolio</span>
-      <h2 class="section-title text-3xl md:text-4xl font-bold text-black mt-5">Our featured work</h2>
-      <p class="text-[#2f2f2f] mt-3 text-lg">Real results for real brands.</p>
+  <section id="work" class="section-padding max-w-7xl mx-auto px-6 md:px-10">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <span class="badge-clan">portfolio</span>
+      <h2 class="section-title text-black mt-4">Our featured work</h2>
+      <p class="text-[#2f2f2f] text-lg mt-3">Real results for real brands.</p>
     </div>
 
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
-      <div class="work-card">
-        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop&crop=center" alt="Project 1" />
+      <div class="work-card reveal delay-1">
+        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop&crop=center" alt="Project" />
         <div class="p-6">
           <span class="text-xs font-semibold text-[#f88313] uppercase tracking-wider">Social Media</span>
           <h3 class="text-lg font-bold text-black mt-1">Lumos Realty · Social Growth</h3>
           <p class="text-sm text-[#2f2f2f] mt-2">300% engagement increase in 3 months.</p>
         </div>
       </div>
-      <div class="work-card">
-        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop&crop=center" alt="Project 2" />
+      <div class="work-card reveal delay-2">
+        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop&crop=center" alt="Project" />
         <div class="p-6">
           <span class="text-xs font-semibold text-[#f88313] uppercase tracking-wider">Web Development</span>
           <h3 class="text-lg font-bold text-black mt-1">Bloom Skincare · E-commerce</h3>
           <p class="text-sm text-[#2f2f2f] mt-2">45% conversion rate increase post-launch.</p>
         </div>
       </div>
-      <div class="work-card">
-        <img src="https://images.unsplash.com/photo-1536240478700-b869070f9279?w=600&h=400&fit=crop&crop=center" alt="Project 3" />
+      <div class="work-card reveal delay-3">
+        <img src="https://images.unsplash.com/photo-1536240478700-b869070f9279?w=600&h=400&fit=crop&crop=center" alt="Project" />
         <div class="p-6">
           <span class="text-xs font-semibold text-[#f88313] uppercase tracking-wider">Video</span>
           <h3 class="text-lg font-bold text-black mt-1">Swift Logistics · Brand Film</h3>
           <p class="text-sm text-[#2f2f2f] mt-2">2.5M views, 60% ad engagement lift.</p>
         </div>
       </div>
-      <div class="work-card">
-        <img src="https://images.unsplash.com/photo-1432889821006-c50c4f69b1fd?w=600&h=400&fit=crop&crop=center" alt="Project 4" />
-        <div class="p-6">
-          <span class="text-xs font-semibold text-[#f88313] uppercase tracking-wider">Branding</span>
-          <h3 class="text-lg font-bold text-black mt-1">NovaTech · Rebrand</h3>
-          <p class="text-sm text-[#2f2f2f] mt-2">Complete brand overhaul & market repositioning.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- ===== ABOUT ===== -->
+  <!-- ============================================================ -->
+  <section id="about" class="section-padding max-w-7xl mx-auto px-6 md:px-10 border-y border-black/5">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div class="reveal-left">
+        <span class="badge-clan">about us</span>
+        <h2 class="section-title text-black mt-4">
+          A creative collective <br />with a <span class="text-[#f88313]">strategic edge</span>
+        </h2>
+        <p class="text-[#2f2f2f] text-lg leading-relaxed mt-5">
+          Clan Media isn't just a service provider — we're a partner in growth. 
+          With a blend of design thinking, data, and deep platform expertise, 
+          we help brands build authority and generate revenue.
+        </p>
+        <p class="text-[#2f2f2f] text-base leading-relaxed mt-3">
+          From real estate to DTC, we've helped 100+ brands scale their digital presence 
+          with clarity and intention.
+        </p>
+        <div class="flex flex-wrap gap-6 mt-6">
+          <div><span class="font-bold text-black text-xl">5+</span> <span class="text-[#2f2f2f]">years</span></div>
+          <div><span class="font-bold text-black text-xl">100+</span> <span class="text-[#2f2f2f]">clients</span></div>
+          <div><span class="font-bold text-black text-xl">4.9⭐</span> <span class="text-[#2f2f2f]">avg. rating</span></div>
         </div>
       </div>
-      <div class="work-card">
-        <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=600&h=400&fit=crop&crop=center" alt="Project 5" />
-        <div class="p-6">
-          <span class="text-xs font-semibold text-[#f88313] uppercase tracking-wider">Paid Ads</span>
-          <h3 class="text-lg font-bold text-black mt-1">FitLife · Paid Campaign</h3>
-          <p class="text-sm text-[#2f2f2f] mt-2">4.2x ROAS, 150% increase in leads.</p>
+      <div class="relative reveal-right">
+        <div class="bg-[#f0f0f0] rounded-3xl p-1 shadow-2xl shadow-black/5">
+          <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=420&fit=crop&crop=center" alt="Clan Media team" class="rounded-2xl w-full object-cover h-72 md:h-auto" />
         </div>
-      </div>
-      <div class="work-card">
-        <img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?w=600&h=400&fit=crop&crop=center" alt="Project 6" />
-        <div class="p-6">
-          <span class="text-xs font-semibold text-[#f88313] uppercase tracking-wider">Strategy</span>
-          <h3 class="text-lg font-bold text-black mt-1">UrbanEats · Growth Strategy</h3>
-          <p class="text-sm text-[#2f2f2f] mt-2">Scaled from 5 to 50 locations in 18 months.</p>
+        <div class="absolute -top-4 -left-4 bg-white rounded-2xl shadow-lg px-5 py-3 border border-white/30 backdrop-blur-sm hidden md:flex items-center gap-3">
+          <i class="fas fa-crown text-[#f88313] text-xl"></i>
+          <div><span class="text-xs font-bold text-black">#1 agency</span><p class="text-[10px] text-[#4a4a4a]">for startups</p></div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ============================================================ -->
-  <!-- ===== BLOG PAGE ===== -->
+  <!-- ===== BLOG ===== -->
   <!-- ============================================================ -->
-  <section id="blog" class="max-w-7xl mx-auto px-6 md:px-10 py-16 md:py-20 border-y border-subtle">
-    <div class="text-center max-w-2xl mx-auto">
-      <span class="inline-block badge-clan text-xs font-semibold tracking-wider uppercase px-4 py-1.5 rounded-full">insights</span>
-      <h2 class="section-title text-3xl md:text-4xl font-bold text-black mt-5">From the blog</h2>
-      <p class="text-[#2f2f2f] mt-3 text-lg">Actionable tips and industry trends.</p>
+  <section id="blog" class="section-padding max-w-7xl mx-auto px-6 md:px-10">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <span class="badge-clan">insights</span>
+      <h2 class="section-title text-black mt-4">From the blog</h2>
+      <p class="text-[#2f2f2f] text-lg mt-3">Actionable tips and industry trends.</p>
     </div>
 
     <div class="grid md:grid-cols-3 gap-6 mt-12">
-      <div class="blog-card">
+      <div class="blog-card reveal delay-1">
         <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=300&fit=crop&crop=center" alt="blog" />
         <div class="p-6">
           <span class="text-xs font-semibold text-[#f88313] uppercase tracking-wider">Strategy</span>
@@ -591,7 +900,7 @@
           <a href="#" class="inline-flex items-center gap-1 text-sm font-medium text-[#f88313] mt-4 hover:underline">Read more <i class="fas fa-arrow-right"></i></a>
         </div>
       </div>
-      <div class="blog-card">
+      <div class="blog-card reveal delay-2">
         <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=300&fit=crop&crop=center" alt="blog" />
         <div class="p-6">
           <span class="text-xs font-semibold text-[#f88313] uppercase tracking-wider">Development</span>
@@ -600,7 +909,7 @@
           <a href="#" class="inline-flex items-center gap-1 text-sm font-medium text-[#f88313] mt-4 hover:underline">Read more <i class="fas fa-arrow-right"></i></a>
         </div>
       </div>
-      <div class="blog-card">
+      <div class="blog-card reveal delay-3">
         <img src="https://images.unsplash.com/photo-1536240478700-b869070f9279?w=600&h=300&fit=crop&crop=center" alt="blog" />
         <div class="p-6">
           <span class="text-xs font-semibold text-[#f88313] uppercase tracking-wider">Video</span>
@@ -613,59 +922,17 @@
   </section>
 
   <!-- ============================================================ -->
-  <!-- ===== ABOUT PAGE ===== -->
+  <!-- ===== CONTACT ===== -->
   <!-- ============================================================ -->
-  <section id="about" class="max-w-7xl mx-auto px-6 md:px-10 py-16 md:py-20">
-    <div class="grid md:grid-cols-2 gap-12 items-center">
-      <div>
-        <span class="inline-block badge-clan text-xs font-semibold tracking-wider uppercase px-4 py-1.5 rounded-full mb-4">
-          <i class="fas fa-users mr-2"></i> about us
-        </span>
-        <h2 class="text-3xl md:text-4xl font-bold text-black section-title">
-          A creative collective <br />with a <span class="text-[#f88313]">strategic edge</span>
-        </h2>
-        <p class="text-[#2f2f2f] text-lg leading-relaxed mt-5">
-          Clan Media isn’t just a service provider — we’re a partner in growth. 
-          With a blend of design thinking, data, and deep platform expertise, 
-          we help brands build authority and generate revenue.
-        </p>
-        <p class="text-[#2f2f2f] text-base leading-relaxed mt-3">
-          From real estate to DTC, we’ve helped 100+ brands scale their digital presence 
-          with clarity and intention.
-        </p>
-        <div class="flex flex-wrap gap-6 mt-6 text-sm">
-          <div><span class="font-bold text-black text-xl">5+</span> <span class="text-[#2f2f2f]">years</span></div>
-          <div><span class="font-bold text-black text-xl">100+</span> <span class="text-[#2f2f2f]">clients</span></div>
-          <div><span class="font-bold text-black text-xl">4.9⭐</span> <span class="text-[#2f2f2f]">avg. rating</span></div>
-        </div>
-        <a href="#" class="inline-flex items-center gap-2 mt-6 text-black font-semibold border-b-2 border-[#f88313]/30 pb-1 hover:border-[#f88313] transition">
-          Meet the team <i class="fas fa-arrow-right text-sm"></i>
-        </a>
-      </div>
-      <div class="relative">
-        <div class="bg-[#f0f0f0] rounded-3xl p-1 shadow-2xl shadow-black/5">
-          <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=420&fit=crop&crop=center" alt="Clan Media team" class="rounded-2xl w-full object-cover h-72 md:h-auto img-hover" />
-        </div>
-        <div class="absolute -top-4 -left-4 bg-white rounded-2xl shadow-lg px-5 py-3 border border-white/30 backdrop-blur-sm hidden md:flex items-center gap-3">
-          <i class="fas fa-crown text-[#f88313] text-xl"></i>
-          <div><span class="text-xs font-bold text-black">#1 agency</span><p class="text-[10px] text-[#4a4a4a]">for startups</p></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================================ -->
-  <!-- ===== CONTACT PAGE ===== -->
-  <!-- ============================================================ -->
-  <section id="contact" class="max-w-7xl mx-auto px-6 md:px-10 py-16 md:py-20 border-y border-subtle">
-    <div class="text-center max-w-2xl mx-auto">
-      <span class="inline-block badge-clan text-xs font-semibold tracking-wider uppercase px-4 py-1.5 rounded-full">contact</span>
-      <h2 class="section-title text-3xl md:text-4xl font-bold text-black mt-5">Let's talk</h2>
-      <p class="text-[#2f2f2f] mt-3 text-lg">Have a project in mind? We'd love to hear from you.</p>
+  <section id="contact" class="section-padding max-w-7xl mx-auto px-6 md:px-10 border-y border-black/5">
+    <div class="text-center max-w-2xl mx-auto reveal">
+      <span class="badge-clan">contact</span>
+      <h2 class="section-title text-black mt-4">Let's talk</h2>
+      <p class="text-[#2f2f2f] text-lg mt-3">Have a project in mind? We'd love to hear from you.</p>
     </div>
 
     <div class="grid md:grid-cols-2 gap-12 mt-12">
-      <div>
+      <div class="reveal-left">
         <div class="bg-white rounded-2xl p-8 shadow-sm border border-black/5">
           <form>
             <div class="mb-5">
@@ -684,13 +951,13 @@
               <label class="block text-sm font-medium text-black mb-1.5">Message</label>
               <textarea rows="4" class="form-input" placeholder="Tell us about your project..."></textarea>
             </div>
-            <button type="submit" class="btn-orange w-full py-3.5 rounded-full text-sm font-semibold">
+            <button type="submit" class="btn-orange w-full justify-center">
               <i class="fas fa-paper-plane mr-2"></i> Send message
             </button>
           </form>
         </div>
       </div>
-      <div class="space-y-6">
+      <div class="space-y-6 reveal-right">
         <div class="bg-white rounded-2xl p-8 shadow-sm border border-black/5">
           <h3 class="text-lg font-bold text-black">Get in touch</h3>
           <div class="space-y-4 mt-4">
@@ -722,11 +989,11 @@
   </section>
 
   <!-- ============================================================ -->
-  <!-- ===== GET STARTED PAGE ===== -->
+  <!-- ===== GET STARTED ===== -->
   <!-- ============================================================ -->
-  <section id="get-started" class="max-w-7xl mx-auto px-6 md:px-10 py-16 md:py-20">
-    <div class="cta-gradient rounded-3xl px-8 py-16 md:px-16 md:py-20 text-white relative overflow-hidden">
-      <div class="absolute top-0 right-0 w-96 h-96 bg-[#f88313]/15 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4"></div>
+  <section id="get-started" class="section-padding max-w-7xl mx-auto px-6 md:px-10 reveal-scale">
+    <div class="cta-gradient px-8 py-16 md:px-16 md:py-20 text-white relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-96 h-96 bg-[#f88313]/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4"></div>
       <div class="relative z-10 max-w-3xl mx-auto text-center">
         <span class="inline-block bg-[#f88313] text-white text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full mb-5">get started</span>
         <h2 class="text-3xl md:text-5xl font-bold leading-tight">Ready to scale your brand?</h2>
@@ -770,19 +1037,19 @@
   <!-- ============================================================ -->
   <!-- ===== STATS ===== -->
   <!-- ============================================================ -->
-  <section class="max-w-7xl mx-auto px-6 md:px-10 pb-16">
+  <section class="section-padding max-w-7xl mx-auto px-6 md:px-10">
     <div class="grid grid-cols-2 md:grid-cols-4 gap-6 divide-y md:divide-y-0 md:divide-x divide-black/10">
-      <div class="text-center py-4"><div class="stat-number text-4xl text-black">98%</div><div class="text-sm text-[#2f2f2f]">client retention</div></div>
-      <div class="text-center py-4"><div class="stat-number text-4xl text-black">4.9</div><div class="text-sm text-[#2f2f2f]">average rating</div></div>
-      <div class="text-center py-4"><div class="stat-number text-4xl text-black">120+</div><div class="text-sm text-[#2f2f2f]">projects delivered</div></div>
-      <div class="text-center py-4"><div class="stat-number text-4xl text-black">3.2x</div><div class="text-sm text-[#2f2f2f]">avg. ROAS for ads</div></div>
+      <div class="text-center py-4 reveal"><div class="stat-number text-4xl text-black font-bold">98%</div><div class="text-sm text-[#2f2f2f]">client retention</div></div>
+      <div class="text-center py-4 reveal delay-1"><div class="stat-number text-4xl text-black font-bold">4.9</div><div class="text-sm text-[#2f2f2f]">average rating</div></div>
+      <div class="text-center py-4 reveal delay-2"><div class="stat-number text-4xl text-black font-bold">120+</div><div class="text-sm text-[#2f2f2f]">projects delivered</div></div>
+      <div class="text-center py-4 reveal delay-3"><div class="stat-number text-4xl text-black font-bold">3.2x</div><div class="text-sm text-[#2f2f2f]">avg. ROAS for ads</div></div>
     </div>
   </section>
 
   <!-- ============================================================ -->
   <!-- ===== FOOTER ===== -->
   <!-- ============================================================ -->
-  <footer class="bg-black text-white/70 pt-16 pb-8 mt-8">
+  <footer class="bg-black text-white/70 pt-16 pb-8">
     <div class="max-w-7xl mx-auto px-6 md:px-10">
       <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-10 pb-12 border-b border-white/10">
         <div>
@@ -829,6 +1096,27 @@
       </div>
     </div>
   </footer>
+
+  <!-- ============================================================ -->
+  <!-- ===== SCROLL REVEAL ===== -->
+  <!-- ============================================================ -->
+  <script>
+    const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    document.querySelectorAll('.delay-1, .delay-2, .delay-3, .delay-4, .delay-5').forEach(el => {
+      if (!el.classList.contains('reveal') && !el.classList.contains('reveal-left') && 
+          !el.classList.contains('reveal-right') && !el.classList.contains('reveal-scale')) {
+        el.classList.add('reveal');
+        revealObserver.observe(el);
+      }
+    });
+  </script>
 
 </body>
 </html>
